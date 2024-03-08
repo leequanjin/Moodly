@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="orange">#FDA758</color>
+    <color name="faded_black">#4D000000</color>
+    <color name="extra_dark_blue">#24336A</color>
+    <color name="faded_extra_dark_blue">#8024336A</color>
+    <color name="dark_blue">#8DA5FF</color>
+    <color name="blue">#ABBDFF</color>
+    <color name="faded_blue">#80ABBDFF</color>
+    <color name="light_blue">#E0E5F7</color>
+    <color name="grey">#E5E5E5</color>
+    <color name="white">#FFFFFF</color>
+</resources>

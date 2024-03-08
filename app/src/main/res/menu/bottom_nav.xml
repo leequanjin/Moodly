@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item  android:id="@+id/miJournal"
+        android:title="Journal"
+        android:icon="@drawable/ic_journal"/>
+
+    <item  android:id="@+id/miCalendar"
+        android:title="Calendar"
+        android:icon="@drawable/ic_calendar"/>
+
+    <item  android:id="@+id/miPlaceholder"
+        android:title="" />
+
+    <item  android:id="@+id/miAnalytics"
+        android:title="Analytics"
+        android:icon="@drawable/ic_analytics"/>
+
+    <item  android:id="@+id/miSettings"
+        android:title="Settings"
+        android:icon="@drawable/ic_settings"/>
+</menu>
