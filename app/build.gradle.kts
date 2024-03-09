@@ -52,4 +52,7 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     implementation(libs.androidx.material3)
+    //For Analytics
+    //implementation("co.yml:ycharts:2.1.0")
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
 }
