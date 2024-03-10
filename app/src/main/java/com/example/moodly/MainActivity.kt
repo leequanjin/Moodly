@@ -1,7 +1,6 @@
 package com.example.moodly
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.moodly.databinding.ActivityMainBinding
@@ -19,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigationView.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.miJournal -> replaceFragment(Journal())
-                R.id.miCalendar -> replaceFragment(Calendar())
+                R.id.miCalendar -> replaceFragment(Example5Fragment())
                 R.id.miAnalytics -> replaceFragment(Analytics())
                 R.id.miSettings -> replaceFragment(Settings())
 

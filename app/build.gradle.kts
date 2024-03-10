@@ -56,4 +56,5 @@ dependencies {
     //implementation("co.yml:ycharts:2.1.0")
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
     //For Calendar
+    implementation("com.kizitonwose.calendar:view:2.5.0")
 }
