@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigationView.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.miJournal -> replaceFragment(Journal())
-                R.id.miCalendar -> replaceFragment(Example5Fragment())
+                R.id.miCalendar -> replaceFragment(Calendar())
                 R.id.miAnalytics -> replaceFragment(Analytics())
                 R.id.miSettings -> replaceFragment(Settings())
 
