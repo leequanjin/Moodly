@@ -1,100 +1,42 @@
 package com.example.moodly
 
-import android.content.Context
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.View
-import android.view.ViewGroup
 import android.widget.TextView
-import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
+import androidx.core.view.children
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.moodly.databinding.Example5CalendarDayBinding
-import com.example.moodly.databinding.Example5CalendarHeaderBinding
-import com.example.moodly.databinding.Example5EventItemViewBinding
-import com.example.moodly.databinding.Example5FragmentBinding
+import com.example.moodly.databinding.CalendarDayBinding
+import com.example.moodly.databinding.CalendarHeaderBinding
+import com.example.moodly.databinding.FragmentCalendarBinding
+import com.example.moodly.shared.displayText
 import com.kizitonwose.calendar.core.CalendarDay
 import com.kizitonwose.calendar.core.CalendarMonth
 import com.kizitonwose.calendar.core.DayPosition
 import com.kizitonwose.calendar.core.daysOfWeek
 import com.kizitonwose.calendar.core.nextMonth
 import com.kizitonwose.calendar.core.previousMonth
-import com.kizitonwose.calendar.sample.shared.Flight
-import com.kizitonwose.calendar.sample.shared.displayText
-import com.kizitonwose.calendar.sample.shared.flightDateTimeFormatter
-import com.kizitonwose.calendar.sample.shared.generateFlights
 import com.kizitonwose.calendar.view.MonthDayBinder
 import com.kizitonwose.calendar.view.MonthHeaderFooterBinder
 import com.kizitonwose.calendar.view.ViewContainer
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.YearMonth
-import android.view.LayoutInflater
-import androidx.annotation.ColorRes
-import androidx.core.view.children
 
-class Example5FlightsAdapter :
-    RecyclerView.Adapter<Example5FlightsAdapter.Example5FlightsViewHolder>() {
-    val flights = mutableListOf<Flight>()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Example5FlightsViewHolder {
-        return Example5FlightsViewHolder(
-            Example5EventItemViewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        )
-    }
-
-    override fun onBindViewHolder(viewHolder: Example5FlightsViewHolder, position: Int) {
-        viewHolder.bind(flights[position])
-    }
-
-    override fun getItemCount(): Int = flights.size
-
-    inner class Example5FlightsViewHolder(val binding: Example5EventItemViewBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        fun bind(flight: Flight) {
-            binding.itemFlightDateText.apply {
-                text = flightDateTimeFormatter.format(flight.time)
-                setBackgroundColor(itemView.context.getColorCompat(flight.color))
-            }
-
-            binding.itemDepartureAirportCodeText.text = flight.departure.code
-            binding.itemDepartureAirportCityText.text = flight.departure.city
-
-            binding.itemDestinationAirportCodeText.text = flight.destination.code
-            binding.itemDestinationAirportCityText.text = flight.destination.city
-        }
-    }
-}
-
-fun Context.getColorCompat(@ColorRes colorResId: Int) = ContextCompat.getColor(this, colorResId)
-
-class Example5Fragment : Fragment(R.layout.example_5_fragment){
-    val toolbar: Toolbar?
-        get() = null
-
-    val titleRes: Int = R.string.example_5_title
+class Calendar : Fragment(R.layout.fragment_calendar){
 
     private var selectedDate: LocalDate? = null
 
-    private val flightsAdapter = Example5FlightsAdapter()
-    private val flights = generateFlights().groupBy { it.time.toLocalDate() }
-
-    private lateinit var binding: Example5FragmentBinding
+    private lateinit var binding: FragmentCalendarBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // addStatusBarColorUpdate(R.color.example_5_toolbar_color)
-        binding = Example5FragmentBinding.bind(view)
+        binding = FragmentCalendarBinding.bind(view)
 
-        binding.exFiveRv.apply {
-            layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
-            adapter = flightsAdapter
-        }
-        flightsAdapter.notifyDataSetChanged()
 
         val daysOfWeek = daysOfWeek()
         val currentMonth = YearMonth.now()
@@ -111,7 +53,6 @@ class Example5Fragment : Fragment(R.layout.example_5_fragment){
                 // Clear selection if we scroll to a new month.
                 selectedDate = null
                 binding.exFiveCalendar.notifyDateChanged(it)
-                updateAdapterForDate(null)
             }
         }
 
@@ -128,16 +69,10 @@ class Example5Fragment : Fragment(R.layout.example_5_fragment){
         }
     }
 
-    private fun updateAdapterForDate(date: LocalDate?) {
-        flightsAdapter.flights.clear()
-        flightsAdapter.flights.addAll(flights[date].orEmpty())
-        flightsAdapter.notifyDataSetChanged()
-    }
-
     private fun configureBinders(daysOfWeek: List<DayOfWeek>) {
         class DayViewContainer(view: View) : ViewContainer(view) {
             lateinit var day: CalendarDay // Will be set when this container is bound.
-            val binding = Example5CalendarDayBinding.bind(view)
+            val binding = CalendarDayBinding.bind(view)
 
             init {
                 view.setOnClickListener {
@@ -145,10 +80,9 @@ class Example5Fragment : Fragment(R.layout.example_5_fragment){
                         if (selectedDate != day.date) {
                             val oldDate = selectedDate
                             selectedDate = day.date
-                            val binding = this@Example5Fragment.binding
+                            val binding = this@Calendar.binding
                             binding.exFiveCalendar.notifyDateChanged(day.date)
                             oldDate?.let { binding.exFiveCalendar.notifyDateChanged(it) }
-                            updateAdapterForDate(day.date)
                         }
                     }
                 }
@@ -161,29 +95,16 @@ class Example5Fragment : Fragment(R.layout.example_5_fragment){
                 val context = container.binding.root.context
                 val textView = container.binding.exFiveDayText
                 val layout = container.binding.exFiveDayLayout
+                val imageView = container.binding.exFiveDayImage
                 textView.text = data.date.dayOfMonth.toString()
 
-                val flightTopView = container.binding.exFiveDayFlightTop
-                val flightBottomView = container.binding.exFiveDayFlightBottom
-                flightTopView.background = null
-                flightBottomView.background = null
-
                 if (data.position == DayPosition.MonthDate) {
-                    val textColor = ContextCompat.getColor(context, R.color.example_5_text_grey)
+                    val textColor = ContextCompat.getColor(context, R.color.extra_dark_blue)
                     textView.setTextColor(textColor)
                     layout.setBackgroundResource(if (selectedDate == data.date) R.drawable.example_5_selected_bg else 0)
-
-                    val flights = flights[data.date]
-                    if (flights != null) {
-                        if (flights.count() == 1) {
-                            flightBottomView.setBackgroundColor(context.getColorCompat(flights[0].color))
-                        } else {
-                            flightTopView.setBackgroundColor(context.getColorCompat(flights[0].color))
-                            flightBottomView.setBackgroundColor(context.getColorCompat(flights[1].color))
-                        }
-                    }
+                    imageView.setImageResource(R.drawable.img_happy)
                 } else {
-                    val textColor = ContextCompat.getColor(context, R.color.example_5_text_grey_light)
+                    val textColor = ContextCompat.getColor(context, R.color.faded_extra_dark_blue)
                     textView.setTextColor(textColor)
                     layout.background = null
                 }
@@ -191,7 +112,7 @@ class Example5Fragment : Fragment(R.layout.example_5_fragment){
         }
 
         class MonthViewContainer(view: View) : ViewContainer(view) {
-            val legendLayout = Example5CalendarHeaderBinding.bind(view).legendLayout.root
+            val legendLayout = CalendarHeaderBinding.bind(view).legendLayout.root
         }
 
         val typeFace = Typeface.create("sans-serif-light", Typeface.NORMAL)
@@ -205,7 +126,7 @@ class Example5Fragment : Fragment(R.layout.example_5_fragment){
                         container.legendLayout.children.map { it as TextView }
                             .forEachIndexed { index, tv ->
                                 tv.text = daysOfWeek[index].displayText(uppercase = true)
-                                tv.setTextColor(Color.WHITE)
+                                tv.setTextColor(Color.BLACK)
                                 tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12f)
                                 tv.typeface = typeFace
                             }
