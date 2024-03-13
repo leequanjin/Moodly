@@ -5,7 +5,6 @@ import android.content.res.ColorStateList
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
@@ -13,7 +12,6 @@ import android.widget.ToggleButton
 import android.widget.TimePicker
 import androidx.cardview.widget.CardView
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -61,20 +59,6 @@ class Settings : Fragment() {
                 params.height = resources.getDimensionPixelSize(R.dimen.card_height_whenSpinner)
                 cardSettings.layoutParams = params
                 buttonSetTime!!.visibility = View.VISIBLE
-
-                buttonSetTime.setOnHoverListener { _, event ->
-                    when (event.action) {
-                        MotionEvent.ACTION_HOVER_ENTER -> {
-                            // Change button color on hover enter
-                            buttonSetTime.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.blue_hovered))
-                        }
-                        MotionEvent.ACTION_HOVER_EXIT -> {
-                            // Revert button color on hover exit
-                            buttonSetTime.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.blue_normal))
-                        }
-                    }
-                    true
-                }
 
                 buttonSetTime.setOnClickListener {
                 }
