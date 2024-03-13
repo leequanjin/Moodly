@@ -1,6 +1,7 @@
 package com.example.moodly
 
 import android.annotation.SuppressLint
+import android.content.res.ColorStateList
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -58,8 +59,8 @@ class Settings : Fragment() {
                 params.height = resources.getDimensionPixelSize(R.dimen.card_height_whenSpinner)
                 cardSettings.layoutParams = params
                 buttonSetTime!!.visibility = View.VISIBLE
-                buttonSetTime.setOnClickListener {
 
+                buttonSetTime.setOnClickListener {
                 }
             } else {
                 // Toggle is OFF, hide TimePicker
