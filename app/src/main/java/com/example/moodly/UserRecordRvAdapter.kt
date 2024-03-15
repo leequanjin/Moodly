@@ -8,15 +8,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 
-class UserRecordRvAdapter(
-    private val userRecord: ArrayList<UserRecordFormat>
-) : RecyclerView.Adapter<UserRecordRvAdapter.ViewHolder>() {
+class UserRecordRvAdapter(private val userRecord: ArrayList<UserRecordFormat>) : RecyclerView.Adapter<UserRecordRvAdapter.ViewHolder>() {
 
     lateinit var userDiaryRVAdapter: UserDiaryRvAdapter
     lateinit var userDiary: ArrayList<UserDiaryFormat>
-
-    //test
-    //test
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(
@@ -27,7 +22,7 @@ class UserRecordRvAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        if ((userRecord != null) and (userRecord.size > 0)) {
+        if (userRecord.size > 0) {
             holder.urIndex.text = (userRecord.get(position).months+" "+userRecord.get(position).rid.toString())
 
             //Nested Adapter

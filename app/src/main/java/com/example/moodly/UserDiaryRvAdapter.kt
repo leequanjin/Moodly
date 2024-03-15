@@ -21,7 +21,7 @@ class UserDiaryRvAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        if ((userDiary != null) and (userDiary.size > 0)) {
+        if (userDiary.size > 0) {
             holder.urDate.text = (userDiary.get(position).dateDiary)
             var emote= Html.fromHtml(userDiary.get(position).moodDiary)
             holder.urMood.text = (emote.toString())
