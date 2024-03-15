@@ -207,13 +207,20 @@ class WriteJournal : AppCompatActivity() {
                     binding.tvDate.text = entry.date
                     binding.etContent.setText(entry.content)
                     binding.btnMood.text = entry.mood
+
                     // Handle tags restoration if applicable
                     val tags = entry.tags ?: emptyList()
+                    // Clear previously selected tags
+                    selectedTags.clear()
+                    // Add retrieved tags to the selectedTags list
+                    selectedTags.addAll(tags)
+
+                    val checkedItems = BooleanArray(presetTags.size) { false }
                     // Set selected state for each tag button based on tags list
-                    for (tag in tags) {
-                        // Set selected state for tag button
-                        // ...
+                    for (i in presetTags.indices) {
+                        checkedItems[i] = tags.contains(presetTags[i])
                     }
+
                 } else {
                     // Entry doesn't exist, initialize fields for new entry
                     // set current date
@@ -226,7 +233,4 @@ class WriteJournal : AppCompatActivity() {
             }
         })
     }
-
-
-
 }
