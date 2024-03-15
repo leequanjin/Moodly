@@ -6,23 +6,41 @@
     android:layout_height="match_parent"
     tools:context=".Journal">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/app_bg">
-
         <TextView
             android:id="@+id/labelFilter"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:text="FILTER"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            android:text="JOURNAL"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:textSize="24sp" />
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/tbtoolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/curvedtb"
+            android:layout_margin="15dp"
+            android:minHeight="?attr/actionBarSize"
+            style="@style/Widget.MaterialComponents.Toolbar.Primary"
+            android:theme="?attr/actionBarTheme"
+            android:layout_below="@id/labelFilter">
+            <TextView
+                android:id="@+id/searchtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="Search Bar"
+                android:textAlignment="viewStart"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.appcompat.widget.Toolbar>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardQuotes"
@@ -33,40 +51,35 @@
             android:layout_marginEnd="32dp"
             app:cardCornerRadius="20dp"
             app:cardElevation="4dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/labelFilter"
-            app:layout_constraintVertical_bias="0.0">
-        <!-- Inner LinearLayout -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
-
-            <!-- TextView for quotes title -->
-            <TextView
-                android:id="@+id/tv_quotes"
+            android:layout_below="@id/tbtoolbar">
+            <!-- Inner LinearLayout -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:text="Title"
-                android:textAlignment="center"
-                android:textSize="20sp"
-                android:textStyle="italic" />
+                android:orientation="vertical"
+                android:padding="16dp">
 
-            <!-- TextView for quotes author name -->
-            <TextView
-                android:id="@+id/tv_author"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Subtitle"
-                android:textAlignment="viewEnd"
-                android:textSize="16sp" />
+                <!-- TextView for quotes title -->
+                <TextView
+                    android:id="@+id/tv_quotes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="Title"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    android:textStyle="italic" />
 
-        </LinearLayout>
+                <!-- TextView for quotes author name -->
+                <TextView
+                    android:id="@+id/tv_author"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Subtitle"
+                    android:textAlignment="viewEnd"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
         </androidx.cardview.widget.CardView>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -76,12 +89,85 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="32dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardQuotes"
-            app:layout_constraintVertical_bias="0.0" />
+            android:layout_below="@id/cardQuotes"/>
+    </RelativeLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:background="@drawable/app_bg">-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/labelFilter"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="32dp"-->
+<!--            android:text="FILTER"-->
+<!--            android:textSize="24sp"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintVertical_bias="0.0" />-->
+
+<!--        <androidx.cardview.widget.CardView-->
+<!--            android:id="@+id/cardQuotes"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="32dp"-->
+<!--            android:layout_marginTop="16dp"-->
+<!--            android:layout_marginEnd="32dp"-->
+<!--            app:cardCornerRadius="20dp"-->
+<!--            app:cardElevation="4dp"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHorizontal_bias="0.0"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/labelFilter"-->
+<!--            app:layout_constraintVertical_bias="0.0">-->
+<!--        &lt;!&ndash; Inner LinearLayout &ndash;&gt;-->
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical"-->
+<!--            android:padding="16dp">-->
+
+<!--            &lt;!&ndash; TextView for quotes title &ndash;&gt;-->
+<!--            <TextView-->
+<!--                android:id="@+id/tv_quotes"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginBottom="5dp"-->
+<!--                android:text="Title"-->
+<!--                android:textAlignment="center"-->
+<!--                android:textSize="20sp"-->
+<!--                android:textStyle="italic" />-->
+
+<!--            &lt;!&ndash; TextView for quotes author name &ndash;&gt;-->
+<!--            <TextView-->
+<!--                android:id="@+id/tv_author"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Subtitle"-->
+<!--                android:textAlignment="viewEnd"-->
+<!--                android:textSize="16sp" />-->
+
+<!--        </LinearLayout>-->
+<!--        </androidx.cardview.widget.CardView>-->
+
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:id="@+id/idRVRecord"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="32dp"-->
+<!--            android:layout_marginTop="32dp"-->
+<!--            android:layout_marginEnd="32dp"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHorizontal_bias="0.0"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/cardQuotes"-->
+<!--            app:layout_constraintVertical_bias="0.0" />-->
+
+<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
 </FrameLayout>

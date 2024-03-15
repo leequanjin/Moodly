@@ -6,7 +6,9 @@
     android:stretchColumns="1,2,3,4">
 
     <TableRow
-        android:layout_height="214dp"
+        android:id="@+id/tbshow"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="#FFFFFF">
         <!--on below line we are creating
             a simple image view-->
@@ -42,6 +44,33 @@
             android:layout_width="0dp"
             android:layout_weight="0.2" />
 
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tbhide"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF">
+
+        <TextView
+            android:id="@+id/emptynessleft2"
+            android:layout_width="0dp"
+            android:layout_weight="0.2" />
+
+        <TextView
+            android:id="@+id/idTVContent"
+            android:layout_column="1"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_gravity="center"
+            android:fontFamily="sans-serif"
+            android:padding="10dp"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:id="@+id/emptynessright2"
+            android:layout_width="0dp"
+            android:layout_weight="0.2" />
     </TableRow>
 
 </TableLayout>
