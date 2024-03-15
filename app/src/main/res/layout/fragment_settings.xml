@@ -91,7 +91,9 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="280dp"
                 android:textColor="@color/black"
+                android:enabled="true"
                 android:background="@drawable/button_set_time_selector"
+                app:backgroundTint="@null"
                 android:visibility="gone"/>
 
         </androidx.cardview.widget.CardView>

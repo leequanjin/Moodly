@@ -117,11 +117,12 @@
 
     <Button
         android:id="@+id/btn_mood"
-        style="@style/Widget.Material3.Button.TextButton"
+        style="@style/Widget.Material3.Button.TextButton.Icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Mood"
-        app:icon="@drawable/ic_very_happy"
+        app:icon="@drawable/ic_happy"
+        app:iconPadding="12dp"
         app:layout_constraintBottom_toTopOf="@+id/btn_tag"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -139,6 +140,7 @@
         android:layout_height="wrap_content"
         android:text="Tags"
         app:icon="@drawable/ic_tag"
+        app:iconPadding="12dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
