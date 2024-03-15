@@ -1,26 +1,40 @@
 package com.example.moodly
 
+import android.app.DatePickerDialog
 import android.app.Dialog
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.Gravity
 import android.view.ViewGroup
 import android.view.Window
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.moodly.databinding.ActivityWriteJournalBinding
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.Firebase
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.database
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
+data class JournalEntry(
+    val date: String? = null,
+    val content: String? = null,
+    val mood: String? = null,
+    val tags: List<String>? = null
+)
 class WriteJournal : AppCompatActivity() {
 
     private lateinit var binding: ActivityWriteJournalBinding
     private lateinit var database: DatabaseReference
 
-    data class JournalEntry(
-        val content: String,
-        val date: String
-    )
+    private val presetTags = arrayOf("Work", "Travel", "Food", "Health", "Relationships")
+    private var selectedTags = ArrayList<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,12 +44,63 @@ class WriteJournal : AppCompatActivity() {
         // connect to firebase
         database = Firebase.database.reference
 
-        binding.btnSave.setOnClickListener {
-            val date = binding.tvDate.toString()
-            val content = binding.etContent.toString()
+        val selectedYear = 2024// Obtain the selected year
+        val selectedMonth = 3// Obtain the selected month
+        val selectedDay = 15// Obtain the selected day
 
-            database.child("DiaryRecords").child("Mar2024").child("Content").setValue(content)
-            database.child("DiaryRecords").child("Mar2024").child("Content").setValue(date)
+        // Retrieve and populate data from Firebase for the selected date
+        retrieveAndPopulateDataFromFirebase(selectedYear.toString(),
+            selectedMonth.toString(), selectedDay.toString()
+        )
+
+        val calendar = Calendar.getInstance()
+        calendar.set(selectedYear, selectedMonth, selectedDay)
+
+        // update date
+        binding.tvDate.setOnClickListener {
+            showDatePickerDialog(binding.tvDate)
+        }
+
+        // cancel
+        binding.btnCancel.setOnClickListener {
+            finish()
+        }
+
+        // write data to firebase
+        binding.btnSave.setOnClickListener {
+
+            val date = binding.tvDate.text.toString()
+            val content = binding.etContent.text.toString()
+
+            val selectedDate = SimpleDateFormat("dd MMM, yyyy", Locale.getDefault()).parse(date)
+            val calendar = Calendar.getInstance().apply {
+                selectedDate?.let { time = it }
+            }
+
+            val year = calendar.get(Calendar.YEAR).toString()
+            val month = (calendar.get(Calendar.MONTH) + 1).toString()
+            val day = calendar.get(Calendar.DAY_OF_MONTH).toString()
+            var mood = binding.btnMood.text.toString()
+
+            if(mood == "Mood"){
+                mood = ""
+            }
+
+            val entryRef = database.child("JournalEntries").child(year).child(month).child(day)
+            entryRef.child("date").setValue(date)
+            entryRef.child("content").setValue(content)
+            entryRef.child("mood").setValue(mood)
+            entryRef.child("tags").setValue(selectedTags)
+        }
+
+        // select mood
+        binding.btnMood.setOnClickListener {
+            showMoodSelectionDialog()
+        }
+
+        // select tags
+        binding.btnTag.setOnClickListener {
+            showTagsSelectionDialog()
         }
 
         // enhance confirmation dialog
@@ -43,8 +108,29 @@ class WriteJournal : AppCompatActivity() {
             showDialog()
         }
     }
-
-
+    private fun updateDateTextView(textView: TextView) {
+        val currentDate = Calendar.getInstance()
+        val dateFormat = SimpleDateFormat("dd MMM, yyyy", Locale.getDefault())
+        val formattedDate = dateFormat.format(currentDate.time)
+        textView.text = formattedDate
+    }
+    private fun showDatePickerDialog(textView: TextView) {
+        val calendar = Calendar.getInstance()
+        val datePickerDialog = DatePickerDialog(
+            this,
+            { _, year, month, dayOfMonth ->
+                val selectedDate = Calendar.getInstance()
+                selectedDate.set(year, month, dayOfMonth)
+                val dateFormat = SimpleDateFormat("dd MMM, yyyy", Locale.getDefault())
+                val formattedDate = dateFormat.format(selectedDate.time)
+                textView.text = formattedDate
+            },
+            calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH)
+        )
+        datePickerDialog.show()
+    }
 
     private fun showDialog() {
         val dialog = Dialog(this)
@@ -57,4 +143,90 @@ class WriteJournal : AppCompatActivity() {
         dialog.window?.setGravity(Gravity.BOTTOM)
         dialog.window?.setDimAmount(0.1f)
     }
+
+    private fun showMoodSelectionDialog() {
+        val moodOptions = arrayOf("Feeling Awesome!", "Feeling Good", "Feeling Meh", "Feeling Down", "Feeling Terrible...")
+
+        MaterialAlertDialogBuilder(this)
+            .setTitle("Select Mood")
+            .setItems(moodOptions) { _, which ->
+                val selectedMood = moodOptions[which]
+                updateMood(selectedMood)
+            }
+            .show()
+    }
+
+    private fun updateMood(selectedMood: String) {
+        binding.btnMood.text = selectedMood
+    }
+
+    private var previousSelectedTags = ArrayList<String>()
+    private fun showTagsSelectionDialog() {
+        previousSelectedTags.clear()
+        previousSelectedTags.addAll(selectedTags)
+
+        val checkedItems = BooleanArray(presetTags.size) { selectedTags.contains(presetTags[it]) }
+
+        MaterialAlertDialogBuilder(this)
+            .setTitle("Select Tags")
+            .setMultiChoiceItems(presetTags, checkedItems) { _, which, isChecked ->
+                val selectedTag = presetTags[which]
+                if (isChecked) {
+                    selectedTags.add(selectedTag)
+                } else {
+                    selectedTags.remove(selectedTag)
+                }
+            }
+            .setPositiveButton("OK") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .setNegativeButton("Cancel") { dialog, _ ->
+                // Restore the previous state of selectedTags
+                selectedTags.clear()
+                selectedTags.addAll(previousSelectedTags)
+                dialog.dismiss()
+            }
+            .setOnCancelListener {
+                // Restore the previous state of selectedTags
+                selectedTags.clear()
+                selectedTags.addAll(previousSelectedTags)
+            }
+            .show()
+    }
+
+    private fun retrieveAndPopulateDataFromFirebase(year: String, month: String, day: String) {
+        // Construct Firebase database reference path based on the selected date
+        val databaseReference = FirebaseDatabase.getInstance().reference
+        val entryReference = databaseReference.child("JournalEntries").child(year).child(month).child(day)
+
+        entryReference.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val entry = dataSnapshot.getValue(JournalEntry::class.java)
+                if (entry != null) {
+                    // Entry exists, restore data and allow user to edit
+                    binding.tvDate.text = entry.date
+                    binding.etContent.setText(entry.content)
+                    binding.btnMood.text = entry.mood
+                    // Handle tags restoration if applicable
+                    val tags = entry.tags ?: emptyList()
+                    // Set selected state for each tag button based on tags list
+                    for (tag in tags) {
+                        // Set selected state for tag button
+                        // ...
+                    }
+                } else {
+                    // Entry doesn't exist, initialize fields for new entry
+                    // set current date
+                    updateDateTextView(binding.tvDate)
+                }
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Handle error
+            }
+        })
+    }
+
+
+
 }
