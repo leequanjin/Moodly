@@ -44,13 +44,11 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardQuotes"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp"
             app:cardCornerRadius="20dp"
-            app:cardElevation="4dp"
+            app:cardElevation="100dp"
+            android:layout_margin="15dp"
             android:layout_below="@id/tbtoolbar">
             <!-- Inner LinearLayout -->
             <LinearLayout
@@ -84,11 +82,10 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/idRVRecord"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginTop="15dp"
+            android:paddingHorizontal="15dp"
             android:layout_below="@id/cardQuotes"/>
     </RelativeLayout>
 

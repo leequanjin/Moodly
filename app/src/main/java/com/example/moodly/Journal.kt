@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
@@ -53,6 +54,7 @@ class Journal : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(
@@ -66,8 +68,9 @@ class Journal : Fragment() {
         tv_quotes = view.findViewById(R.id.tv_quotes)
         tv_author = view.findViewById(R.id.tv_author)
         toolbar=view.findViewById(R.id.tbtoolbar)
-        (activity as AppCompatActivity).setSupportActionBar(toolbar)
-        (activity as AppCompatActivity).supportActionBar!!.title=""
+        val activity = requireActivity() as AppCompatActivity
+        activity.setSupportActionBar(toolbar)
+        activity.supportActionBar!!.title=""
 
         //region RecyclerView
         userRecordRV = view.findViewById(R.id.idRVRecord)
@@ -224,15 +227,14 @@ class Journal : Fragment() {
     //endregion
 
     //region filter
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        val inflator = menuInflator
-        inflator.inflate(R.menu.search_menu, menu)
+    override fun onCreateOptionsMenu(menu: Menu,inflater: MenuInflater){
+        inflater.inflate(R.menu.search_menu, menu)
 
         // below line is to get our menu item.
         val searchItem: MenuItem = menu.findItem(R.id.search_bar)
 
         // getting search view of our item.
-        val searchView = MenuItemCompat.getActionView(searchItem) as SearchView
+        val searchView = searchItem.actionView as SearchView
 
         // below line is to call set on query text listener method.
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
@@ -248,7 +250,7 @@ class Journal : Fragment() {
                 return true
             }
         })
-        return true
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     private fun filter(text: String) {
