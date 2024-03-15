@@ -94,7 +94,6 @@
                 android:enabled="true"
                 android:background="@drawable/button_set_time_selector"
                 app:backgroundTint="@null"
-                android:elevation="10dp"
                 android:visibility="gone"/>
 
         </androidx.cardview.widget.CardView>
