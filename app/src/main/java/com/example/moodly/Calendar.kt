@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment
 import com.example.moodly.databinding.CalendarDayBinding
 import com.example.moodly.databinding.CalendarHeaderBinding
 import com.example.moodly.databinding.FragmentCalendarBinding
-import com.example.moodly.shared.displayText
+import com.example.moodly.calendar.displayText
 import com.kizitonwose.calendar.core.CalendarDay
 import com.kizitonwose.calendar.core.CalendarMonth
 import com.kizitonwose.calendar.core.DayPosition

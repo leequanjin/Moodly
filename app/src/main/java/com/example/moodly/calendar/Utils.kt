@@ -1,4 +1,4 @@
-package com.example.moodly.shared
+package com.example.moodly.calendar
 
 import java.time.DayOfWeek
 import java.time.Month

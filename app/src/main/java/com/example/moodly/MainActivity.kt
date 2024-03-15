@@ -1,5 +1,6 @@
 package com.example.moodly
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -15,6 +16,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         replaceFragment(Journal())
 
+        // bottom navigation bar
         binding.bottomNavigationView.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.miJournal -> replaceFragment(Journal())
@@ -29,6 +31,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.bottomNavigationView.menu.getItem(2).isEnabled = false
+
+        // floating action button
+        binding.floatingActionButton.setOnClickListener {
+            startActivity(Intent(this, WriteJournal::class.java))
+        }
     }
 
     private fun replaceFragment(fragment: Fragment){
