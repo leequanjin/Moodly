@@ -5,7 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".WriteJournal">
+    tools:context=".WriteJournal"
+    android:background="@color/light_blue">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout3"
@@ -16,7 +17,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="0.0"
+        android:padding="6dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp">
 
         <Button
             android:id="@+id/btn_cancel"
@@ -25,12 +29,16 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:text="Cancel"
-            app:icon="@drawable/ic_check"
+            app:icon="@drawable/ic_cross"
+            app:iconPadding="12dp"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.1"
+            app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="@color/faded_extra_dark_blue"
+            app:iconTint="@color/faded_extra_dark_blue"/>
 
         <Button
             android:id="@+id/btn_save"
@@ -39,11 +47,15 @@
             android:layout_height="wrap_content"
             android:text="Save"
             app:icon="@drawable/ic_check"
+            app:iconPadding="12dp"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.9"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="@color/faded_extra_dark_blue"
+            app:iconTint="@color/faded_extra_dark_blue"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
@@ -51,11 +63,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:background="@color/faded_blue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="0.0"
+        android:padding="10dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp">
 
         <TextView
             android:id="@+id/tv_date"
@@ -63,20 +79,23 @@
             android:layout_height="match_parent"
             android:gravity="center|start"
             android:layout_weight="1"
-            android:text="TextView" />
+            android:textSize="18sp"
+            android:text="Monday - 03 Mar, 2024" />
 
         <Button
+            style="@style/Widget.Material3.Button"
             android:id="@+id/btn_enhance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Filled button" />
+            android:text="AI-Enhance"
+            android:textSize="18sp"
+            app:backgroundTint="@color/dark_blue"/>
 
     </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
         app:layout_constraintBottom_toTopOf="@+id/btn_mood"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
         tools:layout_editor_absoluteX="128dp">
@@ -88,9 +107,12 @@
             android:gravity="top|start"
             android:hint="Enter your text here"
             android:inputType="textMultiLine"
-            android:minLines="15"
+            android:minLines="14"
             android:textSize="20sp"
-            android:background="@android:color/transparent"/>
+            android:background="@android:color/transparent"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"/>
     </ScrollView>
 
     <Button
@@ -99,13 +121,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Mood"
-        app:icon="@drawable/ic_check"
+        app:icon="@drawable/ic_very_happy"
         app:layout_constraintBottom_toTopOf="@+id/btn_tag"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="1.0"
+        android:layout_marginStart="20dp"
+        android:textColor="@color/extra_dark_blue"
+        app:iconTint="@color/extra_dark_blue"/>
 
     <Button
         android:id="@+id/btn_tag"
@@ -119,7 +144,11 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="1.0"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="10dp"
+        android:textColor="@color/extra_dark_blue"
+        app:iconTint="@color/extra_dark_blue"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_bot"
@@ -133,7 +162,12 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/ic_robot"
-        android:contentDescription="feature"/>
+        android:contentDescription="feature"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        app:maxImageSize="45dp"
+        app:backgroundTint="@color/white"
+        app:tint="@color/extra_dark_blue"/>
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -144,7 +178,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintVertical_bias="1.0"
+        android:background="@color/faded_blue"
+        android:baselineAligned="false">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -159,7 +195,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:icon="@drawable/ic_background"
-                android:contentDescription="feature"/>
+                android:contentDescription="feature"
+                app:iconSize="32sp"
+                app:iconTint="@color/extra_dark_blue"/>
         </LinearLayout>
 
         <LinearLayout
@@ -175,7 +213,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:icon="@drawable/ic_background"
-                android:contentDescription="feature"/>
+                android:contentDescription="feature"
+                app:iconSize="32sp"
+                app:iconTint="@color/extra_dark_blue"/>
         </LinearLayout>
 
         <LinearLayout
@@ -191,7 +231,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:icon="@drawable/ic_background"
-                android:contentDescription="feature"/>
+                android:contentDescription="feature"
+                app:iconSize="32sp"
+                app:iconTint="@color/extra_dark_blue"/>
 
         </LinearLayout>
 
@@ -208,7 +250,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:icon="@drawable/ic_background"
-                android:contentDescription="feature"/>
+                android:contentDescription="feature"
+                app:iconSize="32sp"
+                app:iconTint="@color/extra_dark_blue"/>
         </LinearLayout>
 
     </LinearLayout>

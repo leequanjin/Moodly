@@ -15,7 +15,7 @@
         tools:targetApi="tiramisu">
         <activity
             android:name=".WriteJournal"
-            android:exported="false" />
+            android:exported="false"/>
         <activity
             android:name=".MainActivity"
             android:exported="true">
