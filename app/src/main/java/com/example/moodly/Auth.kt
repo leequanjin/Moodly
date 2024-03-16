@@ -11,15 +11,26 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.Firebase
-import com.google.firebase.auth.ActionCodeEmailInfo
-import com.google.firebase.auth.actionCodeSettings
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.database
 
 class Auth : AppCompatActivity() {
 
     lateinit var edtEmail: EditText
-    lateinit var btnVerify: Button
+    lateinit var edtPassword: EditText
+    lateinit var btnRegister: Button
+    lateinit var btnLogin: Button
     lateinit var btnSkip: Button
+
+    private lateinit var auth: FirebaseAuth
+    private lateinit var DB_Reference: DatabaseReference
+
+    lateinit var email: String
+    lateinit var password: String
+
+    lateinit var SLD: SaveLoadData
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,69 +42,112 @@ class Auth : AppCompatActivity() {
             insets
         }
 
+        //region Initialize Variable
+
+        auth = Firebase.auth
+        DB_Reference = Firebase.database.reference
+
         edtEmail = findViewById(R.id.edtEmail)
-        btnVerify = findViewById(R.id.btnVerify)
+        edtPassword = findViewById(R.id.edtPassword)
+        btnRegister = findViewById(R.id.btnRegister)
+        btnLogin = findViewById(R.id.btnLogin)
         btnSkip = findViewById(R.id.btnSkip)
 
-        btnVerify.setOnClickListener{
-            sendAuthLink("yiptwinkle@gmail.com")
-            verifyAuthLink("yiptwinkle@gmail.com")
+        //endregion
+
+        //region Load Save Data
+
+        SLD = SaveLoadData()
+        SLD.LoadData(this)
+
+        email = SLD.email
+        password = SLD.password
+
+        //endregion
+
+        //region Button On Click Listener
+
+        //TODO: Check if input valid
+
+        btnRegister.setOnClickListener{
+            email = edtEmail.text.toString()
+            password = edtPassword.text.toString()
+
+            register(email, password)
+        }
+
+        btnLogin.setOnClickListener{
+            email = edtEmail.text.toString()
+            password = edtPassword.text.toString()
+
+            login(email, password)
         }
 
         btnSkip.setOnClickListener{
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
+
+        //endregion
+
+        //auto login after app start
+        login(email, password)
     }
 
-    fun sendAuthLink(email: String){
-        val actionCodeSettings = actionCodeSettings {
-            // URL you want to redirect back to. The domain (www.example.com) for this
-            // URL must be whitelisted in the Firebase Console.
-            url = "https://example.page.link"
-            // This must be true
-            handleCodeInApp = true
-        }
-
-        Firebase.auth.sendSignInLinkToEmail(email, actionCodeSettings)
-            .addOnCompleteListener { task ->
+    fun register(email: String, password: String){
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    Log.d("success", "Email sent.")
 
-                    Toast.makeText(applicationContext, "Email sent.", Toast.LENGTH_LONG).show()
-                }else{
-                    Log.d("error", task.exception.toString())
+                    val id = auth.currentUser?.uid.toString()
 
-                    Toast.makeText(applicationContext, "${task.exception.toString()}", Toast.LENGTH_LONG).show()
+                    SLD.email = email
+                    SLD.password = password
+
+                    SLD.SaveData(this)
+
+                    val intent = Intent(this, Welcome::class.java)
+                    startActivity(intent)
+
+                    finish()
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Toast.makeText(this, "Authentication failed.", Toast.LENGTH_SHORT).show()
                 }
             }
     }
 
-    fun verifyAuthLink(email: String){
-        val auth = Firebase.auth
-        val intent = intent
-        val emailLink = intent.data.toString()
+    fun login(email: String, password: String){
+        if (auth.currentUser == null && email != "" && password != "") {
+            // No user is signed in
+            auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success
+                    SLD.email = email
+                    SLD.password = password
 
-        if (auth.isSignInWithEmailLink(emailLink)) {
-            // The client SDK will parse the code from the link for you.o
-            auth.signInWithEmailLink(email, emailLink)
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        Toast.makeText(applicationContext, "Successfully signed in with email link!", Toast.LENGTH_LONG).show()
+                    val id = auth.currentUser?.uid.toString()
+                    DB_Reference.child(id).child("username").get()
+                        .addOnSuccessListener {
+                            SLD.username = it.value.toString()
 
-                        val result = task.result
+                            SLD.SaveData(this)
+                        }
 
-                        //result.user.uid
-                        // You can access the new user via result.getUser()
-                        // Additional user info profile *not* available via:
-                        // result.getAdditionalUserInfo().getProfile() == null
-                        // You can check if the user is new or existing:
-                        // result.getAdditionalUserInfo().isNewUser()
-                    } else {
-                        //Log.e("failed", "Error signing in with email link", task.exception)
-                        Toast.makeText(applicationContext, "${task.exception.toString()}", Toast.LENGTH_LONG).show()
-                    }
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                } else {
+                    Toast.makeText(
+                        baseContext, "Authentication failed.",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
+            }
+        } else if (auth.currentUser != null) {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+
+            finish()
         }
     }
 }
