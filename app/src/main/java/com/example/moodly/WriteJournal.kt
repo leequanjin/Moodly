@@ -107,6 +107,7 @@ class WriteJournal : AppCompatActivity() {
         binding.btnEnhance.setOnClickListener {
             showDialog()
         }
+
     }
     private fun updateDateTextView(textView: TextView) {
         val currentDate = Calendar.getInstance()
@@ -124,6 +125,7 @@ class WriteJournal : AppCompatActivity() {
                 val dateFormat = SimpleDateFormat("dd MMM, yyyy", Locale.getDefault())
                 val formattedDate = dateFormat.format(selectedDate.time)
                 textView.text = formattedDate
+                retrieveAndPopulateDataFromFirebase(year.toString(), (month + 1).toString(), dayOfMonth.toString())
             },
             calendar.get(Calendar.YEAR),
             calendar.get(Calendar.MONTH),
@@ -233,4 +235,5 @@ class WriteJournal : AppCompatActivity() {
             }
         })
     }
+
 }

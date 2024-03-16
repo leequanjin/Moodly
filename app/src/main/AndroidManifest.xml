@@ -17,6 +17,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Moodly"
+
         tools:targetApi="tiramisu">
         <receiver
             android:name=".Notification"
@@ -28,7 +29,8 @@
         </receiver>
         <activity
             android:name=".MainActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustNothing"/>
         <activity
             android:name=".WriteJournal"
             android:exported="false" />

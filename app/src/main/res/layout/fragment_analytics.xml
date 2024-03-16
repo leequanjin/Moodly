@@ -18,11 +18,12 @@
             android:layout_height="wrap_content"
             android:text="ANALYTICS"
             android:textSize="24sp"
+            android:layout_marginTop="32dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.06" />
+            app:layout_constraintVertical_bias="0" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardAnalytics"
