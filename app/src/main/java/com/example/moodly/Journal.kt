@@ -4,10 +4,17 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.MenuItemCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DataSnapshot
@@ -39,6 +46,7 @@ class Journal : Fragment() {
     lateinit var tv_quotes: TextView
     lateinit var tv_author: TextView
     lateinit var quoteslist: List<QuoteModel>
+    lateinit var toolbar: Toolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +54,7 @@ class Journal : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(
@@ -58,6 +67,10 @@ class Journal : Fragment() {
         txtTest = view.findViewById(R.id.labelFilter)
         tv_quotes = view.findViewById(R.id.tv_quotes)
         tv_author = view.findViewById(R.id.tv_author)
+        toolbar=view.findViewById(R.id.tbtoolbar)
+        val activity = requireActivity() as AppCompatActivity
+        activity.setSupportActionBar(toolbar)
+        activity.supportActionBar!!.title=""
 
         //region RecyclerView
         userRecordRV = view.findViewById(R.id.idRVRecord)
@@ -210,6 +223,64 @@ class Journal : Fragment() {
             moodEmote = "&#128529"
         }
         return moodEmote
+    }
+    //endregion
+
+    //region filter
+    override fun onCreateOptionsMenu(menu: Menu,inflater: MenuInflater){
+        inflater.inflate(R.menu.search_menu, menu)
+
+        // below line is to get our menu item.
+        val searchItem: MenuItem = menu.findItem(R.id.search_bar)
+
+        // getting search view of our item.
+        val searchView = searchItem.actionView as SearchView
+
+        // below line is to call set on query text listener method.
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
+            android.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(p0: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(msg: String): Boolean {
+                // inside on query text change method we are
+                // calling a method to filter our recycler view.
+                filter(msg)
+                return true
+            }
+        })
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    private fun filter(text: String) {
+        // creating a new array list to filter our data.
+        val filteredlist: ArrayList<UserRecordFormat> = ArrayList()
+
+        // running a for loop to compare elements.
+        for (item in userRecord) {
+            val filteredlist2: ArrayList<UserDiaryFormat> = ArrayList()
+            // checking if the entered string matched with any item of our recycler view.
+            for (item2 in item.diary){
+                if (item2.contentDiary.toLowerCase().contains(text.toLowerCase())) {
+                    // if the item is matched we are
+                    // adding it to our filtered list.
+                    filteredlist2.add(item2)
+                }
+            }
+            if(filteredlist2.size>0){
+                filteredlist.add(UserRecordFormat(item.rid, item.months, filteredlist2))
+            }
+        }
+        if (filteredlist.isEmpty()) {
+            // if no item is added in filtered list we are
+            // displaying a toast message as no data found.
+            Toast.makeText(requireContext(), "No Data Found..", Toast.LENGTH_SHORT).show()
+        } else {
+            // at last we are passing that filtered
+            // list to our adapter class.
+            userRecordRVAdapter.filterList(filteredlist)
+        }
     }
     //endregion
 }

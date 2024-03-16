@@ -62,6 +62,7 @@ class Analytics : Fragment() {
         entries.add(PieEntry(30f, "Happy"))
         entries.add(PieEntry(20f, "Angry"))
         entries.add(PieEntry(50f, "Sad"))
+        entries.add(PieEntry(50f, "Normal"))
 
         val pieDataSet= PieDataSet(entries  , "")
 

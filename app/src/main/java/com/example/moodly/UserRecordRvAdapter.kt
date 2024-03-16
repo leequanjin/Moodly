@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 
-class UserRecordRvAdapter(private val userRecord: ArrayList<UserRecordFormat>) : RecyclerView.Adapter<UserRecordRvAdapter.ViewHolder>() {
+class UserRecordRvAdapter(private var userRecord: ArrayList<UserRecordFormat>) : RecyclerView.Adapter<UserRecordRvAdapter.ViewHolder>() {
 
     lateinit var userDiaryRVAdapter: UserDiaryRvAdapter
     lateinit var userDiary: ArrayList<UserDiaryFormat>
@@ -20,7 +20,14 @@ class UserRecordRvAdapter(private val userRecord: ArrayList<UserRecordFormat>) :
         )
         return ViewHolder(itemView)
     }
-
+    fun filterList(filterlist: ArrayList<UserRecordFormat>) {
+        // below line is to add our filtered
+        // list in our course array list.
+        userRecord = filterlist
+        // below line is to notify our adapter
+        // as change in recycler view data.
+        notifyDataSetChanged()
+    }
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if (userRecord.size > 0) {
             holder.urIndex.text = (userRecord.get(position).months+" "+userRecord.get(position).rid.toString())
