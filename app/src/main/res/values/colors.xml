@@ -11,6 +11,7 @@
     <color name="light_blue">#E0E5F7</color>
     <color name="grey">#E5E5E5</color>
     <color name="white">#FFFFFF</color>
-    <color name="blue_pressed">#378CE7</color> <!-- Adjust the color value as per your preference -->
-    <color name="blue_normal">#67C6E3</color> <!-- Adjust the color value as per your preference -->
+    <color name="blue_pressed">#378CE7</color> <!-- Button Color in Set Time  -->
+    <color name="blue_normal">#67C6E3</color> <!-- Button Color in Set Time -->
+    <color name="text_shadow">#ff9a00</color>
 </resources>

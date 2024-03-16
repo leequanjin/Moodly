@@ -85,7 +85,7 @@ class Analytics : Fragment() {
 
         pieChart.data= pieData
 
-        pieData.setValueTextSize(15f)
+        pieData.setValueTextSize(18f)
 
         pieChart.description.text="Pie Chart"
         pieChart.centerText= "Mood \nTracker"
@@ -95,7 +95,7 @@ class Analytics : Fragment() {
         pieChart.animateY(2000)
 
         val legend: Legend = pieChart.legend
-        legend.textSize= 28f
+        legend.textSize= 23f
 
         pieChart.description.isEnabled=false
         pieChart.legend.isEnabled=false

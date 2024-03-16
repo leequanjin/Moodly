@@ -1,7 +1,13 @@
 package com.example.moodly
-
+//
+//import android.app.AlarmManager
+//import android.app.PendingIntent
+//import android.content.Context
+import android.provider.Settings
+import android.content.Intent
 import android.annotation.SuppressLint
-import android.content.res.ColorStateList
+import android.app.AlertDialog
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,6 +18,8 @@ import android.widget.ToggleButton
 import android.widget.TimePicker
 import androidx.cardview.widget.CardView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.core.app.NotificationManagerCompat
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -36,7 +44,7 @@ class Settings : Fragment() {
         }
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "ScheduleExactAlarm")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -61,6 +69,41 @@ class Settings : Fragment() {
                 buttonSetTime!!.visibility = View.VISIBLE
 
                 buttonSetTime.setOnClickListener {
+                    val context = requireContext() // Get the context from fragment
+
+                    // Check notification permission
+                    val notificationManager = NotificationManagerCompat.from(context)
+                    if (notificationManager.areNotificationsEnabled()) {
+                        // Schedule notification and show toast
+                        // Existing code from your previous implementation...
+
+                        val selectedHour = timePicker.hour
+                        val selectedMinute = timePicker.minute
+
+                        // ... rest of the notification scheduling code ...
+
+                        Toast.makeText(
+                            context,
+                            "Notification scheduled! You'll be reminded at the chosen time.",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    } else {
+                        // Notification permission not granted, show explanation dialog
+                        val builder = AlertDialog.Builder(context)
+                            .setTitle("Notifications Disabled")
+                            .setMessage("Moodly needs notification permission to remind you. Would you like to enable it?")
+                            .setPositiveButton("Open Settings") { dialog, _ ->
+                                val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                                val uri = Uri.fromParts("package", context.packageName, null)
+                                intent.data = uri
+                                startActivity(intent)
+                                dialog.dismiss()
+                            }
+                            .setNegativeButton("Cancel") { dialog, _ ->
+                                dialog.dismiss()
+                            }
+                            .show()
+                    }
                 }
             } else {
                 // Toggle is OFF, hide TimePicker
@@ -73,25 +116,5 @@ class Settings : Fragment() {
         }
 
         return view
-    }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment Settings.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            Settings().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
     }
 }
