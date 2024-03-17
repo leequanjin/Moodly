@@ -55,7 +55,7 @@ class Settings : Fragment() {
         val textViewRemind: TextView? = view.findViewById(R.id.textViewReminder) as? TextView
         val toggleButton: ToggleButton? = view.findViewById(R.id.toggleButton2) as? ToggleButton
         val timePicker: TimePicker? = view.findViewById(R.id.timePicker) as? TimePicker
-        val cardSettings: CardView? = view.findViewById(R.id.cardSettings) as? CardView
+        val cardSettings: CardView? = view.findViewById(R.id.cardGeneral) as? CardView
         val buttonSetTime: Button? = view.findViewById(R.id.buttonSetTime)
 
         toggleButton?.setOnCheckedChangeListener { _, isChecked ->
