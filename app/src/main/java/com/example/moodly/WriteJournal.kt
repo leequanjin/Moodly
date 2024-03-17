@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import android.app.Dialog
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.ViewGroup
 import android.view.Window
@@ -50,9 +51,11 @@ class WriteJournal : AppCompatActivity() {
         SLD = SaveLoadData()
         SLD.LoadData(this)
 
-        val selectedYear = 2024// Obtain the selected year
-        val selectedMonth = 3// Obtain the selected month
-        val selectedDay = 15// Obtain the selected day
+        val selectedYear = intent.getIntExtra("year", -1)
+        val selectedMonth = intent.getIntExtra("month", -1)
+        val selectedDay = intent.getIntExtra("day", -1)
+
+        Log.d("Journey", "The selected date is $selectedYear-$selectedMonth-$selectedDay")
 
         // Retrieve and populate data from Firebase for the selected date
         retrieveAndPopulateDataFromFirebase(selectedYear.toString(),
@@ -89,10 +92,6 @@ class WriteJournal : AppCompatActivity() {
             val day = calendar.get(Calendar.DAY_OF_MONTH).toString()
             var mood = binding.btnMood.text.toString()
 
-            if(mood == "Mood"){
-                mood = ""
-            }
-
             val entryRef = database.child(id).child("JournalEntries").child(year).child(month).child(day)
             entryRef.child("date").setValue(date)
             entryRef.child("content").setValue(content)
@@ -118,12 +117,7 @@ class WriteJournal : AppCompatActivity() {
         }
 
     }
-    private fun updateDateTextView(textView: TextView) {
-        val currentDate = Calendar.getInstance()
-        val dateFormat = SimpleDateFormat("dd MMM, yyyy", Locale.getDefault())
-        val formattedDate = dateFormat.format(currentDate.time)
-        textView.text = formattedDate
-    }
+
     private fun showDatePickerDialog(textView: TextView) {
         val calendar = Calendar.getInstance()
         val datePickerDialog = DatePickerDialog(
@@ -134,6 +128,7 @@ class WriteJournal : AppCompatActivity() {
                 val dateFormat = SimpleDateFormat("dd MMM, yyyy", Locale.getDefault())
                 val formattedDate = dateFormat.format(selectedDate.time)
                 textView.text = formattedDate
+                retrieveAndPopulateDataFromFirebase(year.toString(), (month + 1).toString(), dayOfMonth.toString())
             },
             calendar.get(Calendar.YEAR),
             calendar.get(Calendar.MONTH),
@@ -205,6 +200,7 @@ class WriteJournal : AppCompatActivity() {
     }
 
     private fun retrieveAndPopulateDataFromFirebase(year: String, month: String, day: String) {
+        Log.d("Journey", "The day passed to this function is $year-$month-$day")
         val id = auth.currentUser?.uid.toString()
         val entryRef = database.child(id).child("JournalEntries").child(year).child(month).child(day)
 
@@ -231,8 +227,15 @@ class WriteJournal : AppCompatActivity() {
                     }
 
                 } else {
-                    // set current date
-                    updateDateTextView(binding.tvDate)
+                    // set to selected date with blank fields
+                    val calendar = Calendar.getInstance()
+                    calendar.set(year.toInt(), month.toInt() - 1, day.toInt())
+                    val dateFormat = SimpleDateFormat("dd MMM, yyyy", Locale.getDefault())
+                    val formattedDate = dateFormat.format(calendar.time)
+                    binding.tvDate.text = formattedDate
+                    binding.etContent.text = null
+                    binding.btnMood.text = "Mood"
+                    selectedTags.clear()
                 }
             }
 
