@@ -87,7 +87,7 @@
                 android:id="@+id/LongestStreak"
                 android:layout_width="124dp"
                 android:layout_height="116dp"
-                android:layout_marginStart="55dp"
+                android:layout_marginStart="25dp"
                 android:layout_marginTop="7dp"
                 android:src="@drawable/trophylongest" />
 
@@ -106,7 +106,7 @@
                 android:shadowRadius="3"
                 android:textStyle="italic|bold"
                 android:layout_marginTop="31dp"
-                android:layout_marginStart="77dp"
+                android:layout_marginStart="47dp"
                 android:elevation="10dp" />
 
             <TextView
@@ -123,21 +123,21 @@
                 android:shadowDy="-4"
                 android:shadowRadius="10"
                 android:layout_marginTop="120dp"
-                android:layout_marginStart="50dp" />
+                android:layout_marginStart="10dp" />
 
             <ImageView
                 android:id="@+id/LoginStreakImg"
                 android:layout_width="125dp"
                 android:layout_height="120dp"
                 android:layout_marginTop="1dp"
-                android:layout_marginStart="240dp"
+                android:layout_marginStart="190dp"
                 android:src="@drawable/login_streak" />
 
             <TextView
                 android:id="@+id/LoginStreakNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="270dp"
+                android:layout_marginStart="220dp"
                 android:layout_marginTop="50dp"
                 android:elevation="10dp"
                 android:padding="8dp"
@@ -164,7 +164,7 @@
                 android:shadowDy="-4"
                 android:shadowRadius="10"
                 android:layout_marginTop="120dp"
-                android:layout_marginStart="230dp" />
+                android:layout_marginStart="180dp" />
 
 
         </androidx.cardview.widget.CardView>
