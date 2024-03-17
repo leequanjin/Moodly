@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     app:cardBackgroundColor="#B6BFF1"
     app:cardCornerRadius="8dp"
-    app:cardElevation="5dp"
+    app:cardElevation="2dp"
     app:cardUseCompatPadding="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -28,12 +28,10 @@
                 android:id="@+id/idTVIndex"
                 android:layout_width="match_parent"
                 android:layout_height="26dp"
-                android:gravity="top"
                 android:text="Month and Year"
                 android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="24sp"
-                android:textStyle="bold"
+                android:textColor="@color/extra_dark_blue"
+                android:textSize="22sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

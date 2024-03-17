@@ -192,13 +192,14 @@
             android:gravity="center">
 
             <Button
-                android:id="@+id/iconButton1"
+                android:id="@+id/btnUndo"
                 style="?attr/materialIconButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:icon="@drawable/ic_background"
+                app:icon="@drawable/ic_undo"
                 android:contentDescription="feature"
-                app:iconSize="32sp"
+                android:padding="10dp"
+                app:iconSize="28sp"
                 app:iconTint="@color/extra_dark_blue"/>
         </LinearLayout>
 
@@ -210,13 +211,14 @@
             android:gravity="center">
 
             <Button
-                android:id="@+id/iconButton2"
+                android:id="@+id/btnRedo"
                 style="?attr/materialIconButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:icon="@drawable/ic_background"
+                app:icon="@drawable/ic_redo"
                 android:contentDescription="feature"
-                app:iconSize="32sp"
+                android:padding="10dp"
+                app:iconSize="28sp"
                 app:iconTint="@color/extra_dark_blue"/>
         </LinearLayout>
 
@@ -232,9 +234,10 @@
                 style="?attr/materialIconButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:icon="@drawable/ic_background"
+                app:icon="@drawable/ic_text"
                 android:contentDescription="feature"
-                app:iconSize="32sp"
+                android:padding="10dp"
+                app:iconSize="28sp"
                 app:iconTint="@color/extra_dark_blue"/>
 
         </LinearLayout>
@@ -251,9 +254,10 @@
                 style="?attr/materialIconButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:icon="@drawable/ic_background"
+                app:icon="@drawable/ic_image"
                 android:contentDescription="feature"
-                app:iconSize="32sp"
+                android:padding="10dp"
+                app:iconSize="28sp"
                 app:iconTint="@color/extra_dark_blue"/>
         </LinearLayout>
 

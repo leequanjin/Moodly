@@ -12,10 +12,11 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.moodly.databinding.ActivityWriteJournalBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.database
 import java.text.SimpleDateFormat
@@ -31,7 +32,9 @@ data class JournalEntry(
 class WriteJournal : AppCompatActivity() {
 
     private lateinit var binding: ActivityWriteJournalBinding
+    private lateinit var auth: FirebaseAuth
     private lateinit var database: DatabaseReference
+    private lateinit var SLD: SaveLoadData
 
     private val presetTags = arrayOf("Work", "Travel", "Food", "Health", "Relationships")
     private var selectedTags = ArrayList<String>()
@@ -42,7 +45,10 @@ class WriteJournal : AppCompatActivity() {
         setContentView(binding.root)
 
         // connect to firebase
+        auth = Firebase.auth
         database = Firebase.database.reference
+        SLD = SaveLoadData()
+        SLD.LoadData(this)
 
         val selectedYear = 2024// Obtain the selected year
         val selectedMonth = 3// Obtain the selected month
@@ -77,6 +83,7 @@ class WriteJournal : AppCompatActivity() {
                 selectedDate?.let { time = it }
             }
 
+            val id = auth.currentUser?.uid.toString()
             val year = calendar.get(Calendar.YEAR).toString()
             val month = (calendar.get(Calendar.MONTH) + 1).toString()
             val day = calendar.get(Calendar.DAY_OF_MONTH).toString()
@@ -86,11 +93,13 @@ class WriteJournal : AppCompatActivity() {
                 mood = ""
             }
 
-            val entryRef = database.child("JournalEntries").child(year).child(month).child(day)
+            val entryRef = database.child(id).child("JournalEntries").child(year).child(month).child(day)
             entryRef.child("date").setValue(date)
             entryRef.child("content").setValue(content)
             entryRef.child("mood").setValue(mood)
             entryRef.child("tags").setValue(selectedTags)
+
+            finish()
         }
 
         // select mood
@@ -107,6 +116,7 @@ class WriteJournal : AppCompatActivity() {
         binding.btnEnhance.setOnClickListener {
             showDialog()
         }
+
     }
     private fun updateDateTextView(textView: TextView) {
         val currentDate = Calendar.getInstance()
@@ -195,11 +205,10 @@ class WriteJournal : AppCompatActivity() {
     }
 
     private fun retrieveAndPopulateDataFromFirebase(year: String, month: String, day: String) {
-        // Construct Firebase database reference path based on the selected date
-        val databaseReference = FirebaseDatabase.getInstance().reference
-        val entryReference = databaseReference.child("JournalEntries").child(year).child(month).child(day)
+        val id = auth.currentUser?.uid.toString()
+        val entryRef = database.child(id).child("JournalEntries").child(year).child(month).child(day)
 
-        entryReference.addListenerForSingleValueEvent(object : ValueEventListener {
+        entryRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val entry = dataSnapshot.getValue(JournalEntry::class.java)
                 if (entry != null) {
@@ -222,7 +231,6 @@ class WriteJournal : AppCompatActivity() {
                     }
 
                 } else {
-                    // Entry doesn't exist, initialize fields for new entry
                     // set current date
                     updateDateTextView(binding.tvDate)
                 }
@@ -233,4 +241,5 @@ class WriteJournal : AppCompatActivity() {
             }
         })
     }
+
 }

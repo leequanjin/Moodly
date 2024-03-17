@@ -1,8 +1,9 @@
 package com.example.moodly
 
+import android.content.Context
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -14,30 +15,27 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
-import androidx.core.view.MenuItemCompat
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import java.time.LocalDate
+import java.time.Month
+import java.time.format.DateTimeFormatter
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [Journal.newInstance] factory method to
- * create an instance of this fragment.
- */
 class Journal : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private lateinit var auth: FirebaseAuth
+    private lateinit var database: DatabaseReference
+    private lateinit var SLD: SaveLoadData
+
     lateinit var txtTest: TextView
     lateinit var userRecordRV: RecyclerView
     lateinit var userRecordRVAdapter: UserRecordRvAdapter
@@ -50,10 +48,6 @@ class Journal : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
         setHasOptionsMenu(true)
     }
 
@@ -63,6 +57,13 @@ class Journal : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_journal, container, false)
+
+
+        auth = com.google.firebase.Firebase.auth
+        database = Firebase.database.reference
+        SLD = SaveLoadData()
+
+        val id = auth.currentUser?.uid.toString()
 
         txtTest = view.findViewById(R.id.labelFilter)
         tv_quotes = view.findViewById(R.id.tv_quotes)
@@ -79,59 +80,70 @@ class Journal : Fragment() {
         userRecordRV.layoutManager = LinearLayoutManager(requireContext())
         userRecordRVAdapter = UserRecordRvAdapter(userRecord)
         userRecordRV.adapter = userRecordRVAdapter
-        val myRef = Firebase.database.getReference("DiaryRecords")
+        val myRef = database.child(id).child("JournalEntries")
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                var index = 1
-
+                userRecord.clear()
+                // var index = 1
                 for (result in snapshot.children) {
-                    var months_years = result.key.toString()
-                    var months = months_years.substring(0, 3)
-                    var years = months_years.substring(3)
-                    userDiary = ArrayList()
-                    var indexSmall = 1
+                    var years = result.key.toString()
+                    // var indexSmall = 1
+
                     for (result2 in result.children) {
-                        var mood = result2.child("Mood").value.toString()
-                        var diary = result2.child("Content").value.toString()
-                        var dateD = result2.child("Date").value.toString()
-                        var moodEmote = findMood(mood)
-                        var date = LocalDate.parse(dateD)
-                        var day = date.dayOfWeek
-                        dateD = dateD.substring(8) + " " + day.toString().substring(0, 3)
-                        userDiary.add(UserDiaryFormat(dateD, moodEmote, diary))
-                        indexSmall++
-                        //txtTest.text= txtTest.text.toString().plus(diary)
-                    }
-                    if (userRecord.size > 0) {
-                        var count = userRecord.size
-                        var supposedIndex = 0
-                        for (currentIndex in 0..(count - 1)) {
-                            if (userRecord[currentIndex].rid < years.toInt()) {
-                                supposedIndex = currentIndex
-                                break
-                            } else if (userRecord[currentIndex].rid == years.toInt()) {
-                                var currentMonthNum = findMonthNum(userRecord[currentIndex].months)
-                                var newMonthNum = findMonthNum(months)
-                                if (newMonthNum > currentMonthNum && currentIndex == 0) {
+                        var months = result2.key.toString()
+                        userDiary = ArrayList()
+
+                        for (result3 in result2.children) {
+                            var mood = result3.child("mood").value.toString()
+                            var diary = result3.child("content").value.toString()
+                            var dateD = result3.child("date").value.toString()
+
+                            if (dateD != null) {
+                                val moodEmote = findMood(requireContext(), mood)
+                                val formatter = DateTimeFormatter.ofPattern("dd MMM, yyyy")
+
+                                var date = LocalDate.parse(dateD, formatter)
+                                var day = date.dayOfWeek
+                                dateD = dateD.substring(0, 2) + " " + day.toString().substring(0, 3)
+                                userDiary.add(UserDiaryFormat(dateD, moodEmote, diary))
+                                // indexSmall++
+                            }
+                            //txtTest.text= txtTest.text.toString().plus(diary)
+                        }
+                        if (userRecord.size > 0) {
+                            var count = userRecord.size
+                            var supposedIndex = 0
+                            for (currentIndex in 0..(count - 1)) {
+                                if (userRecord[currentIndex].rid < years.toInt()) {
                                     supposedIndex = currentIndex
                                     break
-                                } else if (newMonthNum > currentMonthNum) {
-                                    break
+                                } else if (userRecord[currentIndex].rid == years.toInt()) {
+                                    var currentMonthNum = findMonthNum(userRecord[currentIndex].months)
+                                    var newMonthNum = findMonthNum(months)
+                                    if (newMonthNum > currentMonthNum && currentIndex == 0) {
+                                        supposedIndex = currentIndex
+                                        break
+                                    } else if (newMonthNum > currentMonthNum) {
+                                        break
+                                    } else {
+                                        supposedIndex += 1
+                                    }
                                 } else {
                                     supposedIndex += 1
                                 }
-                            } else {
-                                supposedIndex += 1
                             }
+
+                            userRecord.add(
+                                supposedIndex,
+
+                                UserRecordFormat(years.toInt(), convertToMMMFormat(months.toInt()), userDiary)
+                            )
+                        } else {
+                            userRecord.add(
+                                UserRecordFormat(years.toInt(), convertToMMMFormat(months.toInt()), userDiary))
                         }
-                        userRecord.add(
-                            supposedIndex,
-                            UserRecordFormat(years.toInt(), months, userDiary)
-                        )
-                    } else {
-                        userRecord.add(UserRecordFormat(years.toInt(), months, userDiary))
                     }
-                    index++
+                    // index++
                 }
 
                 userRecordRVAdapter.notifyDataSetChanged()
@@ -149,34 +161,15 @@ class Journal : Fragment() {
             if (listquote != null) {
                 quoteslist = listquote
                 var num = ((0..listquote.size).shuffled().last())
+                val trimmedAuthor = if (quoteslist.get(num).author.length > 10) quoteslist.get(num).author.substring(0, quoteslist.get(num).author.length - 10) else quoteslist.get(num).author
                 tv_quotes.text = quoteslist.get(num).text
-                tv_author.text = ("~ " + quoteslist.get(num).author)
+                tv_author.text = ("~ " + trimmedAuthor)
             } else {
                 Toast.makeText(requireContext(), "Something Went Wrong", Toast.LENGTH_SHORT).show()
             }
         }
         //endregion
         return view
-    }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment Journal.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            Journal().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
     }
     //region FindMonthNum
     fun findMonthNum(month: String): Int {
@@ -211,18 +204,15 @@ class Journal : Fragment() {
     //endregion
 
     //region FindMood
-    fun findMood(mood: String): String {
-        var moodEmote = ""
-        if (mood == "Happy") {
-            moodEmote = "&#128516"
-        } else if (mood == "Sad") {
-            moodEmote = "&#128557"
-        } else if (mood == "Mad") {
-            moodEmote = "&#128545"
-        } else {
-            moodEmote = "&#128529"
+    fun findMood(context: Context, mood: String): Drawable? {
+        return when (mood) {
+            "Feeling Awesome!" -> ContextCompat.getDrawable(context, R.drawable.img_very_happy)
+            "Feeling Good" -> ContextCompat.getDrawable(context, R.drawable.img_happy)
+            "Feeling Meh" -> ContextCompat.getDrawable(context, R.drawable.img_neutral)
+            "Feeling Down" -> ContextCompat.getDrawable(context, R.drawable.img_sad)
+            "Feeling Terrible..." -> ContextCompat.getDrawable(context, R.drawable.img_very_sad)
+            else -> null // Return null for unknown moods
         }
-        return moodEmote
     }
     //endregion
 
@@ -283,4 +273,8 @@ class Journal : Fragment() {
         }
     }
     //endregion
+
+    fun convertToMMMFormat(monthNumber: Int): String {
+        return Month.of(monthNumber).toString().substring(0, 3)
+    }
 }

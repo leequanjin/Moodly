@@ -30,14 +30,15 @@ class UserRecordRvAdapter(private var userRecord: ArrayList<UserRecordFormat>) :
     }
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if (userRecord.size > 0) {
-            holder.urIndex.text = (userRecord.get(position).months+" "+userRecord.get(position).rid.toString())
+            val currentRecord = userRecord[position]
+            holder.urIndex.text = "${currentRecord.months} ${currentRecord.rid}"
 
             //Nested Adapter
-            userDiary = userRecord.get(position).diary
-
             holder.userDiaryRV.layoutManager = LinearLayoutManager(holder.itemView.context)
-            userDiaryRVAdapter = UserDiaryRvAdapter(userDiary)
-            holder.userDiaryRV.adapter = userDiaryRVAdapter
+            holder.userDiaryRV.adapter = holder.userDiaryRVAdapter // Set the adapter
+
+            // Pass the data to the nested adapter
+            holder.userDiaryRVAdapter.updateData(currentRecord.diary)
 
             //test end
         }
@@ -50,5 +51,8 @@ class UserRecordRvAdapter(private var userRecord: ArrayList<UserRecordFormat>) :
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val urIndex: TextView = itemView.findViewById(R.id.idTVIndex)
         val userDiaryRV: RecyclerView = itemView.findViewById(R.id.idRVDiary)
+
+        // Initialize UserDiaryRvAdapter here
+        val userDiaryRVAdapter = UserDiaryRvAdapter(ArrayList())
     }
 }

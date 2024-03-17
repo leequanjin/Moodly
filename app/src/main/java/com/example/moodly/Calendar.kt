@@ -3,16 +3,25 @@ package com.example.moodly
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
+import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import androidx.fragment.app.Fragment
+import com.example.moodly.calendar.displayText
 import com.example.moodly.databinding.CalendarDayBinding
 import com.example.moodly.databinding.CalendarHeaderBinding
 import com.example.moodly.databinding.FragmentCalendarBinding
-import com.example.moodly.calendar.displayText
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.database
 import com.kizitonwose.calendar.core.CalendarDay
 import com.kizitonwose.calendar.core.CalendarMonth
 import com.kizitonwose.calendar.core.DayPosition
@@ -29,6 +38,10 @@ import java.time.YearMonth
 
 class Calendar : Fragment(R.layout.fragment_calendar){
 
+    private lateinit var auth: FirebaseAuth
+    private lateinit var database: DatabaseReference
+    private lateinit var SLD: SaveLoadData
+
     private var selectedDate: LocalDate? = null
 
     private lateinit var binding: FragmentCalendarBinding
@@ -36,7 +49,6 @@ class Calendar : Fragment(R.layout.fragment_calendar){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentCalendarBinding.bind(view)
-
 
         val daysOfWeek = daysOfWeek()
         val currentMonth = YearMonth.now()
@@ -87,7 +99,21 @@ class Calendar : Fragment(R.layout.fragment_calendar){
                     }
                 }
             }
+
+            fun updateMoodImage(mood: String?) {
+                Log.d(tag, "Mood from firebase: " + mood.toString())
+                when (mood) {
+                    "Feeling Awesome!" -> binding.exFiveDayImage.setImageResource(R.drawable.img_very_happy)
+                    "Feeling Good" -> binding.exFiveDayImage.setImageResource(R.drawable.img_happy)
+                    "Feeling Meh" -> binding.exFiveDayImage.setImageResource(R.drawable.img_neutral)
+                    "Feeling Down" -> binding.exFiveDayImage.setImageResource(R.drawable.img_sad)
+                    "Feeling Terrible..." -> binding.exFiveDayImage.setImageResource(R.drawable.img_very_sad)
+                    // Add more cases for other moods if needed
+                    else -> binding.exFiveDayImage.setImageResource(0) // Set default image or null if mood is unknown
+                }
+            }
         }
+
         binding.exFiveCalendar.dayBinder = object : MonthDayBinder<DayViewContainer> {
             override fun create(view: View) = DayViewContainer(view)
             override fun bind(container: DayViewContainer, data: CalendarDay) {
@@ -95,14 +121,19 @@ class Calendar : Fragment(R.layout.fragment_calendar){
                 val context = container.binding.root.context
                 val textView = container.binding.exFiveDayText
                 val layout = container.binding.exFiveDayLayout
-                val imageView = container.binding.exFiveDayImage
                 textView.text = data.date.dayOfMonth.toString()
+
+                // Get the date for the current day in the calendar
+                val currentDate = data.date
 
                 if (data.position == DayPosition.MonthDate) {
                     val textColor = ContextCompat.getColor(context, R.color.extra_dark_blue)
                     textView.setTextColor(textColor)
                     layout.setBackgroundResource(if (selectedDate == data.date) R.drawable.example_5_selected_bg else 0)
-                    imageView.setImageResource(R.drawable.img_happy)
+                    // Retrieve mood from Firebase and update the mood image accordingly
+                    getMoodFromFirebase(currentDate) { mood ->
+                        container.updateMoodImage(mood)
+                    }
                 } else {
                     val textColor = ContextCompat.getColor(context, R.color.faded_extra_dark_blue)
                     textView.setTextColor(textColor)
@@ -133,5 +164,34 @@ class Calendar : Fragment(R.layout.fragment_calendar){
                     }
                 }
             }
+    }
+
+    // Function to retrieve mood from Firebase based on date
+    private fun getMoodFromFirebase(date: LocalDate, callback: (String?) -> Unit) {
+        auth = Firebase.auth
+        database = Firebase.database.reference
+        SLD = SaveLoadData()
+
+        val id = auth.currentUser?.uid.toString()
+        val year = date.year.toString()
+        val month = date.monthValue.toString()
+        val day = date.dayOfMonth.toString()
+
+        val entryRef = database.child(id).child("JournalEntries").child(year).child(month).child(day)
+
+        // Read mood value from Firebase
+        entryRef.child("mood").addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val mood = dataSnapshot.getValue(String::class.java)
+                Log.d(tag, "$year-$month-$day")
+                Log.d(tag, "Mood: " + mood.toString())
+                callback.invoke(mood) // Invoke the callback with the mood data
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                Log.e(tag, "Error")
+                callback.invoke(null) // Invoke the callback with null if there's an error
+            }
+        })
     }
 }

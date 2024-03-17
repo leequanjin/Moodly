@@ -18,25 +18,27 @@
             android:layout_weight="0.2" />
 
         <TextView
+            android:text="17 SUN"
             android:id="@+id/idTVDate"
             android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_column="1"
-            android:layout_gravity="center"
             android:layout_weight="1"
             android:fontFamily="sans-serif"
             android:padding="10dp"
             android:textAlignment="viewStart"
             android:textSize="20sp" />
 
-        <TextView
+        <ImageView
             android:id="@+id/idTVMood"
+            android:src="@drawable/img_happy"
+            android:paddingStart="70dp"
+            android:layout_height="50dp"
             android:layout_width="0dp"
             android:layout_column="1"
             android:layout_gravity="center"
-            android:layout_weight="1"
             android:fontFamily="sans-serif"
             android:padding="10dp"
-            android:textAlignment="viewEnd"
             android:textSize="20sp" />
 
         <TextView
@@ -50,7 +52,7 @@
         android:id="@+id/tbhide"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FFFFFF">
+        android:background="@drawable/top_border_bg">
 
         <TextView
             android:id="@+id/emptynessleft2"
