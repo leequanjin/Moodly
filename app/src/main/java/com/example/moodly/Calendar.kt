@@ -14,10 +14,14 @@ import com.example.moodly.calendar.displayText
 import com.example.moodly.databinding.CalendarDayBinding
 import com.example.moodly.databinding.CalendarHeaderBinding
 import com.example.moodly.databinding.FragmentCalendarBinding
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.database
 import com.kizitonwose.calendar.core.CalendarDay
 import com.kizitonwose.calendar.core.CalendarMonth
 import com.kizitonwose.calendar.core.DayPosition
@@ -33,6 +37,10 @@ import java.time.YearMonth
 
 
 class Calendar : Fragment(R.layout.fragment_calendar){
+
+    private lateinit var auth: FirebaseAuth
+    private lateinit var database: DatabaseReference
+    private lateinit var SLD: SaveLoadData
 
     private var selectedDate: LocalDate? = null
 
@@ -160,16 +168,19 @@ class Calendar : Fragment(R.layout.fragment_calendar){
 
     // Function to retrieve mood from Firebase based on date
     private fun getMoodFromFirebase(date: LocalDate, callback: (String?) -> Unit) {
-        val databaseReference = FirebaseDatabase.getInstance().reference
+        auth = Firebase.auth
+        database = Firebase.database.reference
+        SLD = SaveLoadData()
+
+        val id = auth.currentUser?.uid.toString()
         val year = date.year.toString()
         val month = date.monthValue.toString()
         val day = date.dayOfMonth.toString()
 
-        val entryReference =
-            databaseReference.child("JournalEntries").child(year).child(month).child(day)
+        val entryRef = database.child(id).child("JournalEntries").child(year).child(month).child(day)
 
         // Read mood value from Firebase
-        entryReference.child("mood").addListenerForSingleValueEvent(object : ValueEventListener {
+        entryRef.child("mood").addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val mood = dataSnapshot.getValue(String::class.java)
                 Log.d(tag, "$year-$month-$day")

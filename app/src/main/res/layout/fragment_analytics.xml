@@ -10,7 +10,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/app_bg">
+        android:background="@drawable/app_bg"
+        android:paddingTop="32dp">
 
         <TextView
             android:id="@+id/labelAnalytics"
@@ -18,7 +19,7 @@
             android:layout_height="wrap_content"
             android:text="ANALYTICS"
             android:textSize="24sp"
-            android:layout_marginTop="32dp"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
