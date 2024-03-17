@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -79,18 +80,22 @@ class Welcome : AppCompatActivity() {
             val username = edtUsername.text.toString()
             val id = auth.currentUser?.uid.toString()
 
-            DB_Reference.child(id).child("username").setValue(username)
+            if(username.isNotEmpty() && username.length >= 3){
+                DB_Reference.child(id).child("username").setValue(username)
 
-            SLD = SaveLoadData()
+                SLD = SaveLoadData()
 
-            SLD.username = username
+                SLD.username = username
 
-            SLD.SaveData(this)
+                SLD.SaveData(this)
 
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
 
-            finish()
+                finish()
+            }else{
+                Toast.makeText(this, "Username must be longer than 2 characters", Toast.LENGTH_SHORT).show()
+            }
         }
 
         //endregion

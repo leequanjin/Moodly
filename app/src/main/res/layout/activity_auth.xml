@@ -5,77 +5,299 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/app_bg"
     tools:context=".Auth">
-
-    <EditText
-        android:id="@+id/edtEmail"
-        android:layout_width="313dp"
-        android:layout_height="42dp"
-        android:ems="10"
-        android:inputType="textEmailAddress"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/txtEmail"
-        android:layout_width="75dp"
-        android:layout_height="42dp"
-        android:text="Email"
-        android:textSize="30dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/edtEmail"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/txtPassword"
-        android:layout_width="75dp"
-        android:layout_height="42dp"
-        android:text="Pass"
-        android:textSize="30dp"
-        app:layout_constraintEnd_toStartOf="@+id/edtPassword"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtEmail" />
-
-    <EditText
-        android:id="@+id/edtPassword"
-        android:layout_width="314dp"
-        android:layout_height="42dp"
-        android:ems="10"
-        android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtEmail" />
-
-    <Button
-        android:id="@+id/btnRegister"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="96dp"
-        android:text="Register"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtPassword"
-        app:layout_constraintVertical_bias="0.497" />
 
     <Button
         android:id="@+id/btnSkip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Skip(debug only)"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btnLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="108dp"
-        android:text="Login"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layLoginScreen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        tools:visibility="gone">
+
+        <TextView
+            android:id="@+id/txtLoginTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="64dp"
+            android:outlineAmbientShadowColor="#000000"
+            android:outlineSpotShadowColor="#000000"
+            android:shadowColor="#88000000"
+            android:shadowDx="6"
+            android:shadowDy="4"
+            android:shadowRadius="10"
+            android:text="LOGIN"
+            android:textColor="@color/white"
+            android:textSize="45dp"
+            app:layout_constraintBottom_toTopOf="@+id/frameLayout2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <FrameLayout
+            android:id="@+id/frameLayout2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            app:layout_constraintBottom_toTopOf="@+id/frameLayout3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <EditText
+                android:id="@+id/edtEmailLogin"
+                android:layout_width="300dp"
+                android:layout_height="40dp"
+                android:background="@drawable/round_corner_text_field"
+                android:ems="10"
+                android:hint="Email"
+                android:inputType="textEmailAddress"
+                android:outlineAmbientShadowColor="#000000"
+                android:outlineSpotShadowColor="#000000"
+                android:paddingLeft="50dp" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:translationX="10dp"
+                android:translationY="5dp"
+                app:srcCompat="@android:drawable/ic_dialog_email" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/frameLayout3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="120dp"
+            app:layout_constraintBottom_toTopOf="@+id/btnLogin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <EditText
+                android:id="@+id/edtPasswordLogin"
+                android:layout_width="300dp"
+                android:layout_height="40dp"
+                android:background="@drawable/round_corner_text_field"
+                android:ems="10"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:paddingLeft="50dp" />
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:translationX="10dp"
+                android:translationY="6dp"
+                app:srcCompat="@drawable/key" />
+
+            <ImageButton
+                android:id="@+id/btnShowPasswordLogin"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:background="#00FFFFFF"
+                android:scaleType="fitCenter"
+                android:tag="hide password"
+                android:translationX="260dp"
+                android:translationY="6dp"
+                app:srcCompat="@drawable/eye_open" />
+        </FrameLayout>
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
+            android:text="Login"
+            app:layout_constraintBottom_toTopOf="@+id/btnChangeToRegister"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/btnChangeToRegister"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:layout_marginBottom="44dp"
+            android:background="#00000000"
+            android:text="Click me if you don't have account!!"
+            android:textColor="#75000000"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layRegisterScreen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtPassword"
-        app:layout_constraintVertical_bias="0.497" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:visibility="visible">
+
+        <TextView
+            android:id="@+id/txtRegisterTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="64dp"
+            android:outlineAmbientShadowColor="#000000"
+            android:outlineSpotShadowColor="#000000"
+            android:shadowColor="#88000000"
+            android:shadowDx="6"
+            android:shadowDy="4"
+            android:shadowRadius="10"
+            android:text="REGISTER"
+            android:textColor="@color/white"
+            android:textSize="45dp"
+            app:layout_constraintBottom_toTopOf="@+id/frameLayout4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <FrameLayout
+            android:id="@+id/frameLayout4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/frameLayout5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <EditText
+                android:id="@+id/edtEmailRegister"
+                android:layout_width="300dp"
+                android:layout_height="40dp"
+                android:background="@drawable/round_corner_text_field"
+                android:ems="10"
+                android:hint="Email"
+                android:inputType="textEmailAddress"
+                android:outlineAmbientShadowColor="#000000"
+                android:outlineSpotShadowColor="#000000"
+                android:paddingLeft="50dp" />
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:translationX="10dp"
+                android:translationY="5dp"
+                app:srcCompat="@android:drawable/ic_dialog_email" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/frameLayout5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/frameLayout6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <EditText
+                android:id="@+id/edtPasswordRegister"
+                android:layout_width="300dp"
+                android:layout_height="40dp"
+                android:background="@drawable/round_corner_text_field"
+                android:ems="10"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:paddingLeft="50dp" />
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:translationX="10dp"
+                android:translationY="6dp"
+                app:srcCompat="@drawable/key" />
+
+            <ImageButton
+                android:id="@+id/btnShowPasswordRegister"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:background="#00FFFFFF"
+                android:scaleType="fitCenter"
+                android:tag="hide password"
+                android:translationX="260dp"
+                android:translationY="6dp"
+                app:srcCompat="@drawable/eye_open" />
+        </FrameLayout>
+
+        <Button
+            android:id="@+id/btnRegister"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
+            android:text="Register"
+            app:layout_constraintBottom_toTopOf="@+id/btnChangeToLogin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <FrameLayout
+            android:id="@+id/frameLayout6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="120dp"
+            app:layout_constraintBottom_toTopOf="@+id/btnRegister"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <EditText
+                android:id="@+id/edtPasswordConfirmRegister"
+                android:layout_width="300dp"
+                android:layout_height="40dp"
+                android:background="@drawable/round_corner_text_field"
+                android:ems="10"
+                android:hint="Confirm Password"
+                android:inputType="textPassword"
+                android:paddingLeft="50dp" />
+
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:translationX="10dp"
+                android:translationY="6dp"
+                app:srcCompat="@drawable/key" />
+
+            <ImageButton
+                android:id="@+id/btnShowPasswordConfirmRegister"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:background="#00FFFFFF"
+                android:scaleType="fitCenter"
+                android:tag="hide password"
+                android:translationX="260dp"
+                android:translationY="6dp"
+                app:srcCompat="@drawable/eye_open" />
+        </FrameLayout>
+
+        <Button
+            android:id="@+id/btnChangeToLogin"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:layout_marginBottom="44dp"
+            android:background="#00000000"
+            android:text="Click me if you have account!!"
+            android:textColor="#75000000"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
