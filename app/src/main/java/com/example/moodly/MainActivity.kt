@@ -2,9 +2,11 @@ package com.example.moodly
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.moodly.databinding.ActivityMainBinding
+import java.util.Calendar
 
 class MainActivity : AppCompatActivity() {
 
@@ -34,7 +36,19 @@ class MainActivity : AppCompatActivity() {
 
         // floating action button
         binding.floatingActionButton.setOnClickListener {
-            startActivity(Intent(this, WriteJournal::class.java))
+            val calendar = Calendar.getInstance()
+            val year = calendar.get(Calendar.YEAR)
+            val month = (calendar.get(Calendar.MONTH)) + 1
+            val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+            val intent = Intent(this, WriteJournal::class.java)
+            intent.putExtra("year", year)
+            intent.putExtra("month", month)
+            intent.putExtra("day", day)
+
+            Log.d("Journey", "The date passed is $year-$month-$day")
+
+            startActivity(intent)
         }
     }
 
