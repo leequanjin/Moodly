@@ -153,7 +153,7 @@
         app:iconTint="@color/extra_dark_blue"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_bot"
+        android:id="@+id/fab_mic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
@@ -163,11 +163,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/ic_robot"
+        app:srcCompat="@drawable/ic_microphone"
         android:contentDescription="feature"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
-        app:maxImageSize="45dp"
+        app:maxImageSize="30dp"
         app:backgroundTint="@color/white"
         app:tint="@color/extra_dark_blue"/>
 

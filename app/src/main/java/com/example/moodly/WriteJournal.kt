@@ -1,14 +1,19 @@
 package com.example.moodly
 
+import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.Dialog
+import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.speech.RecognizerIntent
+import android.speech.SpeechRecognizer
 import android.util.Log
 import android.view.Gravity
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.moodly.databinding.ActivityWriteJournalBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -31,6 +36,7 @@ data class JournalEntry(
     val tags: List<String>? = null
 )
 class WriteJournal : AppCompatActivity() {
+    private val RQ_SPEECH_REC = 102
 
     private lateinit var binding: ActivityWriteJournalBinding
     private lateinit var auth: FirebaseAuth
@@ -116,6 +122,10 @@ class WriteJournal : AppCompatActivity() {
             showDialog()
         }
 
+        binding.fabMic.setOnClickListener {
+            askSpeechInput()
+        }
+
     }
 
     private fun showDatePickerDialog(textView: TextView) {
@@ -147,6 +157,8 @@ class WriteJournal : AppCompatActivity() {
         dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation
         dialog.window?.setGravity(Gravity.BOTTOM)
         dialog.window?.setDimAmount(0.1f)
+
+
     }
 
     private fun showMoodSelectionDialog() {
@@ -245,4 +257,39 @@ class WriteJournal : AppCompatActivity() {
         })
     }
 
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == RQ_SPEECH_REC && resultCode == Activity.RESULT_OK) {
+
+            val res : ArrayList<String>? = data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+            val newText = res?.get(0) ?: return // Ensure res is not null and has elements
+
+            val currentText = binding.etContent.text.toString()
+
+            // Choose whether to append or overwrite based on your logic
+            val finalText = if (currentText.isNotEmpty()) {
+                // Append new text with a space separator
+                "$currentText $newText"
+            } else {
+                // Overwrite existing text with the new text
+                newText
+            }
+
+            // Set the final text to the EditText
+            binding.etContent.setText(finalText)
+        }
+    }
+    private fun askSpeechInput() {
+        if (!SpeechRecognizer.isRecognitionAvailable(this)) {
+            Toast.makeText(this ,"Speech recognition is not available", Toast.LENGTH_SHORT).show()
+        } else  {
+            val i = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+            i.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+            i.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
+            i.putExtra(RecognizerIntent.EXTRA_PROMPT, "Say something!")
+            startActivityForResult(i, RQ_SPEECH_REC)
+        }
+    }
 }

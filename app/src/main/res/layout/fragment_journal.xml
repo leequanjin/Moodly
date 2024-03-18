@@ -46,54 +46,72 @@
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.appcompat.widget.Toolbar>
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardQuotes"
+        <ScrollView
+            android:id="@+id/scroll_view"
+            android:layout_below="@id/tbtoolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="500dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="12dp"
             app:cardCornerRadius="12dp"
             app:cardElevation="2dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="12dp"
-            android:layout_below="@id/tbtoolbar">
-            <!-- Inner LinearLayout -->
+            android:scrollbars="none">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                >
 
-                <!-- TextView for quotes title -->
-                <TextView
-                    android:id="@+id/tv_quotes"
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardQuotes"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:text="Title"
-                    android:textAlignment="center"
-                    android:textSize="18sp"
-                    android:textStyle="italic" />
 
-                <!-- TextView for quotes author name -->
-                <TextView
-                    android:id="@+id/tv_author"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="2dp">
+                    <!-- Inner LinearLayout -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <!-- TextView for quotes title -->
+                        <TextView
+                            android:id="@+id/tv_quotes"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:text="Title"
+                            android:textAlignment="center"
+                            android:textSize="18sp"
+                            android:textStyle="italic" />
+
+                        <!-- TextView for quotes author name -->
+                        <TextView
+                            android:id="@+id/tv_author"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Subtitle"
+                            android:textAlignment="viewEnd"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/idRVRecord"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Subtitle"
-                    android:textAlignment="viewEnd"
-                    android:textSize="14sp" />
-
+                    android:layout_marginTop="15dp" />
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </ScrollView>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/idRVRecord"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:paddingHorizontal="15dp"
-            android:layout_below="@id/cardQuotes"/>
     </RelativeLayout>
 
 <!--    <androidx.constraintlayout.widget.ConstraintLayout-->
