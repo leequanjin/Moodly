@@ -20,6 +20,16 @@
             android:gravity="center"
             android:textSize="24sp"/>
 
+        <Button
+            android:id="@+id/btnFilter"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="20dp"
+            android:layout_alignParentEnd="true"
+            android:text="Button"
+            android:background="@drawable/filtericon"/>
+
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/tbtoolbar"
             style="@style/Widget.MaterialComponents.Toolbar.Primary"
@@ -42,8 +52,7 @@
                 android:paddingEnd="10dp"
                 android:hint="Search Bar"
                 android:textAlignment="viewStart"
-                android:textSize="18sp"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:textSize="18sp" />
         </androidx.appcompat.widget.Toolbar>
 
         <ScrollView

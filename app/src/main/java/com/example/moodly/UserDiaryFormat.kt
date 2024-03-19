@@ -7,5 +7,7 @@ data class UserDiaryFormat(
     var dateDiary: String,
     var moodDiary: Drawable?,
     var contentDiary: String,
-    var completeDate: LocalDate
+    var completeDate: LocalDate,
+    var tagsDiary: ArrayList<String>,
+    var mood: String
 )
