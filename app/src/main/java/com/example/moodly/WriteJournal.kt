@@ -56,10 +56,12 @@ class WriteJournal : AppCompatActivity() {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
             if (result.resultCode == Activity.RESULT_OK) {
                 val returnData = result.data?.getStringExtra("journal")
+                val mood = result.data?.getStringExtra("mood")
                 print("pass back: $returnData")
 
                 if (returnData != "") {
                     binding.etContent.setText(returnData)
+                    updateMood(mood.toString())
                 }
             }
         }
