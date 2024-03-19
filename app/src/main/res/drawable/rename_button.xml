@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Button pressed state -->
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/blue_pressed" /> <!-- Change to your desired pressed color -->
+            <corners android:radius="8dp" /> <!-- Adjust the corner radius if needed -->
+        </shape>
+    </item>
+    <!-- Button focused state -->
+    <item android:state_focused="true">
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="radial"
+                android:startColor="#ffffff"
+                android:endColor="#D0D1f5"
+                android:angle="10"
+                android:gradientRadius="150%p">
+            </gradient>
+            <corners android:radius="8dp" /> <!-- Adjust the corner radius if needed -->
+        </shape>
+    </item>
+    <!-- Button default state -->
+    <item android:state_enabled="true">
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="radial"
+                android:startColor="#D0D1f5"
+                android:endColor="#ffffff"
+                android:angle="10"
+                android:gradientRadius="150%p">
+            </gradient>
+            <corners android:radius="8dp" /> <!-- Adjust the corner radius if needed -->
+        </shape>
+    </item>
+</selector>
