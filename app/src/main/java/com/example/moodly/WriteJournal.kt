@@ -12,6 +12,7 @@ import android.util.Log
 import android.view.Gravity
 import android.view.ViewGroup
 import android.view.Window
+import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -78,7 +79,7 @@ class WriteJournal : AppCompatActivity() {
 
         // cancel
         binding.btnCancel.setOnClickListener {
-            finish()
+            showDialog()
         }
 
         // write data to firebase
@@ -158,7 +159,15 @@ class WriteJournal : AppCompatActivity() {
         dialog.window?.setGravity(Gravity.BOTTOM)
         dialog.window?.setDimAmount(0.1f)
 
+        val btnReject = dialog.findViewById<Button>(R.id.btn_reject_bottom_sheet)
+        val btnAccept = dialog.findViewById<Button>(R.id.btn_accept_bottom_sheet)
 
+        btnReject.setOnClickListener {
+            dialog.hide()
+        }
+        btnAccept.setOnClickListener {
+            finish()
+        }
     }
 
     private fun showMoodSelectionDialog() {

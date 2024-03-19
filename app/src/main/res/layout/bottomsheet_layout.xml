@@ -1,22 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/bottomsheet_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/dialog_bg">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/bottom_sheet_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:text="Enchance Your Journal?"
+        android:text="Exit Journal?"
+        android:textStyle="bold"
+        android:letterSpacing="0.08"
         android:textSize="24sp"
         android:textColor="@color/extra_dark_blue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/bottom_sheet_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:text="Your unsaved changes will be lost."
+        android:textSize="18sp"
+        android:textColor="#CC24336A"
+        app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_title"
+        app:layout_constraintBottom_toTopOf="@+id/black_line"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <LinearLayout
         android:id="@+id/black_line"
@@ -28,16 +45,16 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_description" />
 
     <Button
-        android:id="@+id/outlinedButton"
+        android:id="@+id/btn_reject_bottom_sheet"
         style="?attr/materialButtonOutlinedStyle"
-        android:layout_width="wrap_content"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"
-        android:layout_marginStart="24dp"
-        android:text="No, thank you"
+        android:layout_marginStart="30dp"
+        android:text="Cancel"
         android:textSize="16sp"
         android:textColor="@color/dark_blue"
         app:strokeColor="@color/dark_blue"
@@ -47,12 +64,12 @@
         app:layout_constraintTop_toBottomOf="@+id/black_line" />
 
     <Button
-        android:id="@+id/filledButton"
-        android:layout_width="wrap_content"
+        android:id="@+id/btn_accept_bottom_sheet"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"
-        android:layout_marginEnd="24dp"
-        android:text="Yes, Please!"
+        android:layout_marginEnd="30dp"
+        android:text="Exit"
         android:textSize="16sp"
         app:backgroundTint="@color/dark_blue"
         app:layout_constraintEnd_toEndOf="parent"
