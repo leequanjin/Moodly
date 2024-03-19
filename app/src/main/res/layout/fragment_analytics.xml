@@ -29,7 +29,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cardAnalytics"
             android:layout_width="0dp"
-            android:layout_height="280dp"
+            android:layout_height="340dp"
             android:layout_marginStart="32dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="32dp"
