@@ -91,8 +91,6 @@ class Auth : AppCompatActivity() {
 
         //region Button On Click Listener
 
-        //TODO: Check if input valid
-
         btnLogin.setOnClickListener{
             email = edtEmailLogin.text.toString()
             password = edtPasswordLogin.text.toString()

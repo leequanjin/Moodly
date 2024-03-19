@@ -119,14 +119,14 @@ class WriteJournal : AppCompatActivity() {
         }
 
         // enhance confirmation dialog
-        binding.btnEnhance.setOnClickListener {
+        /*binding.btnEnhance.setOnClickListener {
             showDialog()
-        }
+        }*/
 
-        binding.fabMic.setOnClickListener {
-            askSpeechInput()
+        binding.fabBot.setOnClickListener{
+            val intent = Intent(this, botpress::class.java)
+            startActivity(intent)
         }
-
     }
 
     private fun showDatePickerDialog(textView: TextView) {
@@ -148,6 +148,7 @@ class WriteJournal : AppCompatActivity() {
         datePickerDialog.show()
     }
 
+    //Avoid this function
     private fun showDialog() {
         val dialog = Dialog(this)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
