@@ -121,7 +121,9 @@
             android:ems="10"
             android:inputType="text"
             android:textSize="20dp"
-            android:paddingLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:padding="8dp"
+            android:paddingStart="12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
@@ -131,10 +133,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Get Started"
+            android:backgroundTint="@color/extra_dark_blue"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edtUsername" />
+            app:layout_constraintTop_toBottomOf="@+id/edtUsername"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

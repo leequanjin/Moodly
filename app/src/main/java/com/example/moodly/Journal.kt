@@ -212,7 +212,7 @@ class Journal : Fragment() {
             "Feeling Meh" -> ContextCompat.getDrawable(context, R.drawable.img_neutral)
             "Feeling Down" -> ContextCompat.getDrawable(context, R.drawable.img_sad)
             "Feeling Terrible..." -> ContextCompat.getDrawable(context, R.drawable.img_very_sad)
-            else -> null // Return null for unknown moods
+            else -> ContextCompat.getDrawable(context, R.drawable.img_no_mood)
         }
     }
     //endregion

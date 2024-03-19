@@ -2,13 +2,9 @@ package com.example.moodly
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.InputType
-import android.text.method.PasswordTransformationMethod
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageButton
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -28,7 +24,6 @@ class Auth : AppCompatActivity() {
     lateinit var layLoginScreen: ConstraintLayout
     lateinit var edtEmailLogin: EditText
     lateinit var edtPasswordLogin: EditText
-    lateinit var btnShowPasswordLogin: ImageButton
     lateinit var btnLogin: Button
     lateinit var btnChangeToRegister: Button
 
@@ -36,8 +31,6 @@ class Auth : AppCompatActivity() {
     lateinit var edtEmailRegister: EditText
     lateinit var edtPasswordRegister: EditText
     lateinit var edtPasswordConfirmRegister: EditText
-    lateinit var btnShowPasswordRegister: ImageButton
-    lateinit var btnShowPasswordConfirmRegister: ImageButton
     lateinit var btnRegister: Button
     lateinit var btnChangeToLogin: Button
 
@@ -69,7 +62,6 @@ class Auth : AppCompatActivity() {
         layLoginScreen = findViewById(R.id.layLoginScreen)
         edtEmailLogin = findViewById(R.id.edtEmailLogin)
         edtPasswordLogin = findViewById(R.id.edtPasswordLogin)
-        btnShowPasswordLogin = findViewById(R.id.btnShowPasswordLogin)
         btnLogin = findViewById(R.id.btnLogin)
         btnChangeToRegister = findViewById(R.id.btnChangeToRegister)
 
@@ -77,8 +69,6 @@ class Auth : AppCompatActivity() {
         edtEmailRegister = findViewById(R.id.edtEmailRegister)
         edtPasswordRegister = findViewById(R.id.edtPasswordRegister)
         edtPasswordConfirmRegister = findViewById(R.id.edtPasswordConfirmRegister)
-        btnShowPasswordRegister = findViewById(R.id.btnShowPasswordRegister)
-        btnShowPasswordConfirmRegister = findViewById(R.id.btnShowPasswordConfirmRegister)
         btnRegister = findViewById(R.id.btnRegister)
         btnChangeToLogin = findViewById(R.id.btnChangeToLogin)
 
@@ -113,51 +103,6 @@ class Auth : AppCompatActivity() {
                 Toast.makeText(this, "Password must be longer than 7 character.", Toast.LENGTH_SHORT).show()
             }else{
                 login(email, password)
-            }
-        }
-
-        btnShowPasswordLogin.setOnClickListener{
-            if(btnShowPasswordLogin.tag.equals("hide password")){
-                //show password
-                btnShowPasswordLogin.setImageResource(R.drawable.eye_close)
-                btnShowPasswordLogin.tag = "show password"
-                edtPasswordLogin.transformationMethod = null
-
-            }else{
-                //hide password
-                btnShowPasswordLogin.setImageResource(R.drawable.eye_open)
-                btnShowPasswordLogin.tag = "hide password"
-                edtPasswordLogin.transformationMethod = PasswordTransformationMethod()
-            }
-        }
-
-        btnShowPasswordRegister.setOnClickListener{
-            if(btnShowPasswordRegister.tag.equals("hide password")){
-                //show password
-                btnShowPasswordRegister.setImageResource(R.drawable.eye_close)
-                btnShowPasswordRegister.tag = "show password"
-                edtPasswordRegister.transformationMethod = null
-
-            }else{
-                //hide password
-                btnShowPasswordRegister.setImageResource(R.drawable.eye_open)
-                btnShowPasswordRegister.tag = "hide password"
-                edtPasswordRegister.transformationMethod = PasswordTransformationMethod()
-            }
-        }
-
-        btnShowPasswordConfirmRegister.setOnClickListener{
-            if(btnShowPasswordConfirmRegister.tag.equals("hide password")){
-                //show password
-                btnShowPasswordConfirmRegister.setImageResource(R.drawable.eye_close)
-                btnShowPasswordConfirmRegister.tag = "show password"
-                edtPasswordConfirmRegister.transformationMethod = null
-
-            }else{
-                //hide password
-                btnShowPasswordConfirmRegister.setImageResource(R.drawable.eye_open)
-                btnShowPasswordConfirmRegister.tag = "hide password"
-                edtPasswordConfirmRegister.transformationMethod = PasswordTransformationMethod()
             }
         }
 

@@ -5,133 +5,234 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/app_bg"
+    android:background="@drawable/app_bg_no_clouds"
     tools:context=".Auth">
 
     <Button
         android:id="@+id/btnSkip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
         android:text="Skip(debug only)"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:visibility="visible" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layLoginScreen"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
-        tools:visibility="gone">
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible">
+
+        <LinearLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/layLoginScreen">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="@color/extra_dark_blue"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:letterSpacing="0.1"
+                    android:text="Welcome to Moodly"
+                    android:textColor="@color/white"
+                    android:textSize="32sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:background="@drawable/wave"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:letterSpacing="0.1"
+                    android:text="Login to Continue"
+                    android:textColor="@color/light_blue"
+                    android:textSize="20sp" />
+            </LinearLayout>
+        </LinearLayout>
+
 
         <TextView
             android:id="@+id/txtLoginTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="64dp"
-            android:outlineAmbientShadowColor="#000000"
-            android:outlineSpotShadowColor="#000000"
-            android:shadowColor="#88000000"
-            android:shadowDx="6"
-            android:shadowDy="4"
-            android:shadowRadius="10"
-            android:text="LOGIN"
-            android:textColor="@color/white"
+            android:text="Login"
+            android:textColor="@color/extra_dark_blue"
             android:textSize="45dp"
-            app:layout_constraintBottom_toTopOf="@+id/frameLayout2"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/header"
+            app:layout_constraintVertical_bias="0.0" />
 
         <FrameLayout
             android:id="@+id/frameLayout2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
-            app:layout_constraintBottom_toTopOf="@+id/frameLayout3"
+            android:layout_marginTop="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtLoginTitle"
+            app:layout_constraintVertical_bias="0.0">
 
-            <EditText
-                android:id="@+id/edtEmailLogin"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="300dp"
-                android:layout_height="40dp"
-                android:background="@drawable/round_corner_text_field"
-                android:ems="10"
-                android:hint="Email"
-                android:inputType="textEmailAddress"
-                android:outlineAmbientShadowColor="#000000"
-                android:outlineSpotShadowColor="#000000"
-                android:paddingLeft="50dp" />
+                android:layout_height="wrap_content"
+                android:textColorHint="@drawable/text_input_layout_stroke_color"
+                app:boxBackgroundColor="@color/white"
+                app:boxStrokeColor="@drawable/text_input_layout_stroke_color"
+                app:boxStrokeWidth="1dp"
+                app:startIconDrawable="@drawable/ic_envelope"
+                app:startIconTint="@drawable/text_input_layout_stroke_color">
 
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:translationX="10dp"
-                android:translationY="5dp"
-                app:srcCompat="@android:drawable/ic_dialog_email" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtEmailLogin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Email"
+                    android:inputType="textEmailAddress" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--            <EditText-->
+            <!--                android:id="@+id/edtEmailLogin"-->
+            <!--                android:layout_width="300dp"-->
+            <!--                android:layout_height="40dp"-->
+            <!--                android:background="@drawable/round_corner_text_field"-->
+            <!--                android:ems="10"-->
+            <!--                android:hint="Email"-->
+            <!--                android:inputType="textEmailAddress"-->
+            <!--                android:outlineAmbientShadowColor="#000000"-->
+            <!--                android:outlineSpotShadowColor="#000000"-->
+            <!--                android:paddingLeft="50dp" />-->
+
+            <!--            <ImageView-->
+            <!--                android:id="@+id/imageView2"-->
+            <!--                android:layout_width="32dp"-->
+            <!--                android:layout_height="32dp"-->
+            <!--                android:translationX="10dp"-->
+            <!--                android:translationY="5dp"-->
+            <!--                app:srcCompat="@android:drawable/ic_dialog_email" />-->
         </FrameLayout>
 
         <FrameLayout
             android:id="@+id/frameLayout3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="120dp"
-            app:layout_constraintBottom_toTopOf="@+id/btnLogin"
+            android:layout_marginTop="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/frameLayout2"
+            app:layout_constraintVertical_bias="0.0">
 
-            <EditText
-                android:id="@+id/edtPasswordLogin"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="300dp"
-                android:layout_height="40dp"
-                android:background="@drawable/round_corner_text_field"
-                android:ems="10"
-                android:hint="Password"
-                android:inputType="textPassword"
-                android:paddingLeft="50dp" />
+                android:layout_height="wrap_content"
+                android:textColorHint="@drawable/text_input_layout_stroke_color"
+                app:boxBackgroundColor="@color/white"
+                app:boxStrokeColor="@drawable/text_input_layout_stroke_color"
+                app:boxStrokeWidth="1dp"
+                app:endIconMode="password_toggle"
+                app:endIconTint="@drawable/text_input_layout_stroke_color"
+                app:startIconDrawable="@drawable/ic_key"
+                app:startIconTint="@drawable/text_input_layout_stroke_color">
 
-            <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:translationX="10dp"
-                android:translationY="6dp"
-                app:srcCompat="@drawable/key" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtPasswordLogin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Password"
+                    android:inputType="textPassword" />
 
-            <ImageButton
-                android:id="@+id/btnShowPasswordLogin"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:background="#00FFFFFF"
-                android:scaleType="fitCenter"
-                android:tag="hide password"
-                android:translationX="260dp"
-                android:translationY="6dp"
-                app:srcCompat="@drawable/eye_open" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--            <EditText-->
+            <!--                android:id="@+id/edtPasswordLogin"-->
+            <!--                android:layout_width="300dp"-->
+            <!--                android:layout_height="40dp"-->
+            <!--                android:background="@drawable/round_corner_text_field"-->
+            <!--                android:ems="10"-->
+            <!--                android:hint="Password"-->
+            <!--                android:inputType="textPassword"-->
+            <!--                android:paddingLeft="50dp" />-->
+
+            <!--            <ImageView-->
+            <!--                android:id="@+id/imageView3"-->
+            <!--                android:layout_width="28dp"-->
+            <!--                android:layout_height="28dp"-->
+            <!--                android:translationX="10dp"-->
+            <!--                android:translationY="6dp"-->
+            <!--                app:srcCompat="@drawable/key" />-->
+
+            <!--            <ImageButton-->
+            <!--                android:id="@+id/btnShowPasswordLogin"-->
+            <!--                android:layout_width="28dp"-->
+            <!--                android:layout_height="28dp"-->
+            <!--                android:background="#00FFFFFF"-->
+            <!--                android:scaleType="fitCenter"-->
+            <!--                android:tag="hide password"-->
+            <!--                android:translationX="260dp"-->
+            <!--                android:translationY="6dp"-->
+            <!--                app:srcCompat="@drawable/eye_open" />-->
         </FrameLayout>
 
         <Button
             android:id="@+id/btnLogin"
-            android:layout_width="300dp"
-            android:layout_height="45dp"
-            android:text="Login"
-            app:layout_constraintBottom_toTopOf="@+id/btnChangeToRegister"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:backgroundTint="@color/extra_dark_blue"
+            android:letterSpacing="0.1"
+            android:text="LOGIN"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.495"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/frameLayout3"
+            app:layout_constraintVertical_bias="0.0" />
 
         <Button
             android:id="@+id/btnChangeToRegister"
             android:layout_width="300dp"
             android:layout_height="40dp"
+            android:layout_marginTop="8dp"
             android:layout_marginBottom="44dp"
             android:background="#00000000"
-            android:text="Click me if you don't have account!!"
-            android:textColor="#75000000"
+            android:text="Don't have an account? Sign Up"
+            android:textColor="@color/faded_extra_dark_blue"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.495"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnLogin"
+            app:layout_constraintVertical_bias="0.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -142,58 +243,115 @@
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        tools:visibility="visible">
+        tools:visibility="gone">
+
+        <LinearLayout
+            android:id="@+id/header2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/layRegisterScreen">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="@color/extra_dark_blue"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:letterSpacing="0.1"
+                    android:text="Welcome to Moodly"
+                    android:textColor="@color/white"
+                    android:textSize="32sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:background="@drawable/wave"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:letterSpacing="0.1"
+                    android:text="Sign Up to Continue"
+                    android:textColor="@color/light_blue"
+                    android:textSize="20sp" />
+            </LinearLayout>
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/txtRegisterTitle"
+            android:id="@+id/txtSignUpTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="64dp"
-            android:outlineAmbientShadowColor="#000000"
-            android:outlineSpotShadowColor="#000000"
-            android:shadowColor="#88000000"
-            android:shadowDx="6"
-            android:shadowDy="4"
-            android:shadowRadius="10"
-            android:text="REGISTER"
-            android:textColor="@color/white"
+            android:text="Sign Up"
+            android:textColor="@color/extra_dark_blue"
             android:textSize="45dp"
-            app:layout_constraintBottom_toTopOf="@+id/frameLayout4"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/header2"
+            app:layout_constraintVertical_bias="0.0" />
 
         <FrameLayout
             android:id="@+id/frameLayout4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            app:layout_constraintBottom_toTopOf="@+id/frameLayout5"
+            android:layout_marginTop="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtSignUpTitle"
+            app:layout_constraintVertical_bias="0.0">
 
-            <EditText
-                android:id="@+id/edtEmailRegister"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="300dp"
-                android:layout_height="40dp"
-                android:background="@drawable/round_corner_text_field"
-                android:ems="10"
-                android:hint="Email"
-                android:inputType="textEmailAddress"
-                android:outlineAmbientShadowColor="#000000"
-                android:outlineSpotShadowColor="#000000"
-                android:paddingLeft="50dp" />
+                android:layout_height="wrap_content"
+                android:textColorHint="@drawable/text_input_layout_stroke_color"
+                app:boxBackgroundColor="@color/white"
+                app:boxStrokeColor="@drawable/text_input_layout_stroke_color"
+                app:boxStrokeWidth="1dp"
+                app:startIconDrawable="@drawable/ic_envelope"
+                app:startIconTint="@drawable/text_input_layout_stroke_color">
 
-            <ImageView
-                android:id="@+id/imageView4"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:translationX="10dp"
-                android:translationY="5dp"
-                app:srcCompat="@android:drawable/ic_dialog_email" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtEmailRegister"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Email"
+                    android:inputType="textEmailAddress" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--            <EditText-->
+            <!--                android:id="@+id/edtEmailRegister"-->
+            <!--                android:layout_width="300dp"-->
+            <!--                android:layout_height="40dp"-->
+            <!--                android:background="@drawable/round_corner_text_field"-->
+            <!--                android:ems="10"-->
+            <!--                android:hint="Email"-->
+            <!--                android:inputType="textEmailAddress"-->
+            <!--                android:outlineAmbientShadowColor="#000000"-->
+            <!--                android:outlineSpotShadowColor="#000000"-->
+            <!--                android:paddingLeft="50dp" />-->
+
+            <!--            <ImageView-->
+            <!--                android:id="@+id/imageView4"-->
+            <!--                android:layout_width="32dp"-->
+            <!--                android:layout_height="32dp"-->
+            <!--                android:translationX="10dp"-->
+            <!--                android:translationY="5dp"-->
+            <!--                app:srcCompat="@android:drawable/ic_dialog_email" />-->
 
         </FrameLayout>
 
@@ -201,102 +359,158 @@
             android:id="@+id/frameLayout5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            app:layout_constraintBottom_toTopOf="@+id/frameLayout6"
+            android:layout_marginTop="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/frameLayout4"
+            app:layout_constraintVertical_bias="0.0">
 
-            <EditText
-                android:id="@+id/edtPasswordRegister"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="300dp"
-                android:layout_height="40dp"
-                android:background="@drawable/round_corner_text_field"
-                android:ems="10"
-                android:hint="Password"
-                android:inputType="textPassword"
-                android:paddingLeft="50dp" />
+                android:layout_height="wrap_content"
+                android:textColorHint="@drawable/text_input_layout_stroke_color"
+                app:boxBackgroundColor="@color/white"
+                app:boxStrokeColor="@drawable/text_input_layout_stroke_color"
+                app:boxStrokeWidth="1dp"
+                app:endIconMode="password_toggle"
+                app:endIconTint="@drawable/text_input_layout_stroke_color"
+                app:startIconDrawable="@drawable/ic_key"
+                app:startIconTint="@drawable/text_input_layout_stroke_color">
 
-            <ImageView
-                android:id="@+id/imageView5"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:translationX="10dp"
-                android:translationY="6dp"
-                app:srcCompat="@drawable/key" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtPasswordRegister"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Password"
+                    android:inputType="textPassword" />
 
-            <ImageButton
-                android:id="@+id/btnShowPasswordRegister"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:background="#00FFFFFF"
-                android:scaleType="fitCenter"
-                android:tag="hide password"
-                android:translationX="260dp"
-                android:translationY="6dp"
-                app:srcCompat="@drawable/eye_open" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--            <EditText-->
+            <!--                android:id="@+id/edtPasswordRegister"-->
+            <!--                android:layout_width="300dp"-->
+            <!--                android:layout_height="40dp"-->
+            <!--                android:background="@drawable/round_corner_text_field"-->
+            <!--                android:ems="10"-->
+            <!--                android:hint="Password"-->
+            <!--                android:inputType="textPassword"-->
+            <!--                android:paddingLeft="50dp" />-->
+
+            <!--            <ImageView-->
+            <!--                android:id="@+id/imageView5"-->
+            <!--                android:layout_width="28dp"-->
+            <!--                android:layout_height="28dp"-->
+            <!--                android:translationX="10dp"-->
+            <!--                android:translationY="6dp"-->
+            <!--                app:srcCompat="@drawable/key" />-->
+
+            <!--            <ImageButton-->
+            <!--                android:id="@+id/btnShowPasswordRegister"-->
+            <!--                android:layout_width="28dp"-->
+            <!--                android:layout_height="28dp"-->
+            <!--                android:background="#00FFFFFF"-->
+            <!--                android:scaleType="fitCenter"-->
+            <!--                android:tag="hide password"-->
+            <!--                android:translationX="260dp"-->
+            <!--                android:translationY="6dp"-->
+            <!--                app:srcCompat="@drawable/eye_open" />-->
         </FrameLayout>
-
-        <Button
-            android:id="@+id/btnRegister"
-            android:layout_width="300dp"
-            android:layout_height="45dp"
-            android:text="Register"
-            app:layout_constraintBottom_toTopOf="@+id/btnChangeToLogin"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.495"
-            app:layout_constraintStart_toStartOf="parent" />
 
         <FrameLayout
             android:id="@+id/frameLayout6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="120dp"
-            app:layout_constraintBottom_toTopOf="@+id/btnRegister"
+            android:layout_marginTop="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/frameLayout5"
+            app:layout_constraintVertical_bias="0.0">
 
-            <EditText
-                android:id="@+id/edtPasswordConfirmRegister"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="300dp"
-                android:layout_height="40dp"
-                android:background="@drawable/round_corner_text_field"
-                android:ems="10"
-                android:hint="Confirm Password"
-                android:inputType="textPassword"
-                android:paddingLeft="50dp" />
+                android:layout_height="wrap_content"
+                android:textColorHint="@drawable/text_input_layout_stroke_color"
+                app:boxBackgroundColor="@color/white"
+                app:boxStrokeColor="@drawable/text_input_layout_stroke_color"
+                app:boxStrokeWidth="1dp"
+                app:endIconMode="password_toggle"
+                app:endIconTint="@drawable/text_input_layout_stroke_color"
+                app:startIconDrawable="@drawable/ic_key"
+                app:startIconTint="@drawable/text_input_layout_stroke_color">
 
-            <ImageView
-                android:id="@+id/imageView6"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:translationX="10dp"
-                android:translationY="6dp"
-                app:srcCompat="@drawable/key" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtPasswordConfirmRegister"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Password"
+                    android:inputType="textPassword" />
 
-            <ImageButton
-                android:id="@+id/btnShowPasswordConfirmRegister"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:background="#00FFFFFF"
-                android:scaleType="fitCenter"
-                android:tag="hide password"
-                android:translationX="260dp"
-                android:translationY="6dp"
-                app:srcCompat="@drawable/eye_open" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--            <EditText-->
+            <!--                android:id="@+id/edtPasswordConfirmRegister"-->
+            <!--                android:layout_width="300dp"-->
+            <!--                android:layout_height="40dp"-->
+            <!--                android:background="@drawable/round_corner_text_field"-->
+            <!--                android:ems="10"-->
+            <!--                android:hint="Confirm Password"-->
+            <!--                android:inputType="textPassword"-->
+            <!--                android:paddingLeft="50dp" />-->
+
+            <!--            <ImageView-->
+            <!--                android:id="@+id/imageView6"-->
+            <!--                android:layout_width="28dp"-->
+            <!--                android:layout_height="28dp"-->
+            <!--                android:translationX="10dp"-->
+            <!--                android:translationY="6dp"-->
+            <!--                app:srcCompat="@drawable/key" />-->
+
+            <!--            <ImageButton-->
+            <!--                android:id="@+id/btnShowPasswordConfirmRegister"-->
+            <!--                android:layout_width="28dp"-->
+            <!--                android:layout_height="28dp"-->
+            <!--                android:background="#00FFFFFF"-->
+            <!--                android:scaleType="fitCenter"-->
+            <!--                android:tag="hide password"-->
+            <!--                android:translationX="260dp"-->
+            <!--                android:translationY="6dp"-->
+            <!--                app:srcCompat="@drawable/eye_open" />-->
         </FrameLayout>
+
+        <Button
+            android:id="@+id/btnRegister"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:backgroundTint="@color/extra_dark_blue"
+            android:letterSpacing="0.1"
+            android:text="REGISTER"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/frameLayout6"
+            app:layout_constraintVertical_bias="0.0" />
 
         <Button
             android:id="@+id/btnChangeToLogin"
             android:layout_width="300dp"
             android:layout_height="40dp"
+            android:layout_marginTop="8dp"
             android:layout_marginBottom="44dp"
             android:background="#00000000"
-            android:text="Click me if you have account!!"
-            android:textColor="#75000000"
+            android:text="Already have an account? Log In"
+            android:textColor="@color/faded_extra_dark_blue"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.495"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnRegister"
+            app:layout_constraintVertical_bias="0.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
