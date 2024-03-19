@@ -115,6 +115,7 @@ class Journal : Fragment() {
                 showOptionsDialog(requireContext())
             }else{
                 loadOri(id)
+                userRecordRVAdapter.filterList(userRecord)
                 btnFilter.background=resources.getDrawable(R.drawable.filtericon, null)
                 Toast.makeText(requireContext(), "Filter cancelled", Toast.LENGTH_SHORT).show()
                 clicked=false
