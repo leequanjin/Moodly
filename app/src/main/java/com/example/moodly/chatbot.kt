@@ -167,7 +167,11 @@ class chatbot : AppCompatActivity() {
 
                     println("Bot written journal: $botJournal")
 
-                    setResult(RESULT_OK, Intent().putExtra("journal", botJournal))
+                    val output = Intent()
+                    output.putExtra("journal", botJournal)
+                    output.putExtra("mood", BOT_AI.conversation.get(BOT_AI.conversation.size - 3).msg.replace("mood: ", ""))
+
+                    setResult(RESULT_OK, output)
 
                     edtChat.isEnabled = false
                     edtChat.hint = "Redirect back to journal page in 4 seconds"
