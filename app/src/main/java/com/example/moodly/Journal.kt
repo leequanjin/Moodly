@@ -161,10 +161,10 @@ class Journal : Fragment() {
         ApiCall().getRandomQuotes() { listquote ->
             if (listquote != null) {
                 quoteslist = listquote
-                var num = ((0..listquote.size).shuffled().last())
+                var num = ((0..listquote.size - 1).shuffled().last())
                 val trimmedAuthor = if (quoteslist.get(num).author.length > 10) quoteslist.get(num).author.substring(0, quoteslist.get(num).author.length - 10) else quoteslist.get(num).author
                 tv_quotes.text = quoteslist.get(num).text
-                tv_author.text = ("~ " + trimmedAuthor)
+                tv_author.text = ("~ $trimmedAuthor")
             } else {
                 Toast.makeText(requireContext(), "Something Went Wrong", Toast.LENGTH_SHORT).show()
             }
