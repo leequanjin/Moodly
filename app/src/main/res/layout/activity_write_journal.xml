@@ -155,23 +155,23 @@
         app:iconTint="@color/extra_dark_blue"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_mic"
+        android:id="@+id/fab_bot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
         android:clickable="true"
+        android:contentDescription="feature"
+        app:backgroundTint="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/ic_microphone"
-        android:contentDescription="feature"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
         app:maxImageSize="30dp"
-        app:backgroundTint="@color/white"
-        app:tint="@color/extra_dark_blue"/>
+        app:srcCompat="@drawable/ic_robot"
+        app:tint="@color/extra_dark_blue" />
 
     <LinearLayout
         android:id="@+id/linearLayout"

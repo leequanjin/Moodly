@@ -127,11 +127,6 @@ class WriteJournal : AppCompatActivity() {
             val intent = Intent(this, botpress::class.java)
             startActivity(intent)
         }
-
-        binding.fabMic.setOnClickListener {
-            askSpeechInput()
-        }
-
     }
 
     private fun showDatePickerDialog(textView: TextView) {
