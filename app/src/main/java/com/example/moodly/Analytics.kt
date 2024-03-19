@@ -59,11 +59,10 @@ class Analytics : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Assuming you have a PieChart with the ID pieChart in your XML layout
-        setupPieChart()
+        getData()
     }
 
-    private fun setupPieChart() {
-
+    private fun getData(){
         auth = com.google.firebase.Firebase.auth
         database = Firebase.database.reference
         SLD = SaveLoadData()
@@ -79,11 +78,10 @@ class Analytics : Fragment() {
 
         database.child(id).child("JournalEntries").get()
             .addOnSuccessListener {
-                Log.d("Moodly", "What's the value: ${it.value}")
                 for (year in it.children){
                     for (month in year.children){
                         for (day in month.children) {
-                            val mood = day.child("mood").value
+                            val mood = day.child("mood").value.toString()
                             Log.d("Moodly", "What's the mood: $mood")
                             if (mood == "Feeling Awesome!") {
                                 awesomeCount++
@@ -92,6 +90,7 @@ class Analytics : Fragment() {
                             } else if (mood == "Feeling Meh"){
                                 mehCount++
                             } else if (mood == "Feeling Down"){
+                                println("run")
                                 downCount++
                             } else if (mood == "Feeling Terrible..."){
                                 terribleCount++
@@ -101,7 +100,14 @@ class Analytics : Fragment() {
                         }
                     }
                 }
+
+                setupPieChart(awesomeCount, goodCount, mehCount, downCount, terribleCount, moodlessCount)
             }
+    }
+
+    private fun setupPieChart(awesomeCount: Int, goodCount: Int, mehCount: Int, downCount: Int, terribleCount: Int, moodlessCount: Int) {
+
+
 
         // Get reference to the PieChart
         val pieChart: PieChart = view?.findViewById(R.id.pieChart) ?: return
