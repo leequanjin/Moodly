@@ -15,6 +15,10 @@ import android.view.Window
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultCallback
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.example.moodly.databinding.ActivityWriteJournalBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -29,6 +33,7 @@ import com.google.firebase.database.database
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
+
 
 data class JournalEntry(
     val date: String? = null,
@@ -46,6 +51,18 @@ class WriteJournal : AppCompatActivity() {
 
     private val presetTags = arrayOf("Work", "Travel", "Food", "Health", "Relationships")
     private var selectedTags = ArrayList<String>()
+
+    private val startForResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val returnData = result.data?.getStringExtra("journal")
+                print("pass back: $returnData")
+
+                if (returnData != "") {
+                    binding.etContent.setText(returnData)
+                }
+            }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -123,9 +140,13 @@ class WriteJournal : AppCompatActivity() {
             showDialog()
         }*/
 
-        binding.fabBot.setOnClickListener{
-            val intent = Intent(this, botpress::class.java)
-            startActivity(intent)
+        binding.fabBot.setOnClickListener {
+            val intent = Intent(this, chatbot::class.java)
+            intent.putExtra("journal", binding.etContent.text.toString());
+
+            println("journal to pass: ${binding.etContent.text.toString()}")
+
+            startForResult.launch(intent)
         }
     }
 
@@ -291,6 +312,7 @@ class WriteJournal : AppCompatActivity() {
             binding.etContent.setText(finalText)
         }
     }
+
     private fun askSpeechInput() {
         if (!SpeechRecognizer.isRecognitionAvailable(this)) {
             Toast.makeText(this ,"Speech recognition is not available", Toast.LENGTH_SHORT).show()

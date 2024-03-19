@@ -21,7 +21,8 @@
         android:theme="@style/Theme.Moodly"
         tools:targetApi="tiramisu">
         <activity
-            android:name=".botpress"
+            android:name=".chatbot"
+            android:windowSoftInputMode="adjustPan"
             android:exported="false" />
 
         <receiver
@@ -42,7 +43,7 @@
             android:exported="false" />
         <activity
             android:name=".Welcome"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".Auth"
             android:exported="true">

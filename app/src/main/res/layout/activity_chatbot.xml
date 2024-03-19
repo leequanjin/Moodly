@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#e0e5f7"
+    tools:context=".chatbot">
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvChatbot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </ScrollView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <EditText
+                android:id="@+id/edtChat"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/round_corner_chat_field"
+                android:inputType="textMultiLine"
+                android:paddingStart="30dp"
+                android:paddingEnd="80dp"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/btnAction"
+                app:layout_constraintHeight_min="40dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/btnAction"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginRight="10dp"
+                android:background="#00FFFFFF"
+                android:padding="7dp"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/constraintLayout2"
+                app:srcCompat="@drawable/to_do_list" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <ImageButton
+                    android:id="@+id/btnSend"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/circle"
+                    android:paddingLeft="7dp"
+                    android:paddingTop="7dp"
+                    android:paddingRight="3dp"
+                    android:paddingBottom="7dp"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/send" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
