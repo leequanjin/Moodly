@@ -56,6 +56,7 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
+    // Material3
     implementation(libs.androidx.material3)
     //For Analytics
     //implementation("co.yml:ycharts:2.1.0")

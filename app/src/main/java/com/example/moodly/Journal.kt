@@ -104,8 +104,9 @@ class Journal : Fragment() {
 
                                 var date = LocalDate.parse(dateD, formatter)
                                 var day = date.dayOfWeek
+                                Log.d("Complete Date", "date: $date")
                                 dateD = dateD.substring(0, 2) + " " + day.toString().substring(0, 3)
-                                userDiary.add(UserDiaryFormat(dateD, moodEmote, diary))
+                                userDiary.add(UserDiaryFormat(dateD, moodEmote, diary, date))
                                 // indexSmall++
                             }
                             //txtTest.text= txtTest.text.toString().plus(diary)

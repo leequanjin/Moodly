@@ -1,15 +1,20 @@
 package com.example.moodly
 
+import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.speech.RecognizerIntent
+import android.speech.SpeechRecognizer
+import android.util.Log
 import android.view.Gravity
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.moodly.databinding.ActivityWriteJournalBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -32,6 +37,7 @@ data class JournalEntry(
     val tags: List<String>? = null
 )
 class WriteJournal : AppCompatActivity() {
+    private val RQ_SPEECH_REC = 102
 
     private lateinit var binding: ActivityWriteJournalBinding
     private lateinit var auth: FirebaseAuth
@@ -52,9 +58,11 @@ class WriteJournal : AppCompatActivity() {
         SLD = SaveLoadData()
         SLD.LoadData(this)
 
-        val selectedYear = 2024// Obtain the selected year
-        val selectedMonth = 3// Obtain the selected month
-        val selectedDay = 15// Obtain the selected day
+        val selectedYear = intent.getIntExtra("year", -1)
+        val selectedMonth = intent.getIntExtra("month", -1)
+        val selectedDay = intent.getIntExtra("day", -1)
+
+        Log.d("Journey", "The selected date is $selectedYear-$selectedMonth-$selectedDay")
 
         // Retrieve and populate data from Firebase for the selected date
         retrieveAndPopulateDataFromFirebase(selectedYear.toString(),
@@ -71,7 +79,7 @@ class WriteJournal : AppCompatActivity() {
 
         // cancel
         binding.btnCancel.setOnClickListener {
-            finish()
+            showDialog()
         }
 
         // write data to firebase
@@ -90,10 +98,6 @@ class WriteJournal : AppCompatActivity() {
             val month = (calendar.get(Calendar.MONTH) + 1).toString()
             val day = calendar.get(Calendar.DAY_OF_MONTH).toString()
             var mood = binding.btnMood.text.toString()
-
-            if(mood == "Mood"){
-                mood = ""
-            }
 
             val entryRef = database.child(id).child("JournalEntries").child(year).child(month).child(day)
             entryRef.child("date").setValue(date)
@@ -124,13 +128,12 @@ class WriteJournal : AppCompatActivity() {
             startActivity(intent)
         }
 
+        binding.fabMic.setOnClickListener {
+            askSpeechInput()
+        }
+
     }
-    private fun updateDateTextView(textView: TextView) {
-        val currentDate = Calendar.getInstance()
-        val dateFormat = SimpleDateFormat("dd MMM, yyyy", Locale.getDefault())
-        val formattedDate = dateFormat.format(currentDate.time)
-        textView.text = formattedDate
-    }
+
     private fun showDatePickerDialog(textView: TextView) {
         val calendar = Calendar.getInstance()
         val datePickerDialog = DatePickerDialog(
@@ -141,6 +144,7 @@ class WriteJournal : AppCompatActivity() {
                 val dateFormat = SimpleDateFormat("dd MMM, yyyy", Locale.getDefault())
                 val formattedDate = dateFormat.format(selectedDate.time)
                 textView.text = formattedDate
+                retrieveAndPopulateDataFromFirebase(year.toString(), (month + 1).toString(), dayOfMonth.toString())
             },
             calendar.get(Calendar.YEAR),
             calendar.get(Calendar.MONTH),
@@ -160,6 +164,16 @@ class WriteJournal : AppCompatActivity() {
         dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation
         dialog.window?.setGravity(Gravity.BOTTOM)
         dialog.window?.setDimAmount(0.1f)
+
+        val btnReject = dialog.findViewById<Button>(R.id.btn_reject_bottom_sheet)
+        val btnAccept = dialog.findViewById<Button>(R.id.btn_accept_bottom_sheet)
+
+        btnReject.setOnClickListener {
+            dialog.hide()
+        }
+        btnAccept.setOnClickListener {
+            finish()
+        }
     }
 
     private fun showMoodSelectionDialog() {
@@ -213,6 +227,7 @@ class WriteJournal : AppCompatActivity() {
     }
 
     private fun retrieveAndPopulateDataFromFirebase(year: String, month: String, day: String) {
+        Log.d("Journey", "The day passed to this function is $year-$month-$day")
         val id = auth.currentUser?.uid.toString()
         val entryRef = database.child(id).child("JournalEntries").child(year).child(month).child(day)
 
@@ -239,8 +254,15 @@ class WriteJournal : AppCompatActivity() {
                     }
 
                 } else {
-                    // set current date
-                    updateDateTextView(binding.tvDate)
+                    // set to selected date with blank fields
+                    val calendar = Calendar.getInstance()
+                    calendar.set(year.toInt(), month.toInt() - 1, day.toInt())
+                    val dateFormat = SimpleDateFormat("dd MMM, yyyy", Locale.getDefault())
+                    val formattedDate = dateFormat.format(calendar.time)
+                    binding.tvDate.text = formattedDate
+                    binding.etContent.text = null
+                    binding.btnMood.text = "Mood"
+                    selectedTags.clear()
                 }
             }
 
@@ -250,4 +272,39 @@ class WriteJournal : AppCompatActivity() {
         })
     }
 
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == RQ_SPEECH_REC && resultCode == Activity.RESULT_OK) {
+
+            val res : ArrayList<String>? = data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+            val newText = res?.get(0) ?: return // Ensure res is not null and has elements
+
+            val currentText = binding.etContent.text.toString()
+
+            // Choose whether to append or overwrite based on your logic
+            val finalText = if (currentText.isNotEmpty()) {
+                // Append new text with a space separator
+                "$currentText $newText"
+            } else {
+                // Overwrite existing text with the new text
+                newText
+            }
+
+            // Set the final text to the EditText
+            binding.etContent.setText(finalText)
+        }
+    }
+    private fun askSpeechInput() {
+        if (!SpeechRecognizer.isRecognitionAvailable(this)) {
+            Toast.makeText(this ,"Speech recognition is not available", Toast.LENGTH_SHORT).show()
+        } else  {
+            val i = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+            i.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+            i.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
+            i.putExtra(RecognizerIntent.EXTRA_PROMPT, "Say something!")
+            startActivityForResult(i, RQ_SPEECH_REC)
+        }
+    }
 }
