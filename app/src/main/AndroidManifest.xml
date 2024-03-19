@@ -23,7 +23,7 @@
         <receiver
             android:name=".Notification"
             android:enabled="true"
-            android:exported="false">
+            android:exported="true">
             <intent-filter>
                 <action android:name="com.example.moodly.NOTIFICATION_ACTION" />
             </intent-filter>
