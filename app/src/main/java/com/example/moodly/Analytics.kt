@@ -116,16 +116,27 @@ class Analytics : Fragment() {
         val entries:ArrayList<PieEntry> = ArrayList()
 
         //Value is how big the area taken, Label is name ("n"f for number and "..." for string)
-        entries.add(PieEntry((awesomeCount)+0f, "Feeling \nAwesome!"))
-        entries.add(PieEntry((goodCount)+0f, "Feeling \nGood"))
-        entries.add(PieEntry((mehCount)+0f, "Feeling \nMeh"))
-        entries.add(PieEntry((downCount)+0f, "Feeling \nDown"))
-        entries.add(PieEntry((terribleCount)+0f, "Feeling \nTerrible..."))
-        entries.add(PieEntry((moodlessCount)+0f, "Moodless"))
+        // Filter entries based on value before adding them
+        val filteredEntries = listOf(
+            PieEntry(awesomeCount.toFloat(), "Feeling \nAwesome!"),
+            PieEntry(goodCount.toFloat(), "Feeling \nGood"),
+            PieEntry(mehCount.toFloat(), "Feeling \nMeh"),
+            PieEntry(downCount.toFloat(), "Feeling \nDown"),
+            PieEntry(terribleCount.toFloat(), "Feeling \nTerrible..."),
+            PieEntry(moodlessCount.toFloat(), "Moodless")
+        ).filter { it.value > 0f } // Filter entries with value greater than 0
 
+        entries.addAll(filteredEntries)
 
-
-        val pieDataSet= PieDataSet(entries  , "")
+        // Create a HashMap to map mood to color
+        val moodColorMap = hashMapOf(
+            "Feeling \nAwesome!" to Color.parseColor("#FFC0CB"),  // Pink
+            "Feeling \nGood" to Color.RED,                           // Red
+            "Feeling \nMeh" to Color.parseColor("#FF7F00"),        // Orange
+            "Feeling \nDown" to Color.BLUE,                         // Blue
+            "Feeling \nTerrible..." to Color.parseColor("#7F00FF"), // Indigo
+            "Moodless" to Color.WHITE                             // White
+        )
 
         // Colors representing the rainbow spectrum
         val colors = intArrayOf(
@@ -137,7 +148,13 @@ class Analytics : Fragment() {
             Color.WHITE // Violet
         )
 
-        pieDataSet.setColors(colors, 255)
+        // Assign color based on mood using the map
+        for (i in entries.indices) {
+            val mood = entries[i].label.toString()
+            colors[i] = moodColorMap[mood] ?: Color.GRAY  // Use gray as default if mood not found
+        }
+
+        val pieDataSet = PieDataSet(entries, "").apply {setColors(colors, 255)  }
 
         pieDataSet.valueTextSize=12f
         pieDataSet.valueTextColor= Color.BLACK

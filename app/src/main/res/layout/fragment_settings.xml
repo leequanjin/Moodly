@@ -173,7 +173,7 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardSupport"
                 android:layout_width="0dp"
-                android:layout_height="500dp"
+                android:layout_height="640dp"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="32dp"
@@ -199,15 +199,20 @@
                         android:layout_marginLeft="30dp"
                         android:src="@drawable/contact" />
 
-                    <TextView
-                        android:id="@+id/labelcontact"
-                        android:layout_width="0dp"
+                    <Button
+                        android:id="@+id/buttonContact"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginTop="25dp"
-                        android:layout_weight="1"
-                        android:text="Contact"
-                        android:textSize="20sp" />
+                        android:layout_marginTop="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:text="Contact Us"
+                        android:textColor="@color/black"
+                        android:enabled="true"
+                        android:background="@drawable/rename_button"
+                        app:backgroundTint="@null"
+                        android:textSize="20sp"  />
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -223,15 +228,19 @@
                         android:layout_marginLeft="30dp"
                         android:src="@drawable/feedback" />
 
-                    <TextView
-                        android:id="@+id/labelfeedback"
-                        android:layout_width="0dp"
+                    <Button
+                        android:id="@+id/buttonFeedback"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginTop="25dp"
-                        android:layout_weight="1"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
                         android:text="Feedback"
-                        android:textSize="20sp" />
+                        android:textColor="@color/black"
+                        android:enabled="true"
+                        android:background="@drawable/rename_button"
+                        app:backgroundTint="@null"
+                        android:textSize="20sp"  />
                 </LinearLayout>
 
                 <LinearLayout
@@ -247,15 +256,19 @@
                         android:layout_marginLeft="30dp"
                         android:src="@drawable/privacypolicy" />
 
-                    <TextView
-                        android:id="@+id/labelprivacy"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginTop="25dp"
-                        android:layout_weight="1"
-                        android:text="Privacy Policy"
-                        android:textSize="20sp" />
+                    <Button
+                    android:id="@+id/buttonPrivacy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:text="Privacy Policy"
+                    android:textColor="@color/black"
+                    android:enabled="true"
+                    android:background="@drawable/rename_button"
+                    app:backgroundTint="@null"
+                    android:textSize="20sp"  />
                 </LinearLayout>
 
                 <LinearLayout
@@ -271,15 +284,49 @@
                         android:layout_marginLeft="30dp"
                         android:src="@drawable/about" />
 
-                    <TextView
-                        android:id="@+id/labelabout"
-                        android:layout_width="0dp"
+
+                    <Button
+                        android:id="@+id/buttonRename"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:text="Rename"
+                        android:textColor="@color/black"
+                        android:enabled="true"
+                        android:background="@drawable/rename_button"
+                        app:backgroundTint="@null"
+                        android:textSize="20sp"  />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="540dp">
+
+                    <ImageView
+                        android:id="@+id/imageView12"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
                         android:layout_marginLeft="30dp"
-                        android:layout_marginTop="25dp"
-                        android:layout_weight="1"
-                        android:text="About"
-                        android:textSize="20sp" />
+                        android:src="@drawable/exit" />
+
+
+                    <Button
+                        android:id="@+id/buttonExit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:text="Exit"
+                        android:textColor="@color/black"
+                        android:enabled="true"
+                        android:background="@drawable/rename_button"
+                        app:backgroundTint="@null"
+                        android:textSize="20sp"  />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 

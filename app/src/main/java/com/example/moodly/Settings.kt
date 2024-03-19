@@ -69,6 +69,16 @@
             val timePicker: TimePicker? = view.findViewById(R.id.timePicker) as? TimePicker
             val cardSettings: CardView? = view.findViewById(R.id.cardGeneral) as? CardView
             val buttonSetTime: Button? = view.findViewById(R.id.buttonSetTime)
+            val buttonRename: Button? = view.findViewById(R.id.buttonRename)
+            buttonRename?.setOnClickListener {
+                val intent = Intent(requireContext(), Welcome::class.java)
+                startActivity(intent)
+            }
+            val buttonExit: Button? = view.findViewById(R.id.buttonExit)
+            buttonRename?.setOnClickListener {
+                val intent = Intent(requireContext(), Auth::class.java)
+                startActivity(intent)
+            }
 
             toggleButton?.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
