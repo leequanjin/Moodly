@@ -27,6 +27,7 @@
     import android.widget.Toast
     import androidx.core.app.NotificationCompat
     import androidx.core.app.NotificationManagerCompat
+    import androidx.core.content.getSystemService
     import java.time.LocalDateTime
     import java.util.Date
     import java.util.Locale
@@ -94,8 +95,7 @@
                                     }
 
                                     // Register the channel with the system
-                                    val notificationManager: NotificationManager =
-                                        context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                                    val notificationManager: NotificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
                                     notificationManager.createNotificationChannel(channel)
                                 }
                             }
@@ -126,36 +126,38 @@
                             }
 
                             val now = getCurrentHourAndTimeInMillis()
-
                             val triggermoment = triggerTime - now
                             val triggermomentinsec = triggermoment/1000
 
                             Log.d("Moodly", "Selected Hour: $selectedHour")
                             Log.d("Moodly", "Selected Minute: $selectedMinute")
-                            Log.d("Moodly", "Trigger time: $triggerTime")
                             Log.d("Moodly", "Current time: $now")
+                            Log.d("Moodly", "Trigger time: $triggerTime")
                             Log.d("Moodly", "Seconds until notification should be sent: $triggermomentinsec")
 
-
+                            val calendar = Calendar.getInstance()
+                            calendar.set(Calendar.HOUR_OF_DAY, selectedHour)
+                            calendar.set(Calendar.MINUTE, selectedMinute)
+                            calendar.set(Calendar.SECOND, 0)
+                            calendar.set(Calendar.MILLISECOND, 0)
 
                             val notificationIntent = Intent(context, Notification::class.java)
 
-                            val pendingIntent = PendingIntent.getBroadcast(context, 1, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+                            val pendingIntent = PendingIntent.getBroadcast(context, notificationID, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
 
                             val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-                            alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggermoment, pendingIntent)
                             if (triggermoment < 0) {
-                                val tomorrow = now + (24*60*60*1000)
-                                val targetTimeTomorrow = triggerTime + tomorrow
-                                val adjustedDelay = targetTimeTomorrow - now
+                                val tomorrow = calendar.timeInMillis + (24 * 60 * 60 * 1000);
+                                val tmrinfo = AlarmManager.AlarmClockInfo(tomorrow, pendingIntent)
                                 // Schedule the notification with the adjusted delay (for next day)
-                                Log.d("Moodly", "The fuck is this: $adjustedDelay")
-                                alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, adjustedDelay, pendingIntent)
+                                Log.d("Moodly", "Milliseconds that it should trigger tommorow: $tmrinfo")
+                                alarmManager.setAlarmClock(tmrinfo, pendingIntent)
                             } else {
                                 // Schedule the notification with the positive delay (for today)
-                                alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggermoment, pendingIntent)
+                                val info = AlarmManager.AlarmClockInfo(calendar.timeInMillis, pendingIntent)
+                                Log.d("Moodly", "Milliseconds that it should trigger: $calendar.timeInMillis")
+                                alarmManager.setAlarmClock(info, pendingIntent)
                             }
-
                             Toast.makeText(context, "Notification scheduled! You'll be reminded at the chosen time.", Toast.LENGTH_LONG).show()
                         } else {
                             // Notification permission not granted, show explanation dialog
