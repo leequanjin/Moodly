@@ -101,8 +101,6 @@ class Auth : AppCompatActivity() {
 
         //region Button On Click Listener
 
-        //TODO: Check if input valid
-
         btnLogin.setOnClickListener{
             email = edtEmailLogin.text.toString()
             password = edtPasswordLogin.text.toString()
@@ -117,48 +115,15 @@ class Auth : AppCompatActivity() {
         }
 
         btnShowPasswordLogin.setOnClickListener{
-            if(btnShowPasswordLogin.tag.equals("hide password")){
-                //show password
-                btnShowPasswordLogin.setImageResource(R.drawable.eye_close)
-                btnShowPasswordLogin.tag = "show password"
-                edtPasswordLogin.transformationMethod = null
-
-            }else{
-                //hide password
-                btnShowPasswordLogin.setImageResource(R.drawable.eye_open)
-                btnShowPasswordLogin.tag = "hide password"
-                edtPasswordLogin.transformationMethod = PasswordTransformationMethod()
-            }
+            showHidePassword(btnShowPasswordLogin, edtPasswordLogin)
         }
 
         btnShowPasswordRegister.setOnClickListener{
-            if(btnShowPasswordRegister.tag.equals("hide password")){
-                //show password
-                btnShowPasswordRegister.setImageResource(R.drawable.eye_close)
-                btnShowPasswordRegister.tag = "show password"
-                edtPasswordRegister.transformationMethod = null
-
-            }else{
-                //hide password
-                btnShowPasswordRegister.setImageResource(R.drawable.eye_open)
-                btnShowPasswordRegister.tag = "hide password"
-                edtPasswordRegister.transformationMethod = PasswordTransformationMethod()
-            }
+            showHidePassword(btnShowPasswordRegister, edtPasswordRegister)
         }
 
         btnShowPasswordConfirmRegister.setOnClickListener{
-            if(btnShowPasswordConfirmRegister.tag.equals("hide password")){
-                //show password
-                btnShowPasswordConfirmRegister.setImageResource(R.drawable.eye_close)
-                btnShowPasswordConfirmRegister.tag = "show password"
-                edtPasswordConfirmRegister.transformationMethod = null
-
-            }else{
-                //hide password
-                btnShowPasswordConfirmRegister.setImageResource(R.drawable.eye_open)
-                btnShowPasswordConfirmRegister.tag = "hide password"
-                edtPasswordConfirmRegister.transformationMethod = PasswordTransformationMethod()
-            }
+            showHidePassword(btnShowPasswordConfirmRegister, edtPasswordConfirmRegister)
         }
 
         btnChangeToRegister.setOnClickListener{
@@ -271,5 +236,20 @@ class Auth : AppCompatActivity() {
 
     fun isValidPassword(password: String): Boolean {
         return password.length >= 8
+    }
+
+    fun showHidePassword(btn: ImageButton, edt: EditText){
+        if(btn.tag.equals("hide password")){
+            //show password
+            btn.setImageResource(R.drawable.eye_close)
+            btn.tag = "show password"
+            edt.transformationMethod = null
+
+        }else{
+            //hide password
+            btn.setImageResource(R.drawable.eye_open)
+            btn.tag = "hide password"
+            edt.transformationMethod = PasswordTransformationMethod()
+        }
     }
 }

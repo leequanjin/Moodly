@@ -83,13 +83,15 @@
             android:text="03 Mar, 2024" />
 
         <Button
-            style="@style/Widget.Material3.Button"
             android:id="@+id/btn_enhance"
+            style="@style/Widget.Material3.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="AI-Enhance"
             android:textSize="18sp"
-            app:backgroundTint="@color/dark_blue"/>
+            android:visibility="gone"
+            app:backgroundTint="@color/dark_blue"
+            tools:visibility="gone" />
 
     </LinearLayout>
 

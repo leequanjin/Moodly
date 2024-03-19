@@ -75,7 +75,6 @@ class Welcome : AppCompatActivity() {
 
         pnlGetName.startAnimation(popupAnim)
 
-        //TODO: Check if input valid
         btnSubmitName.setOnClickListener{
             val username = edtUsername.text.toString()
             val id = auth.currentUser?.uid.toString()

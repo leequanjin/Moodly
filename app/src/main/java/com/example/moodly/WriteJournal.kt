@@ -2,11 +2,13 @@ package com.example.moodly
 
 import android.app.DatePickerDialog
 import android.app.Dialog
+import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.Gravity
 import android.view.ViewGroup
 import android.view.Window
+import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.moodly.databinding.ActivityWriteJournalBinding
@@ -113,8 +115,13 @@ class WriteJournal : AppCompatActivity() {
         }
 
         // enhance confirmation dialog
-        binding.btnEnhance.setOnClickListener {
+        /*binding.btnEnhance.setOnClickListener {
             showDialog()
+        }*/
+
+        binding.fabBot.setOnClickListener{
+            val intent = Intent(this, botpress::class.java)
+            startActivity(intent)
         }
 
     }
@@ -142,6 +149,7 @@ class WriteJournal : AppCompatActivity() {
         datePickerDialog.show()
     }
 
+    //Avoid this function
     private fun showDialog() {
         val dialog = Dialog(this)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
