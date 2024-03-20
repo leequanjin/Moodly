@@ -75,7 +75,7 @@
                 startActivity(intent)
             }
             val buttonExit: Button? = view.findViewById(R.id.buttonExit)
-            buttonRename?.setOnClickListener {
+            buttonExit?.setOnClickListener {
                 val intent = Intent(requireContext(), Auth::class.java)
                 startActivity(intent)
             }
