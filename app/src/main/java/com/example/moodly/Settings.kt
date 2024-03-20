@@ -10,7 +10,6 @@
     import android.app.NotificationChannel
     import android.app.NotificationManager
     import android.app.PendingIntent
-    import android.icu.text.SimpleDateFormat
     import android.net.Uri
     import android.os.Build
     import android.os.Bundle
@@ -25,12 +24,12 @@
     import androidx.cardview.widget.CardView
     import android.widget.TextView
     import android.widget.Toast
-    import androidx.core.app.NotificationCompat
     import androidx.core.app.NotificationManagerCompat
-    import androidx.core.content.getSystemService
-    import java.time.LocalDateTime
-    import java.util.Date
-    import java.util.Locale
+    import com.google.firebase.auth.FirebaseAuth
+    import com.google.firebase.auth.auth
+    import com.google.firebase.database.DatabaseReference
+    import com.google.firebase.database.ktx.database
+    import com.google.firebase.ktx.Firebase
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -47,6 +46,9 @@
         // TODO: Rename and change types of parameters
         private var param1: String? = null
         private var param2: String? = null
+        private lateinit var auth: FirebaseAuth
+        private lateinit var database: DatabaseReference
+        private lateinit var SLD: SaveLoadData
 
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
@@ -63,6 +65,11 @@
         ): View? {
             // Inflate the layout for this fragment
             val view = inflater.inflate(R.layout.fragment_settings, container, false)
+            auth = com.google.firebase.Firebase.auth
+            database = Firebase.database.reference
+            SLD = SaveLoadData()
+
+            val id = auth.currentUser?.uid.toString()
 
             val textViewRemind: TextView? = view.findViewById(R.id.textViewReminder) as? TextView
             val toggleButton: ToggleButton? = view.findViewById(R.id.toggleButton2) as? ToggleButton
@@ -76,8 +83,17 @@
             }
             val buttonExit: Button? = view.findViewById(R.id.buttonExit)
             buttonExit?.setOnClickListener {
-                val intent = Intent(requireContext(), Auth::class.java)
-                startActivity(intent)
+                if (auth.currentUser != null) {
+                    auth.signOut()
+
+                    SLD.username = ""
+                    SLD.email = ""
+                    SLD.password = ""
+
+                    SLD.SaveData(this)
+
+                    startActivity(Intent(context, Auth::class.java))
+                }
             }
 
             toggleButton?.setOnCheckedChangeListener { _, isChecked ->
