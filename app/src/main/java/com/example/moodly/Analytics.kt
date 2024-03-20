@@ -14,7 +14,6 @@ import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.formatter.DefaultValueFormatter
-import com.github.mikephil.charting.formatter.PercentFormatter
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 import com.google.firebase.database.DatabaseReference
@@ -163,11 +162,11 @@ class Analytics : Fragment() {
         //Value is how big the area taken, Label is name ("n"f for number and "..." for string)
         // Filter entries based on value before adding them
         val filteredEntries = listOf(
-            PieEntry((awesomeCount.toFloat()/total), "Feeling \nAwesome!"),
-            PieEntry((goodCount.toFloat()/total), "Feeling \nGood"),
-            PieEntry((mehCount.toFloat()/total), "Feeling \nMeh"),
-            PieEntry((downCount.toFloat()/total), "Feeling \nDown"),
-            PieEntry((terribleCount.toFloat()/total), "Feeling \nTerrible..."),
+            PieEntry((awesomeCount.toFloat()/total), "Awesome!"),
+            PieEntry((goodCount.toFloat()/total), "Good"),
+            PieEntry((mehCount.toFloat()/total), "Meh"),
+            PieEntry((downCount.toFloat()/total), "Down"),
+            PieEntry((terribleCount.toFloat()/total), "Terrible..."),
             PieEntry((moodlessCount.toFloat()/total), "Moodless")
         ).filter { it.value > 0f } // Filter entries with value greater than 0
 
@@ -175,11 +174,11 @@ class Analytics : Fragment() {
 
         // Create a HashMap to map mood to color
         val moodColorMap = hashMapOf(
-            "Feeling \nAwesome!" to Color.parseColor("#3ab54a"),
-            "Feeling \nGood" to Color.parseColor("#91ca61"),
-            "Feeling \nMeh" to Color.parseColor("#fcb040"),
-            "Feeling \nDown" to Color.parseColor("#f15b29"),
-            "Feeling \nTerrible..." to Color.parseColor("#f25a29"),
+            "Awesome!" to Color.parseColor("#3ab54a"),
+            "Good" to Color.parseColor("#91ca61"),
+            "Meh" to Color.parseColor("#fcb040"),
+            "Down" to Color.parseColor("#f15b29"),
+            "Terrible..." to Color.parseColor("#f25a29"),
             "Moodless" to Color.WHITE
         )
 
