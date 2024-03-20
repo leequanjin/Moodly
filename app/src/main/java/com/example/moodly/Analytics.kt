@@ -6,18 +6,20 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
-import com.github.mikephil.charting.utils.ColorTemplate
+import com.github.mikephil.charting.formatter.DefaultValueFormatter
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -103,11 +105,53 @@ class Analytics : Fragment() {
 
                 setupPieChart(awesomeCount, goodCount, mehCount, downCount, terribleCount, moodlessCount)
             }
+
+        var currentStreak = 0
+        var longestStreak = 0
+
+        database.child(id).child("JournalEntries").get()
+            .addOnSuccessListener { dataSnapshot ->
+                if (dataSnapshot.exists()) {
+                    var previousDay = 0 // Initialize to an invalid day
+                    for (yearSnapshot in dataSnapshot.children) {
+                        val year = yearSnapshot.key!!.toInt() // Guaranteed to be a valid integer due to structure
+                        for (monthSnapshot in yearSnapshot.children) {
+                            val month = monthSnapshot.key!!.toInt() // Guaranteed to be a valid integer
+                            for (daySnapshot in monthSnapshot.children) {
+                                val day = daySnapshot.key!!.toInt() // Guaranteed to be a valid integer
+
+                                // Check for consecutive days
+                                if (day == previousDay + 1) {
+                                    currentStreak++
+                                } else {
+                                    currentStreak = 1
+                                }
+
+                                longestStreak = Math.max(currentStreak, longestStreak) // Update longest streak
+
+                                previousDay = day
+                                Log.d("Journal", "Year: $year, Month: $month, Day: $day, Current Streak: $currentStreak, Longest Streak: $longestStreak")
+                            }
+                        }
+                    }
+                } else {
+                    // Handle the case where "JournalEntries" doesn't exist
+                    Log.d("Journal", "No journal entries found")
+                }
+                loginStreakHandler(currentStreak, longestStreak)
+            }
+            .addOnFailureListener { exception ->
+                // Handle potential errors during data retrieval
+                Log.e("Journal", "Error retrieving journal entries", exception)
+            }
+
+
     }
 
     private fun setupPieChart(awesomeCount: Int, goodCount: Int, mehCount: Int, downCount: Int, terribleCount: Int, moodlessCount: Int) {
 
-
+        val total = (awesomeCount + goodCount + mehCount + downCount + terribleCount + moodlessCount)
+        Log.d("Journal", "Total Moods: $total")
 
         // Get reference to the PieChart
         val pieChart: PieChart = view?.findViewById(R.id.pieChart) ?: return
@@ -118,24 +162,24 @@ class Analytics : Fragment() {
         //Value is how big the area taken, Label is name ("n"f for number and "..." for string)
         // Filter entries based on value before adding them
         val filteredEntries = listOf(
-            PieEntry(awesomeCount.toFloat(), "Feeling \nAwesome!"),
-            PieEntry(goodCount.toFloat(), "Feeling \nGood"),
-            PieEntry(mehCount.toFloat(), "Feeling \nMeh"),
-            PieEntry(downCount.toFloat(), "Feeling \nDown"),
-            PieEntry(terribleCount.toFloat(), "Feeling \nTerrible..."),
-            PieEntry(moodlessCount.toFloat(), "Moodless")
+            PieEntry((awesomeCount.toFloat()/total), "Awesome!"),
+            PieEntry((goodCount.toFloat()/total), "Good"),
+            PieEntry((mehCount.toFloat()/total), "Meh"),
+            PieEntry((downCount.toFloat()/total), "Down"),
+            PieEntry((terribleCount.toFloat()/total), "Terrible..."),
+            PieEntry((moodlessCount.toFloat()/total), "Moodless")
         ).filter { it.value > 0f } // Filter entries with value greater than 0
 
         entries.addAll(filteredEntries)
 
         // Create a HashMap to map mood to color
         val moodColorMap = hashMapOf(
-            "Feeling \nAwesome!" to Color.parseColor("#FFC0CB"),  // Pink
-            "Feeling \nGood" to Color.RED,                           // Red
-            "Feeling \nMeh" to Color.parseColor("#FF7F00"),        // Orange
-            "Feeling \nDown" to Color.BLUE,                         // Blue
-            "Feeling \nTerrible..." to Color.parseColor("#7F00FF"), // Indigo
-            "Moodless" to Color.WHITE                             // White
+            "Awesome!" to Color.parseColor("#3ab54a"),
+            "Good" to Color.parseColor("#91ca61"),
+            "Meh" to Color.parseColor("#fcb040"),
+            "Down" to Color.parseColor("#f15b29"),
+            "Terrible..." to Color.parseColor("#f25a29"),
+            "Moodless" to Color.WHITE
         )
 
         // Colors representing the rainbow spectrum
@@ -155,6 +199,15 @@ class Analytics : Fragment() {
         }
 
         val pieDataSet = PieDataSet(entries, "").apply {setColors(colors, 255)  }
+        val percentFormatter = object : DefaultValueFormatter(1) {  // Ensure at least 1 decimal place
+            override fun getFormattedValue(value: Float): String {
+                val percentage = value*100   // Convert to percentage
+                val formattedPercentage = String.format("%.0f", percentage)  // Remove decimal if 0
+                return "$formattedPercentage%"  // Append "%" sign
+            }
+        }
+
+        pieDataSet.valueFormatter = percentFormatter
 
         pieDataSet.valueTextSize=12f
         pieDataSet.valueTextColor= Color.BLACK
@@ -177,20 +230,32 @@ class Analytics : Fragment() {
 
         pieData.setValueTextSize(18f)
 
-        pieChart.description.text="Pie Chart"
-        pieChart.centerText= "Mood \nTracker"
+        pieChart.description.text="Get to know your Feelings"
+        pieChart.centerText= "Your\nEveryday\nMood"
         pieChart.setCenterTextSize(16f)
         //pieChart.setCenterTextColor(Color.BLUE);
 
         pieChart.animateY(2000)
 
         val legend: Legend = pieChart.legend
-        legend.textSize= 23f
+        legend.textSize= 10f
+        pieChart.description.textSize = 14f
 
-        pieChart.description.isEnabled=false
+        pieChart.description.isEnabled=true
         pieChart.legend.isEnabled=false
     }
 
+
+    private fun loginStreakHandler (currentStreak: Int, longestStreak: Int){
+        val textViewLongestStreak: TextView? = view?.findViewById(R.id.LongestStreakNumber) as? TextView
+        val textViewLoginStreak: TextView? = view?.findViewById(R.id.LoginStreakNumber) as? TextView
+
+        val currentStreakString = currentStreak.toString()
+        val longestStreakString = longestStreak.toString()
+
+        textViewLoginStreak!!.setText(currentStreakString)
+        textViewLongestStreak!!.setText(longestStreakString)
+    }
 
     companion object {
         /**
