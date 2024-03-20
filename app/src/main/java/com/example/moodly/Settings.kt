@@ -31,34 +31,12 @@
     import com.google.firebase.ktx.Firebase
     import java.util.Calendar
 
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private const val ARG_PARAM1 = "param1"
-    private const val ARG_PARAM2 = "param2"
-
     private lateinit var currContext: Context
 
-    /**
-     * A simple [Fragment] subclass.
-     * Use the [Settings.newInstance] factory method to
-     * create an instance of this fragment.
-     */
     class Settings : Fragment() {
-        // TODO: Rename and change types of parameters
-        private var param1: String? = null
-        private var param2: String? = null
         private lateinit var auth: FirebaseAuth
         private lateinit var database: DatabaseReference
         private lateinit var SLD: SaveLoadData
-
-        override fun onCreate(savedInstanceState: Bundle?) {
-            super.onCreate(savedInstanceState)
-            arguments?.let {
-                param1 = it.getString(ARG_PARAM1)
-                param2 = it.getString(ARG_PARAM2)
-            }
-        }
 
         override fun onAttach(context: Context) {
             super.onAttach(context)
@@ -88,6 +66,7 @@
             val cardSettings: CardView? = view.findViewById(R.id.cardGeneral) as? CardView
             val buttonSetTime: Button? = view.findViewById(R.id.buttonSetTime)
             val buttonRename: Button? = view.findViewById(R.id.buttonRename)
+            val btnManual: Button = view.findViewById(R.id.btnManual)
             buttonRename?.setOnClickListener {
                 val intent = Intent(requireContext(), Welcome::class.java)
                 startActivity(intent)
@@ -224,6 +203,10 @@
                     params.height = resources.getDimensionPixelSize(R.dimen.card_height)
                     cardSettings.layoutParams = params
                 }
+            }
+
+            btnManual.setOnClickListener {
+                (requireActivity() as MainActivity).replaceFragment(Manual())
             }
 
             return view
