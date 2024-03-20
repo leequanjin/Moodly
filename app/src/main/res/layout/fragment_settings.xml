@@ -112,7 +112,8 @@
                             android:layout_marginTop="38dp"
                             android:layout_marginLeft="20dp"
                             android:textSize="20sp"
-                            android:text="Turn Reminder On?" />
+                            android:textColor="#E624336A"
+                            android:text="Turn Reminder On?"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <ToggleButton
@@ -178,6 +179,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="32dp"
+                android:layout_marginBottom="20dp"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="4dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -203,8 +205,8 @@
                         app:iconSize="40dp"
                         app:iconPadding="30dp"
                         android:text="Change Username"
-                        android:textColor="@color/extra_dark_blue"
-                        android:textSize="20sp"
+                        android:textColor="#E624336A"
+                        android:textSize="18sp"
                         android:paddingStart="24dp"
                         />
 
@@ -226,8 +228,8 @@
                         app:iconSize="40dp"
                         app:iconPadding="30dp"
                         android:text="Feedback"
-                        android:textColor="@color/extra_dark_blue"
-                        android:textSize="20sp"
+                        android:textColor="#E624336A"
+                        android:textSize="18sp"
                         android:paddingStart="24dp"
                         />
                     <LinearLayout
@@ -248,8 +250,8 @@
                         app:iconSize="40dp"
                         app:iconPadding="30dp"
                         android:text="Privacy Policy"
-                        android:textColor="@color/extra_dark_blue"
-                        android:textSize="20sp"
+                        android:textColor="#E624336A"
+                        android:textSize="18sp"
                         android:paddingStart="24dp"
                         />
                     <LinearLayout
@@ -270,8 +272,8 @@
                         app:iconSize="40dp"
                         app:iconPadding="30dp"
                         android:text="User Manual"
-                        android:textColor="@color/extra_dark_blue"
-                        android:textSize="20sp"
+                        android:textColor="#E624336A"
+                        android:textSize="18sp"
                         android:paddingStart="24dp"
                         />
                     <LinearLayout
@@ -292,8 +294,8 @@
                         app:iconSize="40dp"
                         app:iconPadding="30dp"
                         android:text="Logout"
-                        android:textColor="@color/extra_dark_blue"
-                        android:textSize="20sp"
+                        android:textColor="#E624336A"
+                        android:textSize="18sp"
                         android:paddingStart="24dp"
                         />
                 </LinearLayout>
