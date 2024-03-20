@@ -238,22 +238,35 @@ class WriteJournal : AppCompatActivity() {
     }
 
     private fun showBotDialog() {
-        MaterialAlertDialogBuilder(this)
-            .setTitle("Select Tags")
-            .setTitle("Chat with Moodly?")
-            .setMessage("Moodly is your personal AI-chatbot that can help you write journal entries!\n\nExisting content will be passed to Moodly by default and overwritten by the new entry.")
-            .setPositiveButton("OK") { dialog, _ ->
-                val intent = Intent(this, chatbot::class.java)
-                intent.putExtra("journal", binding.etContent.text.toString());
+        if(SLD.showConfirmChatbot){
+            MaterialAlertDialogBuilder(this)
+                .setTitle("Select Tags")
+                .setTitle("Chat with Moodly?")
+                .setMessage("Moodly is your personal AI-chatbot that can help you write journal entries!\n\nExisting content will be passed to Moodly by default and overwritten by the new entry.")
+                .setPositiveButton("OK") { dialog, _ ->
+                    openChatbot()
+                }
+                .setNegativeButton("Cancel") { dialog, _ ->
+                    dialog.dismiss()
+                }.setNeutralButton("Don't show this again"){ dialog, _ ->
+                    SLD.showConfirmChatbot = false
+                    SLD.SaveData(this)
 
-                println("journal to pass: ${binding.etContent.text.toString()}")
+                    openChatbot()
+                }
+                .show()
+        }else{
+            openChatbot()
+        }
+    }
 
-                startForResult.launch(intent)
-            }
-            .setNegativeButton("Cancel") { dialog, _ ->
-                dialog.dismiss()
-            }
-            .show()
+    private fun openChatbot(){
+        val intent = Intent(this, chatbot::class.java)
+        intent.putExtra("journal", binding.etContent.text.toString().trim());
+
+        println("journal to pass: ${binding.etContent.text.trim()}")
+
+        startForResult.launch(intent)
     }
 
     private fun retrieveAndPopulateDataFromFirebase(year: String, month: String, day: String) {

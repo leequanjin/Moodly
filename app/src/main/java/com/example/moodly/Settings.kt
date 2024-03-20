@@ -79,6 +79,7 @@
                     SLD.username = ""
                     SLD.email = ""
                     SLD.password = ""
+                    SLD.showConfirmChatbot = true
 
                     SLD.SaveData(currContext)
 

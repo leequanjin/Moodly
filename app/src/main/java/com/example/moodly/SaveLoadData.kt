@@ -10,6 +10,7 @@ class SaveLoadData {
     var username: String = ""
     var email: String = ""
     var password: String = ""
+    var showConfirmChatbot: Boolean = true
 
     fun LoadData(activity: Context) {
         val sharedPreferences: SharedPreferences =
@@ -18,6 +19,7 @@ class SaveLoadData {
         username = sharedPreferences.getString("username", "").toString()
         email = sharedPreferences.getString("email", "").toString()
         password = sharedPreferences.getString("password", "").toString()
+        showConfirmChatbot = sharedPreferences.getBoolean("showConfirmChatbot", true)
     }
 
     fun SaveData(activity: Context) {
@@ -28,6 +30,7 @@ class SaveLoadData {
         editor.putString("username", username)
         editor.putString("email", email)
         editor.putString("password", password)
+        editor.putBoolean("showConfirmChatbot", showConfirmChatbot)
 
         editor.apply()
     }

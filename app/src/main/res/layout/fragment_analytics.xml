@@ -180,9 +180,9 @@
 
                     <ImageView
                         android:id="@+id/LoginStreakImg"
-                        android:layout_width="125dp"
-                        android:layout_height="120dp"
-                        android:layout_marginBottom="4dp"
+                        android:layout_width="146dp"
+                        android:layout_height="176dp"
+                        android:layout_marginBottom="10dp"
                         android:src="@drawable/login_streak"
                         app:layout_constraintBottom_toTopOf="@+id/TextLoginStreak"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -203,7 +203,7 @@
                         android:textAlignment="center"
                         android:textColor="#FFFFFF"
                         android:textSize="25dp"
-                        android:layout_marginTop="30dp"
+                        android:layout_marginTop="35dp"
                         app:layout_constraintBottom_toBottomOf="@+id/LoginStreakImg"
                         app:layout_constraintEnd_toEndOf="@+id/LoginStreakImg"
                         app:layout_constraintStart_toStartOf="@+id/LoginStreakImg"
