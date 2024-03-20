@@ -16,8 +16,6 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
-import androidx.activity.result.ActivityResultCallback
-import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.example.moodly.databinding.ActivityWriteJournalBinding
@@ -124,7 +122,7 @@ class WriteJournal : AppCompatActivity() {
             entryRef.child("mood").setValue(mood)
             entryRef.child("tags").setValue(selectedTags)
 
-            finish()
+            onBackPressedDispatcher.onBackPressed()
         }
 
         // select mood
@@ -143,12 +141,7 @@ class WriteJournal : AppCompatActivity() {
         }*/
 
         binding.fabBot.setOnClickListener {
-            val intent = Intent(this, chatbot::class.java)
-            intent.putExtra("journal", binding.etContent.text.toString());
-
-            println("journal to pass: ${binding.etContent.text.toString()}")
-
-            startForResult.launch(intent)
+            showBotDialog()
         }
     }
 
@@ -190,7 +183,7 @@ class WriteJournal : AppCompatActivity() {
             dialog.hide()
         }
         btnAccept.setOnClickListener {
-            finish()
+            onBackPressedDispatcher.onBackPressed()
         }
     }
 
@@ -240,6 +233,25 @@ class WriteJournal : AppCompatActivity() {
                 // Restore the previous state of selectedTags
                 selectedTags.clear()
                 selectedTags.addAll(previousSelectedTags)
+            }
+            .show()
+    }
+
+    private fun showBotDialog() {
+        MaterialAlertDialogBuilder(this)
+            .setTitle("Select Tags")
+            .setTitle("Chat with Moodly?")
+            .setMessage("Moodly is your personal AI-chatbot that can help you write journal entries!\n\nExisting content will be passed to Moodly by default and overwritten by the new entry.")
+            .setPositiveButton("OK") { dialog, _ ->
+                val intent = Intent(this, chatbot::class.java)
+                intent.putExtra("journal", binding.etContent.text.toString());
+
+                println("journal to pass: ${binding.etContent.text.toString()}")
+
+                startForResult.launch(intent)
+            }
+            .setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
             }
             .show()
     }
