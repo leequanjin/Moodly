@@ -40,7 +40,6 @@ class Journal : Fragment() {
     private lateinit var database: DatabaseReference
     private lateinit var SLD: SaveLoadData
 
-    lateinit var txtTest: TextView
     lateinit var userRecordRV: RecyclerView
     lateinit var userRecordRVAdapter: UserRecordRvAdapter
     lateinit var userRecord: ArrayList<UserRecordFormat>
@@ -50,6 +49,7 @@ class Journal : Fragment() {
     lateinit var quoteslist: List<QuoteModel>
     lateinit var toolbar: Toolbar
     lateinit var btnFilter: Button
+    lateinit var txtFilterBy: TextView
 
     //region find tag
     val presetTags = arrayOf("Work", "Travel", "Food", "Health", "Relationships")
@@ -76,11 +76,12 @@ class Journal : Fragment() {
 
         val id = auth.currentUser?.uid.toString()
 
-        txtTest = view.findViewById(R.id.labelFilter)
         tv_quotes = view.findViewById(R.id.tv_quotes)
         tv_author = view.findViewById(R.id.tv_author)
         toolbar=view.findViewById(R.id.tbtoolbar)
         btnFilter = view.findViewById(R.id.btnFilter)
+        txtFilterBy= view.findViewById(R.id.TVFilterBy)
+        txtFilterBy.visibility=View.GONE
         val activity = requireActivity() as AppCompatActivity
         activity.setSupportActionBar(toolbar)
         activity.supportActionBar!!.title=""
@@ -116,9 +117,11 @@ class Journal : Fragment() {
             }else{
                 loadOri(id)
                 userRecordRVAdapter.filterList(userRecord)
+                txtFilterBy.visibility=View.GONE
                 btnFilter.background=resources.getDrawable(R.drawable.filtericon, null)
                 Toast.makeText(requireContext(), "Filter cancelled", Toast.LENGTH_SHORT).show()
                 clicked=false
+                selectedTags.clear()
             }
         }
         //endregion
@@ -295,7 +298,7 @@ class Journal : Fragment() {
             val filteredlist2: ArrayList<UserDiaryFormat> = ArrayList()
             // check for matching results
             for (item2 in item.diary){
-                if ((areArraysEqual(item2.tagsDiary,text))&&item2.tagsDiary.isNotEmpty()) {
+                if ((isElementThere(item2.tagsDiary,text))&&item2.tagsDiary.isNotEmpty()) {
                     // if matched, then put into the array
                     filteredlist2.add(item2)
                 }
@@ -314,6 +317,15 @@ class Journal : Fragment() {
             btnFilter.background=resources.getDrawable(R.drawable.filtercancel, null)
             clicked=true
             Toast.makeText(requireContext(), "Filtered results by tags.", Toast.LENGTH_SHORT).show()
+            txtFilterBy.visibility=View.VISIBLE
+            txtFilterBy.text="Filter By: "
+            for (stag in text.indices){
+                if(stag==text.size-1){
+                    txtFilterBy.text=(txtFilterBy.text.toString()).plus("#").plus(text[stag])
+                }else{
+                    txtFilterBy.text=(txtFilterBy.text.toString()).plus("#").plus(text[stag]).plus(", ")
+                }
+            }
         }
     }
     private fun filterByMood(text: String) {
@@ -344,6 +356,9 @@ class Journal : Fragment() {
             btnFilter.background=resources.getDrawable(R.drawable.filtercancel, null)
             clicked=true
             Toast.makeText(requireContext(), "Filtered results by mood.", Toast.LENGTH_SHORT).show()
+            txtFilterBy.visibility=View.VISIBLE
+            txtFilterBy.text="Filter By: "
+            txtFilterBy.text=(txtFilterBy.text.toString()).plus(text)
         }
     }
     private fun loadOri(id:String){
@@ -351,11 +366,8 @@ class Journal : Fragment() {
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 userRecord.clear()
-                // var index = 1
                 for (result in snapshot.children) {
                     var years = result.key.toString()
-                    // var indexSmall = 1
-
                     for (result2 in result.children) {
                         var months = result2.key.toString()
                         userDiary = ArrayList()
@@ -380,9 +392,7 @@ class Journal : Fragment() {
                                     }
                                 }
                                 userDiary.add(UserDiaryFormat(dateD, moodEmote, diary, date, tags, mood))
-                                // indexSmall++
                             }
-                            //txtTest.text= txtTest.text.toString().plus(diary)
                         }
                         if (userRecord.size > 0) {
                             var count = userRecord.size
@@ -430,17 +440,15 @@ class Journal : Fragment() {
         })
     }
 
-    private fun areArraysEqual(array1: ArrayList<String>, array2: ArrayList<String>): Boolean {
-        if (array1.size != array2.size) {
-            return false
-        }
-
-        for (i in array1.indices) {
-            if (array1[i] != array2[i]) {
-                return false
+    private fun isElementThere(array1: ArrayList<String>, array2: ArrayList<String>): Boolean {
+            for (i in array1.indices) {
+                for(j in array2.indices){
+                    if (array1[i] == array2[j]) {
+                        return true
+                    }
+                }
             }
-        }
-        return true
+        return false
     }
     //endregion
 }
