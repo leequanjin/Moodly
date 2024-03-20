@@ -35,7 +35,14 @@ class UserDiaryRvAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentItem = userDiary[position]
         holder.urDate.text = currentItem.dateDiary
-        holder.urContent.text = currentItem.contentDiary
+        holder.urContent.text = currentItem.contentDiary.plus("\n\n")
+        for (stag in currentItem.tagsDiary.indices){
+            if(stag==currentItem.tagsDiary.size-1){
+                holder.urContent.text=(holder.urContent.text.toString()).plus("#").plus(currentItem.tagsDiary[stag]).plus("\n")
+            }else{
+                holder.urContent.text=(holder.urContent.text.toString()).plus("#").plus(currentItem.tagsDiary[stag]).plus(", ")
+            }
+        }
         holder.urTB2.visibility = View.GONE
         holder.urMood.setImageDrawable(currentItem.moodDiary)
 
