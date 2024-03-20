@@ -1,42 +1,43 @@
     package com.example.moodly
 
-    import java.util.Calendar
-    import android.app.AlarmManager
-    import android.content.Context
-    import android.provider.Settings
-    import android.content.Intent
     import android.annotation.SuppressLint
+    import android.app.AlarmManager
     import android.app.AlertDialog
     import android.app.NotificationChannel
     import android.app.NotificationManager
     import android.app.PendingIntent
-    import android.icu.text.SimpleDateFormat
+    import android.content.Context
+    import android.content.Intent
     import android.net.Uri
     import android.os.Build
     import android.os.Bundle
+    import android.provider.Settings
     import android.util.Log
-    import androidx.fragment.app.Fragment
     import android.view.LayoutInflater
     import android.view.View
     import android.view.ViewGroup
     import android.widget.Button
-    import android.widget.ToggleButton
-    import android.widget.TimePicker
-    import androidx.cardview.widget.CardView
     import android.widget.TextView
+    import android.widget.TimePicker
     import android.widget.Toast
-    import androidx.core.app.NotificationCompat
+    import android.widget.ToggleButton
+    import androidx.cardview.widget.CardView
     import androidx.core.app.NotificationManagerCompat
-    import androidx.core.content.getSystemService
-    import java.time.LocalDateTime
-    import java.util.Date
-    import java.util.Locale
+    import androidx.fragment.app.Fragment
+    import com.google.firebase.auth.FirebaseAuth
+    import com.google.firebase.auth.auth
+    import com.google.firebase.database.DatabaseReference
+    import com.google.firebase.database.ktx.database
+    import com.google.firebase.ktx.Firebase
+    import java.util.Calendar
 
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private const val ARG_PARAM1 = "param1"
     private const val ARG_PARAM2 = "param2"
+
+    private lateinit var currContext: Context
 
     /**
      * A simple [Fragment] subclass.
@@ -47,6 +48,9 @@
         // TODO: Rename and change types of parameters
         private var param1: String? = null
         private var param2: String? = null
+        private lateinit var auth: FirebaseAuth
+        private lateinit var database: DatabaseReference
+        private lateinit var SLD: SaveLoadData
 
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
@@ -56,6 +60,15 @@
             }
         }
 
+        override fun onAttach(context: Context) {
+            super.onAttach(context)
+            currContext = context
+        }
+
+        override fun onDetach() {
+            super.onDetach()
+        }
+
         @SuppressLint("SetTextI18n", "ScheduleExactAlarm")
         override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -63,6 +76,11 @@
         ): View? {
             // Inflate the layout for this fragment
             val view = inflater.inflate(R.layout.fragment_settings, container, false)
+            auth = com.google.firebase.Firebase.auth
+            database = Firebase.database.reference
+            SLD = SaveLoadData()
+
+            val id = auth.currentUser?.uid.toString()
 
             val textViewRemind: TextView? = view.findViewById(R.id.textViewReminder) as? TextView
             val toggleButton: ToggleButton? = view.findViewById(R.id.toggleButton2) as? ToggleButton
@@ -76,8 +94,19 @@
             }
             val buttonExit: Button? = view.findViewById(R.id.buttonExit)
             buttonExit?.setOnClickListener {
-                val intent = Intent(requireContext(), Auth::class.java)
-                startActivity(intent)
+                if (auth.currentUser != null) {
+                    auth.signOut()
+
+                    SLD.username = ""
+                    SLD.email = ""
+                    SLD.password = ""
+
+                    SLD.SaveData(currContext)
+
+                    val intent = Intent(context, Auth::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    startActivity(intent)
+                }
             }
 
             toggleButton?.setOnCheckedChangeListener { _, isChecked ->
