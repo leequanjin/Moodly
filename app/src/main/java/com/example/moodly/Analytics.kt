@@ -150,7 +150,7 @@ class Analytics : Fragment() {
 
     private fun setupPieChart(awesomeCount: Int, goodCount: Int, mehCount: Int, downCount: Int, terribleCount: Int, moodlessCount: Int) {
 
-        val total = (awesomeCount + goodCount + mehCount + downCount + terribleCount + moodlessCount)
+        val total = (awesomeCount + goodCount + mehCount + downCount + terribleCount)
         Log.d("Journal", "Total Moods: $total")
 
         // Get reference to the PieChart
@@ -167,7 +167,7 @@ class Analytics : Fragment() {
             PieEntry((mehCount.toFloat()/total), "Meh"),
             PieEntry((downCount.toFloat()/total), "Down"),
             PieEntry((terribleCount.toFloat()/total), "Terrible..."),
-            PieEntry((moodlessCount.toFloat()/total), "Moodless")
+//            PieEntry((moodlessCount.toFloat()/total), "Moodless")
         ).filter { it.value > 0f } // Filter entries with value greater than 0
 
         entries.addAll(filteredEntries)
@@ -179,7 +179,7 @@ class Analytics : Fragment() {
             "Meh" to Color.parseColor("#fcb040"),
             "Down" to Color.parseColor("#f15b29"),
             "Terrible..." to Color.parseColor("#f25a29"),
-            "Moodless" to Color.WHITE
+//            "Moodless" to Color.WHITE
         )
 
         // Colors representing the rainbow spectrum

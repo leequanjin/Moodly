@@ -24,7 +24,7 @@
             android:id="@+id/btnFilter"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
             android:layout_alignParentEnd="true"
             android:text="Button"
@@ -78,7 +78,6 @@
                     android:id="@+id/cardQuotes"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
                     android:layout_marginTop="12dp"
                     android:layout_marginBottom="12dp"
                     app:cardCornerRadius="12dp"
@@ -112,6 +111,15 @@
 
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/TVFilterBy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="viewStart"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"
+                    android:textSize="18sp" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/idRVRecord"
