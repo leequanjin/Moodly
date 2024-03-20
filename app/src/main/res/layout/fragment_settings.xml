@@ -53,7 +53,7 @@
                     android:text="Personalize Your\nJournaling Experience"
                     android:textAlignment="center"
                     android:textColor="@color/extra_dark_blue"
-                    android:textSize="24sp"
+                    android:textSize="22sp"
                     android:letterSpacing="0.1"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
