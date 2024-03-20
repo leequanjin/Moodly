@@ -321,7 +321,7 @@
                         android:layout_marginTop="20dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
-                        android:text="Exit"
+                        android:text="Log Out"
                         android:textColor="@color/black"
                         android:enabled="true"
                         android:background="@drawable/rename_button"
