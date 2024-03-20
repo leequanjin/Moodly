@@ -206,7 +206,7 @@ class Analytics : Fragment() {
 
         // pieChart.description.text = "Get to know your Feelings"
         if(total == 0){
-            pieChart.centerText= "Nothing\nTo\nAnalysis😅"
+            pieChart.centerText= "Nothing\nTo\nAnalyse😅"
             pieChart.setCenterTextSize(30f)
             holeRadius = 100f
         }else{
