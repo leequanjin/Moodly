@@ -230,17 +230,18 @@ class Analytics : Fragment() {
 
         pieData.setValueTextSize(18f)
 
-        pieChart.description.text="Pie Chart"
-        pieChart.centerText= "Mood \nTracker"
+        pieChart.description.text="Get to know your Feelings"
+        pieChart.centerText= "Your\nEveryday\nMood"
         pieChart.setCenterTextSize(16f)
         //pieChart.setCenterTextColor(Color.BLUE);
 
         pieChart.animateY(2000)
 
         val legend: Legend = pieChart.legend
-        legend.textSize= 23f
+        legend.textSize= 10f
+        pieChart.description.textSize = 14f
 
-        pieChart.description.isEnabled=false
+        pieChart.description.isEnabled=true
         pieChart.legend.isEnabled=false
     }
 
