@@ -24,8 +24,8 @@
             android:id="@+id/btnFilter"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="40dp"
             android:layout_alignParentEnd="true"
             android:text="Button"
             android:background="@drawable/filtericon"/>

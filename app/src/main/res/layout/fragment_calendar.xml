@@ -10,6 +10,15 @@
     android:orientation="vertical"
     android:paddingTop="32dp">
 
+    <TextView
+        android:id="@+id/labelSettings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="6dp"
+        android:text="CALENDAR"
+        android:textAlignment="center"
+        android:textSize="24sp"/>
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
