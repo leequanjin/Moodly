@@ -3,21 +3,21 @@
     <!-- Button pressed state -->
     <item android:state_pressed="true">
         <shape android:shape="rectangle">
-            <solid android:color="@color/blue_pressed" /> <!-- Change to your desired pressed color -->
+            <solid android:color="@color/blue" /> <!-- Change to your desired pressed color -->
             <corners android:radius="8dp" /> <!-- Adjust the corner radius if needed -->
         </shape>
     </item>
     <!-- Button focused state -->
     <item android:state_focused="true">
         <shape android:shape="rectangle">
-            <solid android:color="@color/blue_pressed" /> <!-- Change to your desired focused color -->
+            <solid android:color="@color/blue" /> <!-- Change to your desired focused color -->
             <corners android:radius="8dp" /> <!-- Adjust the corner radius if needed -->
         </shape>
     </item>
     <!-- Button default state -->
     <item android:state_enabled="true">
         <shape android:shape="rectangle">
-            <solid android:color="@color/blue_normal" /> <!-- Change to your desired default color -->
+            <solid android:color="@color/dark_blue" /> <!-- Change to your desired default color -->
             <corners android:radius="8dp" /> <!-- Adjust the corner radius if needed -->
         </shape>
     </item>

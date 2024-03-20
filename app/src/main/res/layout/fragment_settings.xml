@@ -49,12 +49,12 @@
                     android:id="@+id/labelYap"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="34dp"
-                    android:layout_marginTop="14dp"
+                    android:layout_gravity="center"
                     android:text="Personalize Your\nJournaling Experience"
                     android:textAlignment="center"
-                    android:textColor="@color/black"
-                    android:textSize="28sp"
+                    android:textColor="@color/extra_dark_blue"
+                    android:textSize="24sp"
+                    android:letterSpacing="0.1"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -65,12 +65,12 @@
             </androidx.cardview.widget.CardView>
 
             <TextView
-                android:id="@+id/labelGeneral"
+                android:id="@+id/labelReminder"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="24dp"
-                android:text="GENERAL"
+                android:text="REMINDER"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -92,7 +92,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/labelGeneral"
+                app:layout_constraintTop_toBottomOf="@+id/labelReminder"
                 app:layout_constraintVertical_bias="0.0">
 
                 <LinearLayout
@@ -110,7 +110,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="38dp"
-                            android:paddingLeft="25dp"
+                            android:layout_marginLeft="20dp"
                             android:textSize="20sp"
                             android:text="Turn Reminder On?" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -119,7 +119,8 @@
                         android:id="@+id/toggleButton2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="25dp"
+                        android:layout_marginVertical="25dp"
+                        android:layout_marginEnd="20dp"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:textColor="@color/white"
@@ -146,7 +147,7 @@
                     android:text="Set Time"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="280dp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:enabled="true"
                     android:background="@drawable/button_set_time_selector"
                     app:backgroundTint="@null"
@@ -161,7 +162,7 @@
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="32dp"
-                android:text="SUPPORT"
+                android:text="GENERAL"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -173,7 +174,7 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardSupport"
                 android:layout_width="0dp"
-                android:layout_height="640dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="32dp"
@@ -188,146 +189,257 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="20dp">
-
-                    <ImageView
-                        android:id="@+id/imageView8"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:layout_marginLeft="30dp"
-                        android:src="@drawable/contact" />
-
-                    <Button
-                        android:id="@+id/buttonContact"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp"
-                        android:text="Contact Us"
-                        android:textColor="@color/black"
-                        android:enabled="true"
-                        android:background="@drawable/rename_button"
-                        app:backgroundTint="@null"
-                        android:textSize="20sp"  />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="150dp">
-
-                    <ImageView
-                        android:id="@+id/imageView9"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:layout_marginLeft="30dp"
-                        android:src="@drawable/feedback" />
-
-                    <Button
-                        android:id="@+id/buttonFeedback"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp"
-                        android:text="Feedback"
-                        android:textColor="@color/black"
-                        android:enabled="true"
-                        android:background="@drawable/rename_button"
-                        app:backgroundTint="@null"
-                        android:textSize="20sp"  />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="280dp">
-
-                    <ImageView
-                        android:id="@+id/imageView10"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:layout_marginLeft="30dp"
-                        android:src="@drawable/privacypolicy" />
-
-                    <Button
-                    android:id="@+id/buttonPrivacy"
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:text="Privacy Policy"
-                    android:textColor="@color/black"
-                    android:enabled="true"
-                    android:background="@drawable/rename_button"
-                    app:backgroundTint="@null"
-                    android:textSize="20sp"  />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="410dp">
-
-                    <ImageView
-                        android:id="@+id/imageView11"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:layout_marginLeft="30dp"
-                        android:src="@drawable/about" />
-
-
+                    android:orientation="vertical">
                     <Button
+                        style="@style/Widget.Material3.Button.TextButton.Icon"
                         android:id="@+id/buttonRename"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp"
-                        android:text="Rename"
-                        android:textColor="@color/black"
-                        android:enabled="true"
-                        android:background="@drawable/rename_button"
-                        app:backgroundTint="@null"
-                        android:textSize="20sp"  />
-                </LinearLayout>
+                        android:textAlignment="viewStart"
+                        android:layout_margin="8dp"
+                        app:icon="@drawable/ic_username"
+                        app:iconTint="@color/extra_dark_blue"
+                        app:iconSize="40dp"
+                        app:iconPadding="30dp"
+                        android:text="Change Username"
+                        android:textColor="@color/extra_dark_blue"
+                        android:textSize="20sp"
+                        android:paddingStart="24dp"
+                        />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="540dp">
-
-                    <ImageView
-                        android:id="@+id/imageView12"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:layout_marginLeft="30dp"
-                        android:src="@drawable/exit" />
-
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="@color/dark_blue"
+                        android:layout_marginHorizontal="10dp"/>
 
                     <Button
-                        android:id="@+id/buttonExit"
-                        android:layout_width="wrap_content"
+                        style="@style/Widget.Material3.Button.TextButton.Icon"
+                        android:id="@+id/btnFeedback"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp"
-                        android:text="Exit"
-                        android:textColor="@color/black"
-                        android:enabled="true"
-                        android:background="@drawable/rename_button"
-                        app:backgroundTint="@null"
-                        android:textSize="20sp"  />
+                        android:textAlignment="viewStart"
+                        android:layout_margin="8dp"
+                        app:icon="@drawable/ic_feedback"
+                        app:iconTint="@color/extra_dark_blue"
+                        app:iconSize="40dp"
+                        app:iconPadding="30dp"
+                        android:text="Feedback"
+                        android:textColor="@color/extra_dark_blue"
+                        android:textSize="20sp"
+                        android:paddingStart="24dp"
+                        />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="@color/dark_blue"
+                        android:layout_marginHorizontal="10dp"/>
+
+                    <Button
+                        style="@style/Widget.Material3.Button.TextButton.Icon"
+                        android:id="@+id/btnPrivacy"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="viewStart"
+                        android:layout_margin="8dp"
+                        app:icon="@drawable/ic_privacy"
+                        app:iconTint="@color/extra_dark_blue"
+                        app:iconSize="40dp"
+                        app:iconPadding="30dp"
+                        android:text="Privacy Policy"
+                        android:textColor="@color/extra_dark_blue"
+                        android:textSize="20sp"
+                        android:paddingStart="24dp"
+                        />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="@color/dark_blue"
+                        android:layout_marginHorizontal="10dp"/>
+
+                    <Button
+                        style="@style/Widget.Material3.Button.TextButton.Icon"
+                        android:id="@+id/btnAbout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="viewStart"
+                        android:layout_margin="8dp"
+                        app:icon="@drawable/ic_about"
+                        app:iconTint="@color/extra_dark_blue"
+                        app:iconSize="40dp"
+                        app:iconPadding="30dp"
+                        android:text="About"
+                        android:textColor="@color/extra_dark_blue"
+                        android:textSize="20sp"
+                        android:paddingStart="24dp"
+                        />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="@color/dark_blue"
+                        android:layout_marginHorizontal="10dp"/>
+
+                    <Button
+                        style="@style/Widget.Material3.Button.TextButton.Icon"
+                        android:id="@+id/buttonExit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="viewStart"
+                        android:layout_margin="8dp"
+                        app:icon="@drawable/exit"
+                        app:iconTint="@color/extra_dark_blue"
+                        app:iconSize="40dp"
+                        app:iconPadding="30dp"
+                        android:text="Logout"
+                        android:textColor="@color/extra_dark_blue"
+                        android:textSize="20sp"
+                        android:paddingStart="24dp"
+                        />
                 </LinearLayout>
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:layout_marginTop="20dp">-->
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/imageView8"-->
+<!--                        android:layout_width="80dp"-->
+<!--                        android:layout_height="80dp"-->
+<!--                        android:layout_marginLeft="30dp"-->
+<!--                        android:src="@drawable/contact" />-->
+
+<!--                    <Button-->
+<!--                        android:id="@+id/buttonContact"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="20dp"-->
+<!--                        android:layout_marginLeft="20dp"-->
+<!--                        android:layout_marginRight="20dp"-->
+<!--                        android:text="Contact Us"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:enabled="true"-->
+<!--                        android:background="@drawable/rename_button"-->
+<!--                        app:backgroundTint="@null"-->
+<!--                        android:textSize="20sp"  />-->
+
+<!--                </LinearLayout>-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:layout_marginTop="150dp">-->
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/imageView9"-->
+<!--                        android:layout_width="80dp"-->
+<!--                        android:layout_height="80dp"-->
+<!--                        android:layout_marginLeft="30dp"-->
+<!--                        android:src="@drawable/feedback" />-->
+
+<!--                    <Button-->
+<!--                        android:id="@+id/buttonFeedback"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="20dp"-->
+<!--                        android:layout_marginLeft="20dp"-->
+<!--                        android:layout_marginRight="20dp"-->
+<!--                        android:text="Feedback"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:enabled="true"-->
+<!--                        android:background="@drawable/rename_button"-->
+<!--                        app:backgroundTint="@null"-->
+<!--                        android:textSize="20sp"  />-->
+<!--                </LinearLayout>-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:layout_marginTop="280dp">-->
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/imageView10"-->
+<!--                        android:layout_width="80dp"-->
+<!--                        android:layout_height="80dp"-->
+<!--                        android:layout_marginLeft="30dp"-->
+<!--                        android:src="@drawable/privacypolicy" />-->
+
+<!--                    <Button-->
+<!--                    android:id="@+id/buttonPrivacy"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="20dp"-->
+<!--                    android:layout_marginLeft="20dp"-->
+<!--                    android:layout_marginRight="20dp"-->
+<!--                    android:text="Privacy Policy"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:enabled="true"-->
+<!--                    android:background="@drawable/rename_button"-->
+<!--                    app:backgroundTint="@null"-->
+<!--                    android:textSize="20sp"  />-->
+<!--                </LinearLayout>-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:layout_marginTop="410dp">-->
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/imageView11"-->
+<!--                        android:layout_width="80dp"-->
+<!--                        android:layout_height="80dp"-->
+<!--                        android:layout_marginLeft="30dp"-->
+<!--                        android:src="@drawable/about" />-->
+
+
+<!--                    <Button-->
+<!--                        android:id="@+id/buttonRename"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="20dp"-->
+<!--                        android:layout_marginLeft="20dp"-->
+<!--                        android:layout_marginRight="20dp"-->
+<!--                        android:text="Rename"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:enabled="true"-->
+<!--                        android:background="@drawable/rename_button"-->
+<!--                        app:backgroundTint="@null"-->
+<!--                        android:textSize="20sp"  />-->
+<!--                </LinearLayout>-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:layout_marginTop="540dp">-->
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/imageView12"-->
+<!--                        android:layout_width="80dp"-->
+<!--                        android:layout_height="80dp"-->
+<!--                        android:layout_marginLeft="30dp"-->
+<!--                        android:src="@drawable/exit" />-->
+
+
+<!--                    <Button-->
+<!--                        android:id="@+id/buttonExit"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="20dp"-->
+<!--                        android:layout_marginLeft="20dp"-->
+<!--                        android:layout_marginRight="20dp"-->
+<!--                        android:text="Exit"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:enabled="true"-->
+<!--                        android:background="@drawable/rename_button"-->
+<!--                        app:backgroundTint="@null"-->
+<!--                        android:textSize="20sp"  />-->
+<!--                </LinearLayout>-->
             </androidx.cardview.widget.CardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
