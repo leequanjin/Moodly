@@ -190,12 +190,7 @@ class Analytics : Fragment() {
         pieDataSet.valueTextSize=12f
         pieDataSet.valueTextColor= Color.BLACK
 
-        // Set the size of the center hole (inner circle)
-        val holeRadius = 35f // Adjust the value to make the hole smaller
-        pieChart.holeRadius = holeRadius
 
-        // Set the size of the transparent circle around the hole
-        pieChart.transparentCircleRadius = holeRadius
 
         pieChart.setEntryLabelTextSize(13f)
         pieChart.setEntryLabelColor(Color.BLACK)
@@ -207,12 +202,26 @@ class Analytics : Fragment() {
 
         pieData.setValueTextSize(18f)
 
+        var holeRadius = 35f // Adjust the value to make the hole smaller
+
         // pieChart.description.text = "Get to know your Feelings"
-        pieChart.centerText= "Your\nEveryday\nMood"
-        pieChart.setCenterTextSize(16f)
+        if(total == 0){
+            pieChart.centerText= "Nothing\nTo\nAnalyse😅"
+            pieChart.setCenterTextSize(30f)
+            holeRadius = 100f
+        }else{
+            pieChart.centerText= "Your\nEveryday\nMood"
+            pieChart.setCenterTextSize(16f)
+        }
         //pieChart.setCenterTextColor(Color.BLUE);
 
-        pieChart.animateY(2000)
+        // Set the size of the center hole (inner circle)
+        pieChart.holeRadius = holeRadius
+
+        // Set the size of the transparent circle around the hole
+        pieChart.transparentCircleRadius = holeRadius
+
+        pieChart.animateY(1000)
 
         val legend: Legend = pieChart.legend
         legend.textSize= 10f
