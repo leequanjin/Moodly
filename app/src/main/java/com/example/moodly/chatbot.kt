@@ -105,7 +105,7 @@ class chatbot : AppCompatActivity() {
             BOT_AI.username = SLD.username
 
             BOT_AI.createMessage(SLD.username)
-            delay(2000)
+            delay(4000)
 
             while (BOT_AI.getMessage()){
                 delay(1000)
