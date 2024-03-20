@@ -1,41 +1,43 @@
     package com.example.moodly
 
-    import java.util.Calendar
-    import android.app.AlarmManager
-    import android.content.Context
-    import android.provider.Settings
-    import android.content.Intent
     import android.annotation.SuppressLint
+    import android.app.AlarmManager
     import android.app.AlertDialog
     import android.app.NotificationChannel
     import android.app.NotificationManager
     import android.app.PendingIntent
+    import android.content.Context
+    import android.content.Intent
     import android.net.Uri
     import android.os.Build
     import android.os.Bundle
+    import android.provider.Settings
     import android.util.Log
-    import androidx.fragment.app.Fragment
     import android.view.LayoutInflater
     import android.view.View
     import android.view.ViewGroup
     import android.widget.Button
-    import android.widget.ToggleButton
-    import android.widget.TimePicker
-    import androidx.cardview.widget.CardView
     import android.widget.TextView
+    import android.widget.TimePicker
     import android.widget.Toast
+    import android.widget.ToggleButton
+    import androidx.cardview.widget.CardView
     import androidx.core.app.NotificationManagerCompat
+    import androidx.fragment.app.Fragment
     import com.google.firebase.auth.FirebaseAuth
     import com.google.firebase.auth.auth
     import com.google.firebase.database.DatabaseReference
     import com.google.firebase.database.ktx.database
     import com.google.firebase.ktx.Firebase
+    import java.util.Calendar
 
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private const val ARG_PARAM1 = "param1"
     private const val ARG_PARAM2 = "param2"
+
+    private lateinit var currContext: Context
 
     /**
      * A simple [Fragment] subclass.
@@ -56,6 +58,15 @@
                 param1 = it.getString(ARG_PARAM1)
                 param2 = it.getString(ARG_PARAM2)
             }
+        }
+
+        override fun onAttach(context: Context) {
+            super.onAttach(context)
+            currContext = context
+        }
+
+        override fun onDetach() {
+            super.onDetach()
         }
 
         @SuppressLint("SetTextI18n", "ScheduleExactAlarm")
@@ -90,9 +101,11 @@
                     SLD.email = ""
                     SLD.password = ""
 
-                    SLD.SaveData(this)
+                    SLD.SaveData(currContext)
 
-                    startActivity(Intent(context, Auth::class.java))
+                    val intent = Intent(context, Auth::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    startActivity(intent)
                 }
             }
 
