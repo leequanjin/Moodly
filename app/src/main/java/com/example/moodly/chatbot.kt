@@ -163,15 +163,17 @@ class chatbot : AppCompatActivity() {
                 adapter.notifyDataSetChanged()
 
                 if(BOT_AI.conversation.last().msg.contains("!!!SessionEnd!!!")){
-                    val botJournal = BOT_AI.conversation.get(BOT_AI.conversation.size - 2).msg.replace("!!!PassJournal!!!", "")
+                    if(BOT_AI.conversation.get(BOT_AI.conversation.size - 2).msg.contains("!!!PassJournal!!!")){
+                        val botJournal = BOT_AI.conversation.get(BOT_AI.conversation.size - 2).msg.replace("!!!PassJournal!!!", "")
 
-                    println("Bot written journal: $botJournal")
+                        println("Bot written journal: $botJournal")
 
-                    val output = Intent()
-                    output.putExtra("journal", botJournal)
-                    output.putExtra("mood", BOT_AI.conversation.get(BOT_AI.conversation.size - 3).msg.replace("mood: ", ""))
+                        val output = Intent()
+                        output.putExtra("journal", botJournal)
+                        output.putExtra("mood", BOT_AI.conversation.get(BOT_AI.conversation.size - 3).msg.replace("mood: ", ""))
 
-                    setResult(RESULT_OK, output)
+                        setResult(RESULT_OK, output)
+                    }
 
                     edtChat.isEnabled = false
                     edtChat.hint = "Redirect back to journal page in 4 seconds"
