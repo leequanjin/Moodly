@@ -105,7 +105,6 @@ class chatbot : AppCompatActivity() {
             BOT_AI.username = SLD.username
 
             BOT_AI.createMessage(SLD.username)
-            delay(4000)
 
             while (BOT_AI.getMessage()){
                 delay(1000)
@@ -169,8 +168,10 @@ class chatbot : AppCompatActivity() {
                         println("Bot written journal: $botJournal")
 
                         val output = Intent()
-                        output.putExtra("journal", botJournal)
+                        output.putExtra("journal", botJournal.trim())
                         output.putExtra("mood", BOT_AI.conversation.get(BOT_AI.conversation.size - 3).msg.replace("mood: ", ""))
+
+                        println("check: " + output.getStringExtra("journal"))
 
                         setResult(RESULT_OK, output)
                     }
@@ -184,7 +185,7 @@ class chatbot : AppCompatActivity() {
 
             if(BOT_AI.conversation.last().msg.contains("!!!SessionEnd!!!")){
                 delay(4000)
-                finish()
+                finishAndRemoveTask()
             }
         }
 

@@ -228,7 +228,7 @@ class Journal : Fragment() {
         }
         if (filteredlist.isEmpty()) {
             // if no item is added in filtered list, display message
-            Toast.makeText(requireContext(), "No Data Found..", Toast.LENGTH_SHORT).show()
+            Toast.makeText(currContext, "No Data Found..", Toast.LENGTH_SHORT).show()
         } else {
             // pass filtered list to adapter
             userRecordRVAdapter.filterList(filteredlist)
@@ -389,7 +389,7 @@ class Journal : Fragment() {
                             var dateD = result3.child("date").value.toString()
 
                             if (dateD != null) {
-                                val moodEmote = findMood(currContext, mood)
+                                val moodEmote = findMood(requireContext(), mood)
                                 val formatter = DateTimeFormatter.ofPattern("dd MMM, yyyy")
 
                                 var date = LocalDate.parse(dateD, formatter)

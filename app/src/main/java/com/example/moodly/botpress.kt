@@ -247,7 +247,7 @@ class botpress{
             println("Error: ${e.message}")
         }
 
-        return false
+        return true
     }
 
     //extract response and save the data thats with none exists id

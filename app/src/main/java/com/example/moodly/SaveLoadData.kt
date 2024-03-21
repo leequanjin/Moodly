@@ -20,6 +20,12 @@ class SaveLoadData {
         email = sharedPreferences.getString("email", "").toString()
         password = sharedPreferences.getString("password", "").toString()
         showConfirmChatbot = sharedPreferences.getBoolean("showConfirmChatbot", true)
+
+        println("Load Data")
+        println("username: $username")
+        println("email: $email")
+        println("password: $password")
+        println("showConfirmChatbot: $showConfirmChatbot")
     }
 
     fun SaveData(activity: Context) {
@@ -33,5 +39,11 @@ class SaveLoadData {
         editor.putBoolean("showConfirmChatbot", showConfirmChatbot)
 
         editor.apply()
+
+        println("Save Data")
+        println("username: $username")
+        println("email: $email")
+        println("password: $password")
+        println("showConfirmChatbot: $showConfirmChatbot")
     }
 }

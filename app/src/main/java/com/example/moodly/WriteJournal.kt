@@ -264,8 +264,6 @@ class WriteJournal : AppCompatActivity() {
         val intent = Intent(this, chatbot::class.java)
         intent.putExtra("journal", binding.etContent.text.toString().trim());
 
-        println("journal to pass: ${binding.etContent.text.trim()}")
-
         startForResult.launch(intent)
     }
 
@@ -316,7 +314,7 @@ class WriteJournal : AppCompatActivity() {
     }
 
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    /*override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == RQ_SPEECH_REC && resultCode == Activity.RESULT_OK) {
@@ -338,7 +336,7 @@ class WriteJournal : AppCompatActivity() {
             // Set the final text to the EditText
             binding.etContent.setText(finalText)
         }
-    }
+    }*/
 
     private fun askSpeechInput() {
         if (!SpeechRecognizer.isRecognitionAvailable(this)) {

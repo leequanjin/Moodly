@@ -84,6 +84,8 @@ class Welcome : AppCompatActivity() {
 
                 SLD = SaveLoadData()
 
+                SLD.LoadData(this)
+
                 SLD.username = username
 
                 SLD.SaveData(this)

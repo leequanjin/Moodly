@@ -100,7 +100,7 @@ class Auth : AppCompatActivity() {
             }else if(!isValidPassword(password)){
                 Toast.makeText(this, "Password must be longer than 7 character.", Toast.LENGTH_SHORT).show()
             }else{
-                login(email, password)
+                login()
             }
         }
 
@@ -121,7 +121,7 @@ class Auth : AppCompatActivity() {
             }else if(password != confirmPassword){
                 Toast.makeText(this, "Passwords don't match.", Toast.LENGTH_SHORT).show()
             }else{
-                register(email, password)
+                register()
             }
         }
 
@@ -138,10 +138,10 @@ class Auth : AppCompatActivity() {
         //endregion
 
         //auto login after app start
-        login(email, password)
+        login()
     }
 
-    fun register(email: String, password: String){
+    fun register(){
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
@@ -164,8 +164,8 @@ class Auth : AppCompatActivity() {
             }
     }
 
-    fun login(email: String, password: String){
-        if (auth.currentUser == null && email != "" && password != "") {
+    fun login(){
+        if (email != "" && password != "") {
             // No user is signed in
             auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
