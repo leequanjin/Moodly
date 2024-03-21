@@ -273,31 +273,6 @@
 
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="10dp"
-                        android:paddingRight="10dp">
-
-                        <TextView
-                            android:id="@+id/TVBulletPt7"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.1"
-                            android:gravity="center"
-                            android:text="\u25CF" />
-
-                        <TextView
-                            android:id="@+id/TVCalendarDesc2"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.9"
-                            android:paddingLeft="10dp"
-                            android:text="Click into the day on the calendar to view image you attached." />
-                    </LinearLayout>
-
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView
