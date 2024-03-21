@@ -51,11 +51,22 @@ class Journal : Fragment() {
     lateinit var btnFilter: Button
     lateinit var txtFilterBy: TextView
 
+    private lateinit var currContext: Context
+
     //region find tag
     val presetTags = arrayOf("Work", "Travel", "Food", "Health", "Relationships")
     var selectedTags = ArrayList<String>()
     var clicked=false
     //endregion
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        currContext = context
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -378,7 +389,7 @@ class Journal : Fragment() {
                             var dateD = result3.child("date").value.toString()
 
                             if (dateD != null) {
-                                val moodEmote = findMood(requireContext(), mood)
+                                val moodEmote = findMood(currContext, mood)
                                 val formatter = DateTimeFormatter.ofPattern("dd MMM, yyyy")
 
                                 var date = LocalDate.parse(dateD, formatter)

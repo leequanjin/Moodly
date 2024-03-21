@@ -190,11 +190,6 @@ class Auth : AppCompatActivity() {
                     ).show()
                 }
             }
-        } else if (auth.currentUser != null) {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-
-            finish()
         }
     }
 
