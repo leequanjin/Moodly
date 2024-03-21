@@ -1,13 +1,1047 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Manual">
 
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:padding="10dp"
+        android:scrollbars="none"
+        android:layout_marginBottom="12dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Brief Guide of Moodly"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_marginTop="32dp"
+                android:textSize="24sp"
+                android:textAlignment="center"/>
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="As you can see, we have a bottom action bar that consists of 5 buttons enabling you to navigate easily between the pages anytime." />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvJournal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                app:cardCornerRadius="12dp"
+                android:layout_margin="10dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="15dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:padding="10dp">
+
+                        <TextView
+                            android:id="@+id/TVJournalIcon"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="0.2"
+                            android:background="@drawable/ic_journal"
+                            android:gravity="center_vertical"
+                            android:text="" />
+
+                        <TextView
+                            android:id="@+id/TVJournal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="50dp"
+                            android:layout_weight="0.8"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="10dp"
+                            android:text="Journal"
+                            android:textSize="18sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="10dp">
+
+                        <TextView
+                            android:id="@+id/TVBulletPt1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.1"
+                            android:gravity="center"
+                            android:text="\u25CF" />
+
+                        <TextView
+                            android:id="@+id/TVJournalDesc1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.9"
+                            android:paddingLeft="10dp"
+                            android:text="Display a motivation quote and an old journal records list." />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="10dp">
+
+                        <TextView
+                            android:id="@+id/TVBulletPt2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.1"
+                            android:gravity="center"
+                            android:text="\u25CF" />
+
+                        <TextView
+                            android:id="@+id/TVJournalDesc2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.9"
+                            android:paddingLeft="10dp"
+                            android:text="Select the record in list to view your old journal records content." />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="10dp">
+
+                        <TextView
+                            android:id="@+id/TVBulletPt3"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.1"
+                            android:gravity="center"
+                            android:text="\u25CF" />
+
+                        <TextView
+                            android:id="@+id/TVJournalDesc3"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.9"
+                            android:paddingLeft="10dp"
+                            android:text="Enter search keywords in the search bar to search for something in the content of the diary." />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="10dp">
+
+                        <TextView
+                            android:id="@+id/TVBulletPt4"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.1"
+                            android:gravity="center"
+                            android:text="\u25CF" />
+
+                        <TextView
+                            android:id="@+id/TVJournalDesc4"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.9"
+                            android:paddingLeft="10dp"
+                            android:text="Select the filter icon on the top right to filter the records either by tags or mood, and then select again the filter cancel icon to remove the filter. The filter by tags shows records that consists of any of the selected tags while the filter by mood shows records that categorized in the mood." />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:padding="10dp">
+
+                        <TextView
+                            android:id="@+id/TVBulletPt5"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.1"
+                            android:gravity="center"
+                            android:text="\u25CF" />
+
+                        <TextView
+                            android:id="@+id/TVJournalDesc5"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.9"
+                            android:paddingLeft="10dp"
+                            android:text="Select the three dots icon beside every record in list to edit or delete them." />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvCalendar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                app:cardCornerRadius="12dp"
+                android:layout_margin="10dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="15dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:padding="10dp">
+
+                        <TextView
+                            android:id="@+id/TVCalendarIcon"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="0.2"
+                            android:background="@drawable/ic_calendar"
+                            android:gravity="center_vertical"
+                            android:text="" />
+
+                        <TextView
+                            android:id="@+id/TVCalendar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="50dp"
+                            android:layout_weight="0.8"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="10dp"
+                            android:text="Calendar"
+                            android:textSize="18sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="10dp">
+
+                        <TextView
+                            android:id="@+id/TVBulletPt6"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.1"
+                            android:gravity="center"
+                            android:text="\u25CF" />
+
+                        <TextView
+                            android:id="@+id/TVCalendarDesc1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.9"
+                            android:paddingLeft="10dp"
+                            android:text="To have a better view of your everyday mood across the month." />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="10dp">
+
+                        <TextView
+                            android:id="@+id/TVBulletPt7"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.1"
+                            android:gravity="center"
+                            android:text="\u25CF" />
+
+                        <TextView
+                            android:id="@+id/TVCalendarDesc2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.9"
+                            android:paddingLeft="10dp"
+                            android:text="Click into the day on the calendar to view image you attached." />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvAdd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                app:cardCornerRadius="12dp"
+                android:layout_margin="10dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="15dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:padding="10dp">
+
+                        <TextView
+                            android:id="@+id/TVAddIcon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.2"
+                            android:gravity="center_vertical"
+                            android:text="+"
+                            android:paddingLeft="10dp"
+                            android:textSize="40sp" />
+
+                        <TextView
+                            android:id="@+id/TVAdd"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.8"
+                            android:gravity="center_vertical"
+                            android:text="Write New Journal"
+                            android:textSize="18sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="10dp">
+
+                        <TextView
+                            android:id="@+id/TVBulletPt8"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.1"
+                            android:gravity="center"
+                            android:text="\u25CF" />
+
+                        <TextView
+                            android:id="@+id/TVPlusDesc1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.9"
+                            android:paddingLeft="10dp"
+                            android:text="To add and customize a new journal." />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="10dp">
+
+                        <TextView
+                            android:id="@+id/TVBulletPt9"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.1"
+                            android:gravity="center"
+                            android:text="\u25CF" />
+
+                        <TextView
+                            android:id="@+id/TVPlusDesc2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.9"
+                            android:paddingLeft="10dp"
+                            android:text="Customization Available:" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="10dp">
+
+                        <TextView
+                            android:id="@+id/TVBulletPt9.0"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.1"
+                            android:gravity="center"
+                            android:text=""/>
+                        <TextView
+                            android:id="@+id/TVPlusDesc2.0.1"
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:layout_weight="0.1"
+                            android:text="\u25A0" />
+                        <TextView
+                            android:id="@+id/TVPlusDesc2.0.2"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:layout_weight="0.8"
+                            android:paddingLeft="10dp"
+                            android:text="Mood" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="10dp">
+
+                        <TextView
+                            android:id="@+id/TVBulletPt9.1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.2"
+                            android:gravity="center"
+                            android:text=""/>
+                        <TextView
+                            android:id="@+id/TVPlusDesc2.1.1"
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:layout_weight="0.1"
+                            android:background="@drawable/img_very_happy"
+                            android:text="" />
+                        <TextView
+                            android:id="@+id/TVPlusDesc2.1.2"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:layout_weight="0.7"
+                            android:paddingLeft="10dp"
+                            android:text="Feeling Awesome!" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="10dp">
+
+                        <TextView
+                            android:id="@+id/TVBulletPt9.2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.2"
+                            android:gravity="center"
+                            android:text=""/>
+                        <TextView
+                            android:id="@+id/TVPlusDesc2.2.1"
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:layout_weight="0.1"
+                            android:background="@drawable/img_happy"
+                            android:text="" />
+                        <TextView
+                            android:id="@+id/TVPlusDesc2.2.2"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:layout_weight="0.7"
+                            android:paddingLeft="10dp"
+                            android:text="Feeling Good" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="10dp">
+
+                        <TextView
+                            android:id="@+id/TVBulletPt9.3"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.2"
+                            android:gravity="center"
+                            android:text=""/>
+                        <TextView
+                            android:id="@+id/TVPlusDesc2.3.1"
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:layout_weight="0.1"
+                            android:background="@drawable/img_neutral"
+                            android:text="" />
+                        <TextView
+                            android:id="@+id/TVPlusDesc2.3.2"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:layout_weight="0.7"
+                            android:paddingLeft="10dp"
+                            android:text="Feeling Meh" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="10dp">
+
+                        <TextView
+                            android:id="@+id/TVBulletPt9.4"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.2"
+                            android:gravity="center"
+                            android:text=""/>
+                        <TextView
+                            android:id="@+id/TVPlusDesc2.4.1"
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:layout_weight="0.1"
+                            android:background="@drawable/img_sad"
+                            android:text="" />
+                        <TextView
+                            android:id="@+id/TVPlusDesc2.4.2"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:layout_weight="0.7"
+                            android:paddingLeft="10dp"
+                            android:text="Feeling Down" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="10dp">
+
+                        <TextView
+                            android:id="@+id/TVBulletPt9.5"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.2"
+                            android:gravity="center"
+                            android:text=""/>
+                        <TextView
+                            android:id="@+id/TVPlusDesc2.5.1"
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:layout_weight="0.1"
+                            android:background="@drawable/img_very_sad"
+                            android:text="" />
+                        <TextView
+                            android:id="@+id/TVPlusDesc2.5.2"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:layout_weight="0.7"
+                            android:paddingLeft="10dp"
+                            android:text="Feeling Terrible..." />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="10dp">
+
+                        <TextView
+                            android:id="@+id/TVBulletPt9.6"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.2"
+                            android:gravity="center"
+                            android:text=""/>
+                        <TextView
+                            android:id="@+id/TVPlusDesc2.6.1"
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:layout_weight="0.1"
+                            android:background="@drawable/img_no_mood"
+                            android:text="" />
+                        <TextView
+                            android:id="@+id/TVPlusDesc2.6.2"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:layout_weight="0.7"
+                            android:paddingLeft="10dp"
+                            android:text="No Mood" />
+
+                    </LinearLayout>
+<!--                    Tags-->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="10dp">
+
+                        <TextView
+                            android:id="@+id/TVBulletPt10.0"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.1"
+                            android:gravity="center"
+                            android:text=""/>
+                        <TextView
+                            android:id="@+id/TVPlusDesc3.0.1"
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:layout_weight="0.1"
+                            android:text="\u25A0" />
+                        <TextView
+                            android:id="@+id/TVPlusDesc3.0.2"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:layout_weight="0.8"
+                            android:paddingLeft="10dp"
+                            android:text="Tag" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="10dp">
+
+                        <TextView
+                            android:id="@+id/TVBulletPt10.1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.2"
+                            android:gravity="center"
+                            android:text=""/>
+                        <TextView
+                            android:id="@+id/TVPlusDesc3.1.1"
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:layout_weight="0.1"
+                            android:text="\u25CF" />
+                        <TextView
+                            android:id="@+id/TVPlusDesc3.1.2"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:layout_weight="0.7"
+                            android:paddingLeft="10dp"
+                            android:text="Work" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="10dp">
+
+                        <TextView
+                            android:id="@+id/TVBulletPt10.2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.2"
+                            android:gravity="center"
+                            android:text=""/>
+                        <TextView
+                            android:id="@+id/TVPlusDesc3.2.1"
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:layout_weight="0.1"
+                            android:text="\u25CF" />
+                        <TextView
+                            android:id="@+id/TVPlusDesc3.2.2"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:layout_weight="0.7"
+                            android:paddingLeft="10dp"
+                            android:text="Travel" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="10dp">
+
+                        <TextView
+                            android:id="@+id/TVBulletPt10.3"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.2"
+                            android:gravity="center"
+                            android:text=""/>
+                        <TextView
+                            android:id="@+id/TVPlusDesc3.3.1"
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:layout_weight="0.1"
+                            android:text="\u25CF" />
+                        <TextView
+                            android:id="@+id/TVPlusDesc3.3.2"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:layout_weight="0.7"
+                            android:paddingLeft="10dp"
+                            android:text="Food" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="10dp">
+
+                        <TextView
+                            android:id="@+id/TVBulletPt10.4"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.2"
+                            android:gravity="center"
+                            android:text=""/>
+                        <TextView
+                            android:id="@+id/TVPlusDesc3.4.1"
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:layout_weight="0.1"
+                            android:text="\u25CF" />
+                        <TextView
+                            android:id="@+id/TVPlusDesc3.4.2"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:layout_weight="0.7"
+                            android:paddingLeft="10dp"
+                            android:text="Health" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="10dp">
+
+                        <TextView
+                            android:id="@+id/TVBulletPt10.5"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.2"
+                            android:gravity="center"
+                            android:text=""/>
+                        <TextView
+                            android:id="@+id/TVPlusDesc3.5.1"
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:layout_weight="0.1"
+                            android:text="\u25CF" />
+                        <TextView
+                            android:id="@+id/TVPlusDesc3.5.2"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:layout_weight="0.7"
+                            android:paddingLeft="10dp"
+                            android:text="Relationships" />
+
+                    </LinearLayout>
+
+<!--                    Tags-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="10dp">
+
+                        <TextView
+                            android:id="@+id/TVBulletPt10"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.1"
+                            android:gravity="center"
+                            android:text="\u25CF" />
+
+                        <TextView
+                            android:id="@+id/TVPlusDesc3"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.9"
+                            android:paddingLeft="10dp"
+                            android:text="We have an AI bot that can assist you to write your journal and correct your grammar error. It is available as a robot icon on the bottom right of the page, above the navigation bar." />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvAnlaytics"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                app:cardCornerRadius="12dp"
+                android:layout_margin="10dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="15dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:padding="10dp">
+
+                        <TextView
+                            android:id="@+id/TVAnalyticsIcon"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="0.2"
+                            android:background="@drawable/ic_analytics"
+                            android:gravity="center_vertical"
+                            android:text="" />
+
+                        <TextView
+                            android:id="@+id/TVAnalytics"
+                            android:layout_width="wrap_content"
+                            android:layout_height="50dp"
+                            android:layout_weight="0.8"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="10dp"
+                            android:text="Analytics"
+                            android:textSize="18sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="10dp">
+
+                        <TextView
+                            android:id="@+id/TVBulletPt11"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.1"
+                            android:gravity="center"
+                            android:text="\u25CF" />
+
+                        <TextView
+                            android:id="@+id/TVAnalyticsDesc1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.9"
+                            android:paddingLeft="10dp"
+                            android:text="To show an analytic chart of your everyday mood in a month." />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="10dp">
+
+                        <TextView
+                            android:id="@+id/TVBulletPt12"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.1"
+                            android:gravity="center"
+                            android:text="\u25CF" />
+
+                        <TextView
+                            android:id="@+id/TVAnalyticsDesc2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.9"
+                            android:paddingLeft="10dp"
+                            android:text="To show the longest streak and the current streak of days maintaining writing journal habits." />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvSettings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                app:cardCornerRadius="12dp"
+                android:layout_margin="10dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="15dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:padding="10dp">
+
+                        <TextView
+                            android:id="@+id/TVSettingsIcon"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="0.2"
+                            android:background="@drawable/ic_settings"
+                            android:gravity="center_vertical"
+                            android:text="" />
+
+                        <TextView
+                            android:id="@+id/TVSettings"
+                            android:layout_width="wrap_content"
+                            android:layout_height="50dp"
+                            android:layout_weight="0.8"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="10dp"
+                            android:text="Settings"
+                            android:textSize="18sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="10dp">
+
+                        <TextView
+                            android:id="@+id/TVBulletPt13"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.1"
+                            android:gravity="center"
+                            android:text="\u25CF" />
+
+                        <TextView
+                            android:id="@+id/TVSettingsDesc1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.9"
+                            android:paddingLeft="10dp"
+                            android:text="Enable to set journal reminder by switching on the reminder under the general division." />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="10dp">
+
+                        <TextView
+                            android:id="@+id/TVBulletPt14"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.1"
+                            android:gravity="center"
+                            android:text="\u25CF" />
+
+                        <TextView
+                            android:id="@+id/TVSettingsDesc2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.9"
+                            android:paddingLeft="10dp"
+                            android:text="We provide support like contact us, feedback, privacy policy, rename, and log out under the support division and each features of this is accessible by selecting them." />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+    </ScrollView>
 
 </FrameLayout>
