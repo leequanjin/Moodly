@@ -947,7 +947,7 @@
                             android:layout_height="50dp"
                             android:layout_weight="0.2"
                             android:background="@drawable/ic_settings"
-                            android:gravity="center_vertical"
+                            android:gravity="center|center_vertical"
                             android:text="" />
 
                         <TextView
