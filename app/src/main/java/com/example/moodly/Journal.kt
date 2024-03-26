@@ -268,7 +268,7 @@ class Journal : Fragment() {
     }
     private fun showMoodSelectionDialog() {
         val moodOptions = arrayOf("Feeling Awesome!", "Feeling Good", "Feeling Meh", "Feeling Down", "Feeling Terrible...")
-        var selectedMood = ""
+        var selectedMood = "Feeling Awesome!"
 
         MaterialAlertDialogBuilder(requireContext())
             .setTitle("Select Mood")
