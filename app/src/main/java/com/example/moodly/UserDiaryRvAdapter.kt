@@ -33,7 +33,7 @@ class UserDiaryRvAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val currentItem = userDiary[position]
+        val currentItem = userDiary[userDiary.size - position - 1]
         holder.urDate.text = currentItem.dateDiary
         holder.urContent.text = currentItem.contentDiary.plus("\n\n")
         for (stag in currentItem.tagsDiary.indices){

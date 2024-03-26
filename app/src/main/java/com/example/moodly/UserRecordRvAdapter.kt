@@ -30,7 +30,7 @@ class UserRecordRvAdapter(private var userRecord: ArrayList<UserRecordFormat>) :
     }
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if (userRecord.size > 0) {
-            val currentRecord = userRecord[position]
+            val currentRecord = userRecord[userRecord.size - position - 1]
             holder.urIndex.text = "${currentRecord.months} ${currentRecord.rid}"
 
             //Nested Adapter
