@@ -156,7 +156,7 @@ class Analytics : Fragment() {
             "Good" to Color.parseColor("#91ca61"),
             "Meh" to Color.parseColor("#fcb040"),
             "Down" to Color.parseColor("#f15b29"),
-            "Terrible..." to Color.parseColor("#f25a29"),
+            "Terrible..." to Color.parseColor("#cf3c3e"),
 //            "Moodless" to Color.WHITE
         )
 
