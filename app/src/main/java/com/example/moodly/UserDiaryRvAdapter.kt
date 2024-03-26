@@ -21,7 +21,8 @@ import java.time.LocalDate
 
 class UserDiaryRvAdapter(
 
-    private val userDiary: ArrayList<UserDiaryFormat>
+    private val userDiary: ArrayList<UserDiaryFormat>,
+    val journalClass: Journal
 ) : RecyclerView.Adapter<UserDiaryRvAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -99,8 +100,9 @@ class UserDiaryRvAdapter(
                                 .addOnFailureListener {
                                     Log.e("Test", "Error deleting entry: ${it.message}")
                                 }
+
+                            journalClass.loadOri(userId)
                         }
-                        notifyDataSetChanged()
                     }
                 }
             }

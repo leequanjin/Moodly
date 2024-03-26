@@ -8,7 +8,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 
-class UserRecordRvAdapter(private var userRecord: ArrayList<UserRecordFormat>) : RecyclerView.Adapter<UserRecordRvAdapter.ViewHolder>() {
+class UserRecordRvAdapter(
+    private var userRecord: ArrayList<UserRecordFormat>,
+    val journalClass: Journal
+) : RecyclerView.Adapter<UserRecordRvAdapter.ViewHolder>() {
 
     lateinit var userDiaryRVAdapter: UserDiaryRvAdapter
     lateinit var userDiary: ArrayList<UserDiaryFormat>
@@ -18,8 +21,9 @@ class UserRecordRvAdapter(private var userRecord: ArrayList<UserRecordFormat>) :
             R.layout.user_record_rv_item2,
             parent, false
         )
-        return ViewHolder(itemView)
+        return ViewHolder(itemView, journalClass)
     }
+
     fun filterList(filterlist: ArrayList<UserRecordFormat>) {
         // below line is to add our filtered
         // list in our course array list.
@@ -48,11 +52,11 @@ class UserRecordRvAdapter(private var userRecord: ArrayList<UserRecordFormat>) :
         return userRecord.size
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(itemView: View, journalClass: Journal) : RecyclerView.ViewHolder(itemView) {
         val urIndex: TextView = itemView.findViewById(R.id.idTVIndex)
         val userDiaryRV: RecyclerView = itemView.findViewById(R.id.idRVDiary)
 
         // Initialize UserDiaryRvAdapter here
-        val userDiaryRVAdapter = UserDiaryRvAdapter(ArrayList())
+        val userDiaryRVAdapter = UserDiaryRvAdapter(ArrayList(), journalClass)
     }
 }

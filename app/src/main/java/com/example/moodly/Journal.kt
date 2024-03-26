@@ -102,7 +102,7 @@ class Journal : Fragment() {
         userRecord = ArrayList()
 
         userRecordRV.layoutManager = LinearLayoutManager(requireContext())
-        userRecordRVAdapter = UserRecordRvAdapter(userRecord)
+        userRecordRVAdapter = UserRecordRvAdapter(userRecord, this)
         userRecordRV.adapter = userRecordRVAdapter
         //region RecyclerView
         loadOri(id)
@@ -138,6 +138,15 @@ class Journal : Fragment() {
         //endregion
         return view
     }
+
+    override fun onResume(){
+        super.onResume()
+
+        println("Back to journal")
+
+        loadOri(auth.currentUser?.uid.toString())
+    }
+
     //region FindMonthNum
     fun findMonthNum(month: String): Int {
         var monthNum = 0
@@ -372,9 +381,9 @@ class Journal : Fragment() {
             txtFilterBy.text=(txtFilterBy.text.toString()).plus(text)
         }
     }
-    private fun loadOri(id:String){
+    fun loadOri(id:String){
         val myRef = database.child(id).child("JournalEntries")
-        myRef.addValueEventListener(object : ValueEventListener {
+        /*myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 userRecord.clear()
                 for (result in snapshot.children) {
@@ -448,7 +457,76 @@ class Journal : Fragment() {
                 Log.w("ERROR", "Failed to read value.", error.toException())
             }
 
-        })
+        })*/
+
+        myRef.get().addOnSuccessListener{snapshot ->
+            userRecord.clear()
+            for (result in snapshot.children) {
+                var years = result.key.toString()
+                for (result2 in result.children) {
+                    var months = result2.key.toString()
+                    userDiary = ArrayList()
+
+                    for (result3 in result2.children) {
+                        var mood = result3.child("mood").value.toString()
+                        var diary = result3.child("content").value.toString()
+                        var dateD = result3.child("date").value.toString()
+
+                        if (dateD != null) {
+                            val moodEmote = findMood(requireContext(), mood)
+                            val formatter = DateTimeFormatter.ofPattern("dd MMM, yyyy")
+
+                            var date = LocalDate.parse(dateD, formatter)
+                            var day = date.dayOfWeek
+                            Log.d("Complete Date", "date: $date")
+                            dateD = dateD.substring(0, 2) + " " + day.toString().substring(0, 3)
+                            var tags = ArrayList<String>()
+                            if(result3.hasChild("tags")){
+                                for (result4 in result3.child("tags").children){
+                                    tags.add(result4.value.toString())
+                                }
+                            }
+                            userDiary.add(UserDiaryFormat(dateD, moodEmote, diary, date, tags, mood))
+                        }
+                    }
+                    if (userRecord.size > 0) {
+                        var count = userRecord.size
+                        var supposedIndex = 0
+                        for (currentIndex in 0..(count - 1)) {
+                            if (userRecord[currentIndex].rid < years.toInt()) {
+                                supposedIndex = currentIndex
+                                break
+                            } else if (userRecord[currentIndex].rid == years.toInt()) {
+                                var currentMonthNum = findMonthNum(userRecord[currentIndex].months)
+                                var newMonthNum = findMonthNum(months)
+                                if (newMonthNum > currentMonthNum && currentIndex == 0) {
+                                    supposedIndex = currentIndex
+                                    break
+                                } else if (newMonthNum > currentMonthNum) {
+                                    break
+                                } else {
+                                    supposedIndex += 1
+                                }
+                            } else {
+                                supposedIndex += 1
+                            }
+                        }
+
+                        userRecord.add(
+                            supposedIndex,
+
+                            UserRecordFormat(years.toInt(), convertToMMMFormat(months.toInt()), userDiary)
+                        )
+                    } else {
+                        userRecord.add(
+                            UserRecordFormat(years.toInt(), convertToMMMFormat(months.toInt()), userDiary))
+                    }
+                }
+                // index++
+            }
+
+            userRecordRVAdapter.notifyDataSetChanged()
+        }
     }
 
     private fun isElementThere(array1: ArrayList<String>, array2: ArrayList<String>): Boolean {
